@@ -1,0 +1,56 @@
+let slideIndex = 0;
+const slides = [
+    {
+        image: "images/image1.png",
+        text: "日語輕鬆學",
+        description: "探索我們的 Line Bot 及其功能"
+    },
+    {
+        image: "images/image2.png",
+        text: "學習的最佳伙伴",
+        description: "我們的 Line Bot 讓學習變得簡單有趣"
+    },
+    {
+        image: "images/image3.png",
+        text: "立即加入我們",
+        description: "發掘更多的功能並開始學習新語言"
+    }
+];
+
+function showSlides() {
+    const header = document.getElementById('slideshow');
+    const textElement = document.getElementById('slideshow-text');
+    const descriptionElement = document.getElementById('slideshow-description');
+    
+    if (!header || !textElement || !descriptionElement) {
+        console.error('未找到必要的 HTML 元素。');
+        return;
+    }
+
+    // 切換背景圖片
+    header.style.backgroundImage = `url('${slides[slideIndex].image}')`;
+
+    // 过渡效果
+    textElement.style.transition = 'opacity 0.5s ease';
+    descriptionElement.style.transition = 'opacity 0.5s ease';
+    
+    textElement.style.opacity = 0;
+    descriptionElement.style.opacity = 0;
+    
+    setTimeout(() => {
+        textElement.textContent = slides[slideIndex].text;
+        descriptionElement.textContent = slides[slideIndex].description;
+
+        textElement.style.opacity = 1;
+        descriptionElement.style.opacity = 1;
+    }, 500); // 避免与背景图片动画的冲突
+
+    // 更新 index
+    slideIndex = (slideIndex + 1) % slides.length;
+
+    // 设置下一次的切换
+    setTimeout(showSlides, 5000); // 每5秒切换一次
+}
+
+// 启动轮播
+showSlides();

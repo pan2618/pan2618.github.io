@@ -239,3 +239,18 @@ nav.navbar {
     }
 }
 
+
+.my-page-header {
+    height: 52vh; /* 自定義高度 */
+    /* 其他自定義樣式 */
+}
+
+
+
+.custom-hero {
+    height: 16vh; /* 調整這個頁面的高度 */
+}
+#about-page .hero-content {
+    bottom: 20px; /* 根據需要調整這個值 */
+}
+

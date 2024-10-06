@@ -54,7 +54,7 @@ footer {
 }
 
 .hero-section {
-    height: 62vh;
+    height: 60vh;
 
     background-size: cover; /* 讓圖片覆蓋整個區域 */
     background-position: center; /* 圖片居中顯示 */
@@ -172,4 +172,70 @@ nav.navbar {
 }
 
 
+/* 左邊按鈕 */
+.carousel-control-prev-icon {
+    background-color: rgba(0, 0, 0, 0.8) !important; /* 黑色背景，80%不透明，強制應用 */
+    border-radius: 50% !important; /* 圓形按鈕 */
+    width: 30px !important;
+    height: 30px !important;
+}
+
+/* 右邊按鈕 */
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.8) !important; /* 黑色背景，80%不透明，強制應用 */
+    border-radius: 50% !important; /* 圓形按鈕 */
+    width: 30px !important;
+    height: 30px !important;
+}
+
+
+/* 確保按鈕可見 */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 50% !important; /* 調整按鈕大小 */
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.text-white {
+    color: white; /* 字體顏色 */
+    /* 其他字體效果 */
+    text-shadow: 1px 1px 2px rgba(56, 52, 52, 0.5); /* 添加陰影效果 */
+}
+
+
+
+.card {
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    width: 100%; /* 確保圖片寬度適應框架 */
+    height: 250px; /* 設定固定的高度，所有圖片將會有相同的高度 */
+    object-fit: cover; /* 圖片保持比例自適應框架 */
+}
+
+#my-works .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#my-works .col-6 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+@media (min-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 33.3333%; /* 在桌面端，每行3個作品 */
+    }
+}
 

@@ -1,73 +1,282 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關於LINEBOT</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- 引入 Bootstrap -->
-    <link href="https://stackpath.amazonaws.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <title>委托需求</title>
+    <style>
+        /* 頁面背景和字體 */
+        body {
+            background-color: #ffffff; /* 白色背景 */
+            font-family: Arial, sans-serif;
+            color: #333333; /* 字體顏色 */
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* 容器樣式 */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff; /* 白色背景 */
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 標題樣式 */
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+
+        /* 進度條樣式 */
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            width: 30%;
+            padding: 10px;
+            text-align: center;
+            background-color: #e0e0e0; /* 淡灰色 */
+            border-radius: 5px;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .active {
+            background-color: #86c5da; /* 柔和的藍綠色 */
+            color: white;
+        }
+
+        /* 表單區域 */
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #fafafa; /* 淡淡的灰白色 */
+            margin-bottom: 10px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #86c5da; /* 藍綠色按鈕 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #74b2c2; /* 按鈕hover效果 */
+        }
+
+        /* 簽名彈窗區域 */
+        .modal {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid #333333;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <!-- 頁首區域 -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">Line Bot 官網</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">首頁</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about-site.html">關於網站與LINEBOT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about-linebot.html">關於LINEBOT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about-us.html">關於我們</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <div class="container">
+        <h1>需求表單</h1>
 
-    <!-- 主內容區域 -->
-    <main>
-        <div class="container">
-            <section id="about-linebot" class="my-5">
-                <div class="row">
-```html
-                    <div class="col text-center">
-                        <h1>關於LINEBOT</h1>
-                        <p>介紹關於LINEBOT之各項功能。</p>
-                    </div>
-                </div>
-            </section>
+        <!-- 進度條 -->
+        <div class="progress-bar">
+            <div class="progress-step active">確認合約</div>
+            <div class="progress-step">填寫委託表單</div>
+            <div class="progress-step">簽名送出</div>
         </div>
-    </main>
 
-    <!-- 頁尾區域 -->
-    <footer class="footer bg-dark text-white text-center">
-        <div class="container">
-            <p>&copy; 2024 Line Bot 官網. All rights reserved.</p>
-            <p>
-                <a href="#" target="_blank" class="text-white">Twitter</a> |
-                <a href="#" target="_blank" class="text-white">Facebook</a> |
-                <a href="#" target="_blank" class="text-white">Instagram</a>
-            </p>
+        <!-- 表單區域 -->
+        <form id="commissionForm" action="https://formspree.io/YOUR_EMAIL" method="POST">
+            <label for="name">姓名：</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email：</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="description">需求描述：</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <label for="budget">預算：</label>
+            <input type="text" id="budget" name="budget" required>
+
+            <button type="button" id="openSignaturePad">點擊此處簽名</button>
+            <input type="hidden" id="signatureData" name="signature">
+
+            <button type="submit">提交表單</button>
+        </form>
+
+        <div id="responseMessage"></div>
+    </div>
+
+    <!-- 簽名彈窗 -->
+    <div id="signatureModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <canvas id="signaturePad" width="600" height="200"></canvas>
+            <button id="clearSignature">清除簽名</button>
+            <button id="saveSignature">保存簽名</button>
         </div>
-    </footer>
+    </div>
 
-    <!-- 引入 Bootstrap 的 JavaScript 依賴 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // 簽名彈窗控制
+        const signatureModal = document.getElementById('signatureModal');
+        const openSignaturePad = document.getElementById('openSignaturePad');
+        const closeModal = document.getElementById('closeModal');
+        const signaturePad = document.getElementById('signaturePad');
+        const ctx = signaturePad.getContext('2d');
+        let drawing = false;
+
+        // 打開簽名彈窗
+        openSignaturePad.addEventListener('click', () => {
+            signatureModal.style.display = 'block';
+        });
+
+        // 關閉簽名彈窗
+        closeModal.addEventListener('click', () => {
+            signatureModal.style.display = 'none';
+        });
+
+        // 簽名功能
+        signaturePad.addEventListener('mousedown', (e) => {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        signaturePad.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        signaturePad.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        signaturePad.addEventListener('mouseout', () => {
+            drawing = false;
+        });
+
+        // 清除簽名
+        document.getElementById('clearSignature').addEventListener('click', () => {
+            ctx.clearRect(0, 0, signaturePad.width, signaturePad.height);
+        });
+
+        // 保存簽名
+        document.getElementById('saveSignature').addEventListener('click', () => {
+            const signatureData = signaturePad.toDataURL('image/png');
+            document.getElementById('signatureData').value = signatureData;
+            signatureModal.style.display = 'none';
+        });
+
+        // 提交表單並生成 PDF
+        document.getElementById('commissionForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const description = document.getElementById('description').value;
+            const budget = document.getElementById('budget').value;
+            const signatureData = document.getElementById('signatureData').value;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text(20, 20, `姓名: ${name}`);
+            doc.text(20, 30, `Email: ${email}`);
+            doc.text(20, 40, `需求描述: ${description}`);
+            doc.text(20, 50, `預算: ${budget}`);
+
+            if (signatureData) {
+                doc.addImage(signatureData, 'PNG', 20, 60, 100, 30);
+            }
+
+            doc.save('contract.pdf');
+
+            // 使用 Formspree 提交表單資料
+            const formData = new FormData(this);
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('responseMessage').innerText = '表單已提交，感謝您的需求！';
+                    this.reset(); // 重置表單
+                } else {
+                    document.getElementById('responseMessage').innerText = '提交表單時出現錯誤，請稍後再試。';
+                }
+            }).catch(error => {
+                document.getElementById('responseMessage').innerText = '提交表單時出現錯誤，請稍後再試。';
+            });
+        });
+    </script>
 </body>
 </html>

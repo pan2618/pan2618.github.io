@@ -43,6 +43,20 @@ canvas {
     height: auto;
     max-width: 900px;
     max-height: 310px;
-    margin-bottom: -83px; /* 為按鈕留出空間 */
+    margin-bottom: -190px; /* 為按鈕留出空間 */
+
 }
 
+
+hr {
+    border: none;
+    border-top: 2px solid #ccc;
+    margin: 20px 0;
+    width: 100%;
+}
+
+
+button {
+    position: relative;
+    z-index: 10;
+}

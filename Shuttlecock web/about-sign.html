@@ -126,13 +126,16 @@
         </div>
 
         <!-- 步驟 2: 簽名 -->
-        <div id="signatureStep" style="display: none;">
-            <h4 class="text-danger">當您確認並同意條款後，請在下方簽名並點擊「生成簽名PDF」，接下來將該檔案上傳至Google表單就好囉！</h4>
+        <div id="signatureStep" style="display: none;" >
+            <h5 class="text-danger">當您確認並同意條款後，請在下方簽名並點擊「生成簽名PDF」，接下來將該檔案上傳至Google表單就好囉！</h5>
+    
             <canvas id="signaturePad" width="900" height="360"></canvas>
+            <hr>
             <button id="clearSignature">清除簽名</button>
             <button id="generatePDF">生成簽名PDF</button>
             <button id="prevStep1" class="prev-step">上一步</button>
             <button id="nextStep2" disabled>下一步</button>
+            
         </div>
 
         <!-- 步驟 3: 完成 -->

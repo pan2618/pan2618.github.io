@@ -55,7 +55,7 @@ canvas {
     height: auto;
     max-width: 900px;
     max-height: 310px;
-    margin-bottom: -230px; /* 為按鈕留出空間 */
+    margin-bottom: -200px; /* 為按鈕留出空間 */
 
 }
 

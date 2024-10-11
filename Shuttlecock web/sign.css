@@ -1,0 +1,38 @@
+.text-secondary {
+    color: #6c757d; /* 這是一個常用的次要文字顏色，可以根據需要調整 */
+}
+
+.text-danger {
+    color: rgba(235, 74, 74, 0.9); /* 半透明紅色，0.8 為透明度 */
+
+}
+
+
+/* 預設桌面版樣式 */
+#signaturePad {
+    width: 900px;
+    height: 360px;
+}
+
+/* 手機板樣式調整（螢幕寬度小於 668px） */
+@media (max-width: 300px) {
+    #signaturePad {
+        width: 100%; /* 設定為螢幕寬度 */
+        height: auto; /* 高度自動調整，保持比例 */
+        max-width: 100%; /* 避免超過螢幕寬度 */
+        aspect-ratio: 2.5; /* 保持寬高比例為 2.5:1 */
+    }
+}
+
+/* 手機端適應設置 */
+@media only screen and (max-width: 768px) {
+    .container {
+        width: 90vw;
+        padding: 15px;
+    }
+    
+    textarea {
+        width: 100%; /* 讓 textarea 滿版自適應寬度 */
+        box-sizing: border-box; /* 確保 padding 內嵌，不會使其超出容器 */
+    }
+}

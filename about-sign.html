@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sign.css">
+
+    <title>委托需求簽署</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px; /* 改變 max-width 讓桌面端更加寬敞 */
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .progress-step {
+            width: 30%;
+            padding: 10px;
+            text-align: center;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #666666;
+        }
+        .active {
+            background-color: #86c5da;
+            color: white;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #fafafa;
+            margin-bottom: 10px;
+            height: 200px;
+            overflow-y: scroll;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #86c5da;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .prev-step {
+            background-color: #86c5da;
+            margin-top: 10px;
+        }
+        .warning-text {
+            color: red;
+            font-weight: bold;
+        }
+        /* 手機端適應設置 */
+        @media only screen and (max-width: 768px) {
+            .container {
+                width: 90vw;
+                padding: 15px;
+            }
+            canvas {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-secondary">委托需求簽署</h1>
+
+        <!-- 進度條 -->
+        <div class="progress-bar">
+            <div class="progress-step active" id="step1">了解雙方權益</div>
+            <div class="progress-step" id="step2">親筆簽名</div>
+            <div class="progress-step" id="step3">填寫委託申請</div>
+        </div>
+
+        <!-- 步驟 1: 顯示合約條款 -->
+        <div id="contractStep">
+            <textarea readonly id="contractText">合約條款展示...
+        乙方的責任與義務：
+            保管專屬帳號密碼
+            自行建置商品及文宣內容
+            每月10號前結算運費賬單
+        乙方有義務支付物流費用
+            消費爭議解決：
+            以甲方交易系統紀錄為準
+        禁止事項：
+            違法行為及妨礙業務行為
+            行動支付：乙方可委託甲方代辦申請行動支付
+            管轄權：士林地方法院為第一審管轄法院
+        費用與付款：
+            系統服務費參見附件報價單
+            取消訂閱須提前五天通知
+            違約條款：若違規，甲方有權終止服務並不予退費</textarea>
+            <button id="nextStep1" disabled>下一步</button>
+        </div>
+
+        <!-- 步驟 2: 簽名 -->
+        <div id="signatureStep" style="display: none;" >
+            <h5 class="text-danger">當您確認並同意條款後，請在下方簽名並點擊「生成簽名PDF」，接下來將該檔案上傳至Google表單就好囉！</h5>
+    
+            <canvas id="signaturePad" width="900" height="360"></canvas>
+            <hr>
+            <button id="clearSignature">清除簽名</button>
+            <p></p>
+            <button id="generatePDF">生成簽名PDF</button>
+            <p></p>
+            <button id="prevStep1" class="prev-step">上一步</button>
+            <p></p>
+            <button id="nextStep2" disabled>下一步</button>
+     
+</div>
+            
+        </div>
+
+        <!-- 步驟 3: 完成 -->
+        <div id="completionStep" style="display: none;">
+            <p  class="text-body">請點擊以下連結以完成提交：</p>
+            <a href="https://your-google-form-link.com" target="_blank">前往Google表單</a>
+            <p></p>
+            <button id="prevStep2" class="prev-step">上一步</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const contractText = document.getElementById('contractText');
+        const nextStep1 = document.getElementById('nextStep1');
+        const prevStep1 = document.getElementById('prevStep1');
+        const prevStep2 = document.getElementById('prevStep2');
+        
+        contractText.addEventListener('scroll', function() {
+            if (contractText.scrollTop + contractText.clientHeight >= contractText.scrollHeight) {
+                nextStep1.disabled = false;
+            }
+        });
+
+        nextStep1.addEventListener('click', function() {
+            document.getElementById('contractStep').style.display = 'none';
+            document.getElementById('signatureStep').style.display = 'block';
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        });
+
+        prevStep1.addEventListener('click', function() {
+            document.getElementById('signatureStep').style.display = 'none';
+            document.getElementById('contractStep').style.display = 'block';
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+        });
+
+        prevStep2.addEventListener('click', function() {
+            document.getElementById('completionStep').style.display = 'none';
+            document.getElementById('signatureStep').style.display = 'block';
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        });
+
+        const signaturePad = document.getElementById('signaturePad');
+        const ctx = signaturePad.getContext('2d');
+        let drawing = false;
+
+        // 禁止默認的觸控動作
+        signaturePad.style.touchAction = 'none';
+
+        // 手機觸控事件處理
+        signaturePad.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = signaturePad.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+            drawing = true;
+        }, false);
+
+        signaturePad.addEventListener('touchmove', (e) => {
+            if (!drawing) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = signaturePad.getBoundingClientRect();
+            ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+            ctx.stroke();
+        }, false);
+
+        signaturePad.addEventListener('touchend', () => drawing = false, false);
+
+        // 電腦端滑鼠事件處理
+        signaturePad.addEventListener('mousedown', (e) => {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        signaturePad.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        signaturePad.addEventListener('mouseup', () => drawing = false);
+        signaturePad.addEventListener('mouseout', () => drawing = false);
+
+        document.getElementById('clearSignature').addEventListener('click', () => {
+            ctx.clearRect(0, 0, signaturePad.width, signaturePad.height);
+            document.getElementById('nextStep2').disabled = true;
+        });
+
+        document.getElementById('generatePDF').addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const signatureData = signaturePad.toDataURL('image/png');
+            doc.addImage(signatureData, 'PNG', 20, 20, 150, 100);
+            doc.save('簽名.pdf');
+            document.getElementById('nextStep2').disabled = false;
+        });
+
+        document.getElementById('nextStep2').addEventListener('click', () => {
+            document.getElementById('signatureStep').style.display = 'none';
+            document.getElementById('completionStep').style.display = 'block';
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+    const signaturePad = document.getElementById('signaturePad');
+    const ctx = signaturePad.getContext('2d');
+    const generatePDFBtn = document.getElementById('generatePDF');
+    const clearSignatureBtn = document.getElementById('clearSignature');
+    const nextStep2 = document.getElementById('nextStep2');
+    let drawing = false;
+
+    // 初次載入，按鈕默認為禁用
+    generatePDFBtn.disabled = true;
+
+    // 筆跡事件處理
+    signaturePad.addEventListener('mousedown', startDrawing);
+    signaturePad.addEventListener('mousemove', draw);
+    signaturePad.addEventListener('mouseup', stopDrawing);
+    signaturePad.addEventListener('mouseout', stopDrawing);
+    signaturePad.addEventListener('touchstart', startDrawingTouch);
+    signaturePad.addEventListener('touchmove', drawTouch);
+    signaturePad.addEventListener('touchend', stopDrawing);
+
+    function startDrawing(event) {
+        drawing = true;
+        ctx.beginPath();
+        ctx.moveTo(event.offsetX, event.offsetY);
+        generatePDFBtn.disabled = false; // 用戶一旦開始畫就啟用按鈕
+    }
+
+    function draw(event) {
+        if (!drawing) return;
+        ctx.lineTo(event.offsetX, event.offsetY);
+        ctx.stroke();
+    }
+
+    function stopDrawing() {
+        drawing = false;
+    }
+
+    function startDrawingTouch(event) {
+        event.preventDefault();
+        const touch = event.touches[0];
+        const rect = signaturePad.getBoundingClientRect();
+        ctx.beginPath();
+        ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        drawing = true;
+        generatePDFBtn.disabled = false; // 用戶一旦開始觸摸簽名就啟用按鈕
+    }
+
+    function drawTouch(event) {
+        if (!drawing) return;
+        event.preventDefault();
+        const touch = event.touches[0];
+        const rect = signaturePad.getBoundingClientRect();
+        ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        ctx.stroke();
+    }
+
+    // 清除簽名並禁用「生成簽名PDF」按鈕
+    clearSignatureBtn.addEventListener('click', () => {
+        ctx.clearRect(0, 0, signaturePad.width, signaturePad.height);
+        generatePDFBtn.disabled = true; // 清空後禁用按鈕
+        nextStep2.disabled = true; // 禁用下一步按鈕
+    });
+
+    // 生成PDF並清空簽名區域及禁用按鈕
+    generatePDFBtn.addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const signatureData = signaturePad.toDataURL('image/png');
+        doc.addImage(signatureData, 'PNG', 20, 20, 150, 100);
+        doc.save('簽名.pdf');
+        
+        // 清空簽名區域
+        ctx.clearRect(0, 0, signaturePad.width, signaturePad.height);
+
+        // 禁用生成PDF按鈕
+        generatePDFBtn.disabled = true;
+        
+        // 啟用下一步按鈕
+        nextStep2.disabled = false;
+
+
+        
+
+        
+    });
+});
+
+        
+    </script>
+</body>
+</html>

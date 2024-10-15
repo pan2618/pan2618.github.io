@@ -84,9 +84,15 @@ footer {
 
 .navbar .nav-link {
     font-size: 19px;
-    padding-left: 15px; /* 調整左側間距 
-    padding-right: 30px; /* 調整右側間距
+    text-align: right; /* 將連結文字對齊到右側 */
+    /* 右側間距 */
+     /* 調整左側間距 
+
+.navbar .nav-item {
+    margin
+    margin-bottom: 60px; /* 調整距離 */
 }
+
 
 .navbar .navbar-brand {
     font-size: 30px; /* 調整品牌名稱的字體大小 */

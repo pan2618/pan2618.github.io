@@ -297,7 +297,7 @@ footer .footer-link {
 }
 
 footer p {
-    margin-bottom: 16px; /* 減少下邊距 */
+    margin-bottom: 19px; /* 減少下邊距 */
     font-size: 14px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     letter-spacing: 0.4px;
@@ -306,7 +306,7 @@ footer p {
 footer .row {
     margin: 0;
     padding: 0;
-    margin-bottom: 1px; /* 減少行間距，讓頁面更緊湊 */
+    margin-bottom: 3px; /* 減少行間距，讓頁面更緊湊 */
 }
 
 footer .row a {

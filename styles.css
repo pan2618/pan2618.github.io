@@ -278,12 +278,11 @@ nav.navbar {
     transform: translateY(0);
 }
 
-
 /* Footer 設定 */
 footer {
     background: linear-gradient(to top, #333333, #444444);
     color: white;
-    padding: 20px 0;
+    padding: 5px 0; 
 }
 
 footer .footer-link {
@@ -294,12 +293,11 @@ footer .footer-link {
     font-weight: 500;
     letter-spacing: 0.5px;
     line-height: 1.2;
-
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
 footer p {
-    margin-bottom: 18px; /* 減少下邊距 */
+    margin-bottom: 16px; /* 減少下邊距 */
     font-size: 14px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     letter-spacing: 0.4px;
@@ -308,13 +306,14 @@ footer p {
 footer .row {
     margin: 0;
     padding: 0;
-    margin-bottom: 15px; /* 減少行間距，讓頁面更緊湊 */
+    margin-bottom: 1px; /* 減少行間距，讓頁面更緊湊 */
 }
 
 footer .row a {
     display: block;
     margin-bottom: 6px;
 }
+
 
 
 /* 預設按鈕樣式 */

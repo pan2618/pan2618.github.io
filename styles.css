@@ -31,7 +31,6 @@ header .logo {
 
 .navbar {
     margin-bottom: 30px;
-    
 }
 
 .container {
@@ -55,13 +54,10 @@ footer {
 
 .hero-section {
     height: 60vh;
-
     background-size: cover; /* 讓圖片覆蓋整個區域 */
     background-position: center; /* 圖片居中顯示 */
     background-repeat: no-repeat; /* 防止圖片重複 */
 }
-
-
 
 .transition-blur {
     height: 50px; /* 過渡區域的高度，可以根據需要調整 */
@@ -81,20 +77,10 @@ footer {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* 加上陰影 */
 }
 
-
 .navbar .nav-link {
     font-size:19px;
     text-align: right; /* 將連結文字對齊到右側 */
-    
-
-    /* 右側間距 */
-     /* 調整左側間距 
-
-.navbar .nav-item {
-    margin
-    margin-bottom: 60px; /* 調整距離 */
 }
-
 
 .navbar .navbar-brand {
     font-size: 23px; /* 調整品牌名稱的字體大小 */
@@ -108,8 +94,15 @@ nav.navbar {
     margin-bottom: 60px; /* 調整距離 */
 }
 
+.navbar-collapse {
+    background-color: rgba(72, 73, 75, 0.8); /* 修改為深色背景，80%不透明 */
 
+}
 
+.navbar-toggler {
+    background-color: #444; /* 調整按鈕背景顏色 */
+    border: none; /* 去除邊框 */
+}
 
 /* <!-- 截圖展示區域 --> */
 .img-fluid {
@@ -122,7 +115,6 @@ nav.navbar {
 .col-md-4 {
     padding: 0.5rem; /* 縮小列間距 */
 }
-
 
 /* <!-- 圖片區域 --> */
 /* 背景切換效果 */
@@ -143,7 +135,6 @@ nav.navbar {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
 
 /* 預設桌面版樣式 */
 #screenshots .row {
@@ -179,7 +170,6 @@ nav.navbar {
     margin-right: 1px; /* 為圖片添加間距 */
 }
 
-
 /* 左邊按鈕 */
 .carousel-control-prev-icon {
     background-color: rgba(0, 0, 0, 0.8) !important; /* 黑色背景，80%不透明，強制應用 */
@@ -196,7 +186,6 @@ nav.navbar {
     height: 30px !important;
 }
 
-
 /* 確保按鈕可見 */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
@@ -210,8 +199,6 @@ nav.navbar {
     /* 其他字體效果 */
     text-shadow: 1px 1px 2px rgba(56, 52, 52, 0.5); /* 添加陰影效果 */
 }
-
-
 
 .card {
     border-radius: 8px;
@@ -247,13 +234,10 @@ nav.navbar {
     }
 }
 
-
 .my-page-header {
     height: 50vh; /* 自定義高度 */
     /* 其他自定義樣式 */
 }
-
-
 
 .custom-hero {
     height: 16vh; /* 調整這個頁面的高度 */
@@ -261,10 +245,6 @@ nav.navbar {
 #about-page .hero-content {
     bottom: 20px; /* 根據需要調整這個值 */
 }
-
-
-
-
 
 /* 定義漸入效果 */
 .fade-in {
@@ -282,7 +262,7 @@ nav.navbar {
 footer {
     background: linear-gradient(to top, #333333, #444444);
     color: white;
-    padding: 5px 0; 
+    padding: 10px 0; 
 }
 
 footer .footer-link {
@@ -297,7 +277,7 @@ footer .footer-link {
 }
 
 footer p {
-    margin-bottom: 19px; /* 減少下邊距 */
+    margin-bottom: 18px; /* 減少下邊距 */
     font-size: 14px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     letter-spacing: 0.4px;
@@ -306,15 +286,13 @@ footer p {
 footer .row {
     margin: 0;
     padding: 0;
-    margin-bottom: 3px; /* 減少行間距，讓頁面更緊湊 */
+    margin-bottom: 15px; /* 減少行間距，讓頁面更緊湊 */
 }
 
 footer .row a {
     display: block;
     margin-bottom: 6px;
 }
-
-
 
 /* 預設按鈕樣式 */
 #scrollBtn {
@@ -324,14 +302,11 @@ footer .row a {
     transition: background-color 0.3s ease, border 0.3s ease;
 }
 
-
 /* 點擊狀態樣式 */
 #scrollBtn:active {
     background-color: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.8);
 }
-
-
 
 /* 彈窗樣式 */
 #popup {
@@ -363,4 +338,3 @@ footer .row a {
     cursor: pointer;
     color: black;
 }
-

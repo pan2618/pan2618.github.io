@@ -121,6 +121,12 @@ scrollBtn.addEventListener('click', function() {
     scrollBtn.classList.remove('hover'); // 強制移除 hover 樣式
 });
 
+// 監聽點擊漢堡按鈕的事件，點擊後移除 focus 狀態
+document.querySelector('.navbar-toggler').addEventListener('click', function() {
+    this.blur(); // 移除按鈕的焦點，防止保持 focus 狀態
+});
+
+
 
 
 

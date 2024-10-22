@@ -363,3 +363,17 @@ footer .row a {
     cursor: pointer;
     color: black;
 }
+
+
+/* 清除點擊後的 focus 和 hover 狀態 */
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: none; /* 移除按鈕的外框 */
+    box-shadow: none; /* 移除陰影效果 */
+}
+
+/* 防止 hover 狀態保持 */
+.navbar-toggler:hover {
+    background-color: transparent; /* 恢復為無 hover 的狀態 */
+}
+

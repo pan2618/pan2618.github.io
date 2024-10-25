@@ -377,3 +377,63 @@ footer .row a {
     background-color: transparent; /* 恢復為無 hover 的狀態 */
 }
 
+
+
+/* 周邊商品展示樣式 */
+.product-list {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+    max-width: 800px; /* 限制卡片最大寬度 */
+    height: auto; /* 卡片高度自適應內容 */
+    margin-left: auto; /* 置中卡片 */
+    margin-right: auto;
+}
+
+.product-img {
+    width: 80px; /* 調整圖片大小，縮小高度 */
+    height: 80px; 
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.product-info {
+    flex-grow: 1;
+    text-align: left; /* 確保文字靠左對齊 */
+}
+
+.product-info h5 {
+    margin: 0 0 5px 0; /* 減少標題與上方距離 */
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem; /* 調整標題大小，減少佔用空間 */
+}
+
+.product-info p {
+    margin: 0 0 5px 0; /* 減少段落間距 */
+    color: #666;
+    font-size: 0.875rem; /* 調整說明文字大小 */
+}
+
+.product-info .btn {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    margin-top: 5px; /* 減少按鈕與上方的距離 */
+    text-align: left; /* 保持按鈕與文本在同一行 */
+    padding: 5px 10px; /* 增加按鈕的內間距 */
+    display: inline-block; /* 保持按鈕不跨行顯示 */
+}
+
+.container h3, .container h6 {
+    text-align: center;
+}

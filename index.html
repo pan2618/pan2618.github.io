@@ -118,8 +118,8 @@
             <h3 class="text-muted">其他通路</h3>
             <h6 class="text-black-50"></h6>
             <p></p>
-            
-            <div class="product-item fade-in-item">
+        
+            <div class="product-item fade-in">
                 <img src="images/shot1.png" alt="Product Image" class="product-img">
                 <div class="product-info">
                     <h5>周邊商品</h5>
@@ -127,7 +127,7 @@
                     <a href="https://example.com" class="btn btn-outline-info">查看詳情</a>
                 </div>
             </div>
-            <div class="product-item fade-in-item">
+            <div class="product-item fade-in">
                 <img src="images/shot1.png" alt="Product Image" class="product-img">
                 <div class="product-info">
                     <h5>周邊商品</h5>
@@ -178,20 +178,21 @@
                 $('#surveyBtn').show();
             });
 
+            $(document).ready(function() {
             // 檢測滾動並觸發淡入效果
             $(window).on('scroll', function() {
-                // 僅在螢幕寬度小於768px (手機端) 時觸發
-                if ($(window).width() < 768) {
-                    const productSection = $('#products');
-                    const sectionTop = productSection.offset().top;
-                    const scrollPosition = $(window).scrollTop() + $(window).height();
-
-                    // 當滾動到 products 區域時觸發淡入效果
-                    if (scrollPosition > sectionTop) {
-                        productSection.addClass('fade-in-triggered');
+                $('.fade-in').each(function() {
+                    var elementTop = $(this).offset().top;
+                    var viewportBottom = $(window).scrollTop() + $(window).height();
+                    if (elementTop < viewportBottom - 50) { // 50 是觸發點的偏移量，可根據需要調整
+                        $(this).addClass('visible');
                     }
-                }
+                });
             });
+
+            // 初始檢查
+            $(window).trigger('scroll');
+        });
 
             // 初始淡入效果（例如社群 Icon）
             $('.fade-in').each(function(index) {

@@ -203,7 +203,15 @@
             // 初始化頁面時根據本地語言狀態進行設置
             var savedLanguage = localStorage.getItem('language') || 'zh';
             if (savedLanguage === 'jp') {
-                $('#language-switcher').click(); // 自動切換到日語
+                $('#language-switcher').text('中文 / 日本語');
+                $('#main-title').text('私の作品');
+                $('#main-description').text('このページでは私が作成した作品を主に紹介します。');
+                $('nav a[href="about-site.html"]').text('私の作品');
+                $('nav a[href="about-us.html"]').text('シャトルコックについて');
+                $('#footer-business').text('商業協力');
+                $('#footer-contact').text('お問い合わせ');
+                $('#footer-support').text('開発者を支援する');
+                $('#footer-shop').text('オンラインショップ');
             }
         });
     </script>

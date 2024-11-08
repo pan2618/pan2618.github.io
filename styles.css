@@ -436,10 +436,3 @@ footer .row a {
 .container h3, .container h6 {
     text-align: center;
 }
-
-
-.transition-blur {
-    height: 10px; /* 可以根據需要調整高度 */
-    margin: 0; /* 移除多餘的外距 */
-    padding: 0; /* 移除內距 */
-}

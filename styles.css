@@ -54,7 +54,7 @@ footer {
 }
 
 .hero-section {
-    height: 52vh;
+    height: 53vh;
 
     background-size: cover; /* 讓圖片覆蓋整個區域 */
     background-position: center; /* 圖片居中顯示 */
@@ -64,7 +64,7 @@ footer {
 
 
 .transition-blur {
-    height: 50px; /* 過渡區域的高度，可以根據需要調整 */
+    height: 55px; /* 過渡區域的高度，可以根據需要調整 */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)); /* 由透明到白色的過渡效果 */
     filter: blur(10px); /* 應用模糊效果 */
     margin-top: -20px; /* 可以調整，避免過渡區域和上方內容重疊過多 */
@@ -437,3 +437,6 @@ footer .row a {
 .container h3, .container h6 {
     text-align: center;
 }
+
+
+

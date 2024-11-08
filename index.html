@@ -20,7 +20,7 @@
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* 縮短動畫持續時間 */
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out; /* 縮短動畫持續時間 */
             will-change: opacity, transform; /* 增加瀏覽器優化效果 */
         }
         .fade-in-triggered {
@@ -151,6 +151,8 @@
     <section id="products" class="product-list fade-in">
         <div class="container">
             <h3 class="text-muted">其他通路</h3>
+            <h6 class="text-black-50">Select the works from the collection that I am personally satisfied with.</h6>
+            <p></p>
             <div class="product-item fade-in">
                 <img src="images/shot1.png" alt="Product Image" class="product-img">
                 <div class="product-info">
@@ -292,7 +294,7 @@
                 const $el = $(this);
                 setTimeout(function() {
                     $el.addClass('fade-in-triggered');
-                }, index * 369); 
+                }, index * 60); 
             });
         });
     </script>

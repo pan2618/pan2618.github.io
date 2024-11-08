@@ -20,7 +20,7 @@
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* 縮短動畫持續時間 */
             will-change: opacity, transform; /* 增加瀏覽器優化效果 */
         }
         .fade-in-triggered {
@@ -90,19 +90,19 @@
 
         <!-- 社群平台 Icon 淡入效果 -->
         <div class="social-icons text-center mt-4 fade-in-container">
-            <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-3 fade-in" style="animation-delay: 0s;">
+            <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-3 fade-in">
                 <i class="fab fa-instagram fa-2x"></i>
             </a>
-            <a href="https://x.com/pnzyu322858" target="_blank" class="text-white mx-3 fade-in" style="animation-delay: 0.2s;">
+            <a href="https://x.com/pnzyu322858" target="_blank" class="text-white mx-3 fade-in">
                 <i class="fab fa-twitter fa-2x"></i>
             </a>
-            <a href="https://www.youtube.com/@bananaguardian-b8g/featured" target="_blank" class="text-white mx-3 fade-in" style="animation-delay: 0.4s;">
+            <a href="https://www.youtube.com/@bananaguardian-b8g/featured" target="_blank" class="text-white mx-3 fade-in">
                 <i class="fab fa-youtube fa-2x"></i>
             </a>
-            <a href="https://www.pixiv.net/users/102745883" target="_blank" class="text-white mx-3 fade-in" style="animation-delay: 0.6s;">
+            <a href="https://www.pixiv.net/users/102745883" target="_blank" class="text-white mx-3 fade-in">
                 <img src="images/pixiv-icon.png" alt="Pixiv" class="pixiv-icon">
             </a>
-            <a href="https://www.facebook.com/profile.php?id=100034321654632&locale=zh_TW" target="_blank" class="text-white mx-3 fade-in" style="animation-delay: 0.8s;">
+            <a href="https://www.facebook.com/profile.php?id=100034321654632&locale=zh_TW" target="_blank" class="text-white mx-3 fade-in">
                 <i class="fab fa-facebook fa-2x"></i>
             </a>
         </div>
@@ -145,9 +145,6 @@
     <section id="products" class="product-list fade-in">
         <div class="container">
             <h3 class="text-muted">其他通路</h3>
-            <h6 class="text-black-50"></h6>
-            <p></p>
-        
             <div class="product-item fade-in">
                 <img src="images/shot1.png" alt="Product Image" class="product-img">
                 <div class="product-info">
@@ -175,15 +172,12 @@
                 <div class="col-6 col-md-3">
                     <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">商業合作</a>
                 </div>
-    
                 <div class="col-6 col-md-3">
                     <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">與我聯絡</a>
                 </div>
-    
                 <div class="col-6 col-md-3">
                     <a href="https://kevin0826.fanbox.cc/plans" class="text-white footer-link">贊助開發者</a>
                 </div>
-    
                 <div class="col-6 col-md-3">
                     <a href="https://shopee.com/your-shop-link" class="text-white footer-link">線上商店</a>
                 </div>
@@ -212,7 +206,7 @@
                 $('.fade-in').each(function() {
                     var elementTop = $(this).offset().top;
                     var viewportBottom = $(window).scrollTop() + $(window).height();
-                    if (elementTop < viewportBottom - 50) { // 50 是觸發點的偏移量，可根據需要調整
+                    if (elementTop < viewportBottom - 50) {
                         $(this).addClass('fade-in-triggered');
                     }
                 });
@@ -224,12 +218,12 @@
             // 語言切換按鈕
             $('#language-switcher').click(function() {
                 $('#loading').css('visibility', 'visible'); // 顯示等待動畫
-
                 setTimeout(() => {
-                    var currentLanguage = $('#language-switcher').text();
-                    if (currentLanguage.includes('中文')) {
+                    var currentLanguage = localStorage.getItem('language') || 'zh';
+                    if (currentLanguage === 'zh') {
+                        localStorage.setItem('language', 'jp');
+                        $('#language-switcher').text('中文 / 日本語');
                         $('#hero-description').text('私のソーシャルアカウントをフォローしてください！');
-                        $('#language-switcher').text('日本語 / 中文');
                         $('nav a[href="about-site.html"]').text('私の作品');
                         $('nav a[href="about-us.html"]').text('シャトルコックについて');
                         $('h3.text-muted').text('特選作品');
@@ -243,8 +237,9 @@
                         $('a.footer-link:contains("贊助開發者")').text('開発者を支援する');
                         $('a.footer-link:contains("線上商店")').text('オンラインショップ');
                     } else {
-                        $('#hero-description').text('歡迎關注我的社群帳號！');
+                        localStorage.setItem('language', 'zh');
                         $('#language-switcher').text('中文 / 日本語');
+                        $('#hero-description').text('歡迎關注我的社群帳號！');
                         $('nav a[href="about-site.html"]').text('我的作品');
                         $('nav a[href="about-us.html"]').text('關於羽球');
                         $('h3.text-muted').text('精選作品');
@@ -261,15 +256,21 @@
 
                     $('#navbarNav').collapse('hide'); // 點擊語言切換後收起導航欄
                     $('#loading').css('visibility', 'hidden'); // 隱藏等待動畫
-                }, 1500); // 模擬1.5秒的加載時間
+                }, 1500);
             });
 
-            // 初始淡入效果（例如社群 Icon）
+            // 根據本地存儲的語言狀態設置初始語言
+            var savedLanguage = localStorage.getItem('language') || 'zh';
+            if (savedLanguage === 'jp') {
+                $('#language-switcher').click(); // 自動切換到日語
+            }
+
+            // 社群平台 Icon 單獨淡入效果
             $('.fade-in').each(function(index) {
                 const $el = $(this);
                 setTimeout(function() {
                     $el.addClass('fade-in-triggered');
-                }, index * 260); // 每個元素延遲顯示
+                }, index * 320); // 每個元素延遲顯示為 100ms
             });
         });
     </script>

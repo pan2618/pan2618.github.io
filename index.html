@@ -89,7 +89,7 @@
         </div>
 
         <!-- 社群平台 Icon 淡入效果 -->
-        <div class="social-icons text-center mt-4 fade-in-container">
+        <div class="social-icons text-center mt-4 fade-in-container" id="social-icons">
             <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-3 fade-in">
                 <i class="fab fa-instagram fa-2x"></i>
             </a>
@@ -194,11 +194,11 @@
     <script>
         $(document).ready(function() {
             $('#navbarNav').on('show.bs.collapse', function () {
-                $('#surveyBtn').hide();
+                $('#social-icons').hide(); // 當導航欄展開時隱藏社群 icon
             });
 
             $('#navbarNav').on('hidden.bs.collapse', function () {
-                $('#surveyBtn').show();
+                $('#social-icons').show(); // 當導航欄收起時顯示社群 icon
             });
 
             // 檢測滑動並觸發淡入效果

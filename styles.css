@@ -439,7 +439,7 @@ footer .row a {
 
 
 .transition-blur {
-    height: 10px; /* 可以根據需要調整高度 */
+    height: 1px; /* 可以根據需要調整高度 */
     margin: 0; /* 移除多餘的外距 */
     padding: 0; /* 移除內距 */
 }

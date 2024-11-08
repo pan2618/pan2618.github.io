@@ -281,7 +281,7 @@ nav.navbar {
 footer {
     background: linear-gradient(to top, #333333, #444444);
     color: white;
-    padding: 5px 0; 
+    padding: 2px 0; /* 減小上下內邊距 */
 }
 
 footer .footer-link {
@@ -311,6 +311,12 @@ footer .row {
 footer .row a {
     display: block;
     margin-bottom: 9px;
+}
+
+@media (max-width: 868px) {
+    footer .row {
+        margin-bottom: 0px; /* 在小尺寸設備上進行調整 */
+    }
 }
 
 

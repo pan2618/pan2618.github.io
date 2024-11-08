@@ -214,6 +214,11 @@
                 $('#footer-support').text('開発者を支援する');
                 $('#footer-shop').text('オンラインショップ');
             }
+
+            if (window.location.pathname.endsWith("about-site.html")) {
+    window.history.replaceState({}, document.title, window.location.pathname.replace("about-site.html", ""));
+}
+
         });
     </script>
 </body>

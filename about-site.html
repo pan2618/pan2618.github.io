@@ -10,37 +10,96 @@
     <!-- 引入 Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* 等待動畫的 CSS */
-        #loading {
+        /* Fullscreen overlay for loading */
+        #loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #f3f3f3;
+            background: rgba(34, 34, 34, 0.95); /* 半透明深色背景 */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            visibility: hidden;
+            z-index: 9999; /* 確保在最上層 */
         }
-        #loading .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+
+        .loading {
+            text-align: center;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .loading h2 {
+            color: #ccc;
+            margin: 0;
+            font: 0.8em verdana;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .loading span {
+            display: inline-block;
+            vertical-align: middle;
+            width: 0.6em;
+            height: 0.6em;
+            margin: 0.19em;
+            background: #007DB6;
+            border-radius: 0.6em;
+            animation: loading 1s infinite alternate;
+        }
+
+        .loading span:nth-of-type(2) {
+            background: #008FB2;
+            animation-delay: 0.2s;
+        }
+
+        .loading span:nth-of-type(3) {
+            background: #009B9E;
+            animation-delay: 0.4s;
+        }
+
+        .loading span:nth-of-type(4) {
+            background: #00A77D;
+            animation-delay: 0.6s;
+        }
+
+        .loading span:nth-of-type(5) {
+            background: #00B247;
+            animation-delay: 0.8s;
+        }
+
+        .loading span:nth-of-type(6) {
+            background: #5AB027;
+            animation-delay: 1.0s;
+        }
+
+        .loading span:nth-of-type(7) {
+            background: #A0B61E;
+            animation-delay: 1.2s;
+        }
+
+        @keyframes loading {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="loading">
-        <div class="spinner"></div>
+    <!-- Loading 畫面 -->
+    <div id="loading-overlay">
+        <div class="loading">
+            <h2>LOADING...</h2>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
     <!-- 頁首區域 -->
@@ -92,32 +151,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 圖片2 -->
-                    <div class="col-6 col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <img src="images/work2.jpg" class="card-img-top" alt="作品2">
-                            <div class="card-body">
-                                <h5 class="text-black-50">《崩壞：星穹鐵道》- ホタル</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 其他作品區塊 -->
-                    <div class="col-6 col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <img src="images/申鶴e.png" class="card-img-top" alt="作品2">
-                            <div class="card-body">
-                                <h5 class="text-black-50">《原神》- 申鶴</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <img src="images/screenshot2.png" class="card-img-top" alt="作品2">
-                            <div class="card-body">
-                                <h5 class="text-black-50">《蔚藍檔案》- 小鳥遊 ホシノ</h5>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- 其他作品 -->
                 </div>
             </div>
         </section>
@@ -152,10 +186,40 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- 控制按鈕顯示/隱藏的 JavaScript -->
     <script>
         $(document).ready(function() {
+            // 顯示 loading 畫面
+            setTimeout(function() {
+                $('#loading-overlay').fadeOut(300);
+            }, 1500);
+
+            // 語言切換功能
+            $('#language-switcher').click(function() {
+                $('#loading-overlay').fadeIn(300); // 顯示等待動畫
+
+                setTimeout(() => {
+                    var currentLanguage = localStorage.getItem('language') || 'zh';
+                    if (currentLanguage === 'zh') {
+                        localStorage.setItem('language', 'jp');
+                        $('#language-switcher').text('日本語 / 中文');
+                        $('#main-title').text('私の作品');
+                        $('#main-description').text('このページでは私が作成した作品を主に紹介します。');
+                        $('nav a[href="about-site.html"]').text('私の作品');
+                        $('nav a[href="about-us.html"]').text('シャトルコックについて');
+                    } else {
+                        localStorage.setItem('language', 'zh');
+                        $('#language-switcher').text('中文 / 日本語');
+                        $('#main-title').text('我的作品');
+                        $('#main-description').text('This page primarily showcases the artwork I have created.');
+                        $('nav a[href="about-site.html"]').text('我的作品');
+                        $('nav a[href="about-us.html"]').text('關於羽球');
+                    }
+
+                    $('#navbarNav').collapse('hide'); // 點擊語言切換後收起導航欄
+                    $('#loading-overlay').fadeOut(300);
+                }, 1500);
+            });
+
             $('#navbarNav').on('show.bs.collapse', function () {
                 $('#scrollBtn').hide();
             });
@@ -163,62 +227,6 @@
             $('#navbarNav').on('hidden.bs.collapse', function () {
                 $('#scrollBtn').show();
             });
-
-            // 語言切換按鈕
-            $('#language-switcher').click(function() {
-                $('#loading').css('visibility', 'visible'); // 顯示等待動畫
-
-                setTimeout(() => {
-                    var currentLanguage = localStorage.getItem('language') || 'zh';
-                    if (currentLanguage === 'zh') {
-                        // 切換到日語
-                        localStorage.setItem('language', 'jp');
-                        $('#language-switcher').text('中文 / 日本語');
-                        $('#main-title').text('私の作品');
-                        $('#main-description').text('このページでは私が作成した作品を主に紹介します。');
-                        $('nav a[href="about-site.html"]').text('私の作品');
-                        $('nav a[href="about-us.html"]').text('シャトルコックについて');
-                        $('#footer-business').text('商業協力');
-                        $('#footer-contact').text('お問い合わせ');
-                        $('#footer-support').text('開発者を支援する');
-                        $('#footer-shop').text('オンラインショップ');
-                    } else {
-                        // 切換到中文
-                        localStorage.setItem('language', 'zh');
-                        $('#language-switcher').text('中文 / 日本語');
-                        $('#main-title').text('我的作品');
-                        $('#main-description').text('This page primarily showcases the artwork I have created.');
-                        $('nav a[href="about-site.html"]').text('我的作品');
-                        $('nav a[href="about-us.html"]').text('關於羽球');
-                        $('#footer-business').text('商業合作');
-                        $('#footer-contact').text('與我聯絡');
-                        $('#footer-support').text('贊助開發者');
-                        $('#footer-shop').text('線上商店');
-                    }
-
-                    $('#navbarNav').collapse('hide'); // 點擊語言切換後收起導航欄
-                    $('#loading').css('visibility', 'hidden'); // 隱藏等待動畫
-                }, 1500); // 模擬1.5秒的加載時間
-            });
-
-            // 初始化頁面時根據本地語言狀態進行設置
-            var savedLanguage = localStorage.getItem('language') || 'zh';
-            if (savedLanguage === 'jp') {
-                $('#language-switcher').text('中文 / 日本語');
-                $('#main-title').text('私の作品');
-                $('#main-description').text('このページでは私が作成した作品を主に紹介します。');
-                $('nav a[href="about-site.html"]').text('私の作品');
-                $('nav a[href="about-us.html"]').text('シャトルコックについて');
-                $('#footer-business').text('商業協力');
-                $('#footer-contact').text('お問い合わせ');
-                $('#footer-support').text('開発者を支援する');
-                $('#footer-shop').text('オンラインショップ');
-            }
-
-            if (window.location.pathname.endsWith("about-site.html")) {
-    window.history.replaceState({}, document.title, window.location.pathname.replace("about-site.html", ""));
-}
-
         });
     </script>
 </body>

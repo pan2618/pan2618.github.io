@@ -7,135 +7,257 @@
     <link rel="stylesheet" href="styles.css">
     <!-- 引入 Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Fullscreen overlay for loading */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(34, 34, 34, 0.95); /* 半透明深色背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* 確保在最上層 */
+        }
+
+        .loading {
+            text-align: center;
+        }
+
+        .loading h2 {
+            color: #ccc;
+            margin: 0;
+            font: 0.8em verdana;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .loading span {
+            display: inline-block;
+            vertical-align: middle;
+            width: 0.6em;
+            height: 0.6em;
+            margin: 0.19em;
+            background: #007DB6;
+            border-radius: 0.6em;
+            animation: loading 1s infinite alternate;
+        }
+
+        .loading span:nth-of-type(2) {
+            background: #008FB2;
+            animation-delay: 0.2s;
+        }
+
+        .loading span:nth-of-type(3) {
+            background: #009B9E;
+            animation-delay: 0.4s;
+        }
+
+        .loading span:nth-of-type(4) {
+            background: #00A77D;
+            animation-delay: 0.6s;
+        }
+
+        .loading span:nth-of-type(5) {
+            background: #00B247;
+            animation-delay: 0.8s;
+        }
+
+        .loading span:nth-of-type(6) {
+            background: #5AB027;
+            animation-delay: 1.0s;
+        }
+
+        .loading span:nth-of-type(7) {
+            background: #A0B61E;
+            animation-delay: 1.2s;
+        }
+
+        @keyframes loading {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Fade-in effect for content */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+        }
+
+        
+        
+    </style>
 </head>
 <body>
+    <!-- Loading 畫面 -->
+    <div id="loading-overlay">
+        <div class="loading">
+            <h2>pushing pixels</h2>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
     <!-- 頁首區域 -->
     <header class="hero-section custom-hero">
-        <nav class="navbar navbar-expand-lg navbar-light my-custom-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" href="index.html">Home</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <!-- <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link text-white" href="about-site.html">我的作品</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="about-linebot.html">委託須知</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-white" href="about-us.html">關於羽球</a>
                         </li>
-                    </ul> -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#" id="language-switcher">中文 / 日本語</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
-    
-        
-        <div class="hero-content text-center text-white">
-            <!-- 你可以在這裡加其他內容 -->
-        </div>
-        
-    </header>
+
+    <div class="hero-content text-center text-white">
+        <!-- 你可以在這裡加其他內容 -->
+    </div>
 
     <div class="transition-blur"></div>
 
     <!-- 主內容區域 -->
-<main>
-    <section id="about-site" class="py-10">
+    <main>
+        <section id="about-site" class="py-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mb-10">
+                        <h3 class="text-muted">milestone</h3>
+                        <h6 class="text-black-50 fade-in">資訊相關背景，以往工作類型也橫跨了許多產業，曾在軟體公司、畫廊和餐飲業等多個行業服務過</h6>
+                        <hr>
+                        <h5 class="text-muted"> 2024 1月</h5>
+                        <h6 class="text-black-50 fade-in">正式開始學習繪畫，並在各個平台發佈作品</h6>
+                        <hr>
+                    </div>
+                    <div class="col-12 mb-9">
+                        <h5 class="text-muted">2024 8月 </h5>
+                        <h6 class="text-black-50 fade-in">和大學同學在 popo 平台合作寫一部小說，目前劇情、封面和角色原畫都在規劃中，歡迎試讀！</h6>
+                        <a href="https://www.popo.tw/books/748141" class="btn btn-outline-info mt-10 text-black-50 fade-in" id="surveyBtn">搶先體驗</a>
+                        <hr>
+                    </div>
+
+                    <div class="col-12 mb-9">
+                        <h5 class="text-muted">2024 9月 </h5>
+                        <h6 class="text-black-50 fade-in">運用學校專題和工作上的經驗，一邊畫設計圖，一邊寫code，建立了屬於自己的官網</h6>
+                        <hr>
+                    </div>
+
+                    <div class="col-12 mb-9">
+                        <h5 class="text-muted">2024 11月 </h5>
+                        <h6 class="text-black-50 fade-in">預計開放FANBOX供支持者來小額贊助我(*’ｰ’*)</h6>
+                        <a href="https://lin.ee/e94bKbM" class="btn btn-outline-success mt-10 text-black-50 fade-in" id="surveyBtn" style="pointer-events: none; opacity: 0.5;">餵食</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer bg-dark text-white text-center py-10">
         <div class="container">
+            <h6>&copy; 2024 Shuttlecock website</h6>
+            <h6 class="text-info">shuttlecock0826@gmail.com</h6>
+            <p></p>
             <div class="row">
-            </div>
-            <div class="row mt-10">
-                <div class="col-12 mb-10">
-                    <h3 class="text-muted">milestone</h3>
-                    <p></p>
-                    <h6 class="text-black-50 fade-in">資訊相關背景，以往工作類型也橫跨了許多產業，曾在軟體公司、畫廊和餐飲業等多個行業服務過</h6>
-                    <hr>
-                    <h5 class="text-muted"> 2024 1月</h5>
-                    <h6 class="text-black-50 fade-in">正式開始學習繪畫，並在各個平台發佈作品</h6>
-                    <hr>
-                </div>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const paragraphs = document.querySelectorAll('.fade-in');
-                        
-                        paragraphs.forEach((p, index) => {
-                            setTimeout(() => {
-                                p.classList.add('show');
-                                // 自動滾動到當前段落
-                                p.scrollIntoView({
-                                    behavior: 'smooth', // 平滑滾動
-                                    block: 'center'     // 將段落滾動到螢幕中央
-                                });
-                            }, index * 1100);  // 每行延遲1.1秒
-                        });
-                    });
-                </script>
-                
-                <div class="col-12 mb-9">
-                    <h5 class="text-muted">2024 8月 </h5>
-                    <h6 class="text-black-50 fade-in">和大學同學在 popo 平台合作寫一部小說，目前劇情、封面和角色原畫都在規劃中，歡迎試讀！</h6>
-                    <a href="https://www.popo.tw/books/748141" class="btn btn-outline-info mt-10 text-black-50 fade-in" id="surveyBtn">搶先體驗</a>
-                    <hr>
-                </div>
-
-                <div class="col-12 mb-9">
-                    <h5 class="text-muted">2024 9月 </h5>
-                    <h6 class="text-black-50 fade-in">運用學校專題和工作上的經驗，一邊畫設計圖，一邊寫code，建立了屬於自己的官網</h6>
-                    <hr>
-                </div>
-
-                <div class="col-12 mb-9">
-                    <h5 class="text-muted">2024 11月 </h5>
-                    <h6 class="text-black-50 fade-in">預計開放FANBOX供支持者來小額贊助我(*’ｰ’*)</h6>
-                    <a href="https://lin.ee/e94bKbM" class="btn btn-outline-success mt-10 text-black-50 fade-in" id="surveyBtn" style="pointer-events: none; opacity: 0.5;">餵食</a>
-
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-
- <!-- 頁尾區域 -->
- <footer class="footer bg-dark text-white text-center py-3" style="width: 100%; margin: 0;">
-        <div class="container" style="padding-left: 0; padding-right: 0;">
-            <h6>&copy; 2024 Shuttlecock website  </h6>
-            <h6 class="text-info bg-dark">shuttlecock0826@gmail.com</h6>
-            <p class=""></p>
-            <div class="row">
-                <!-- 第一行 -->
                 <div class="col-6 col-md-3">
                     <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">商業合作</a>
                 </div>
-    
                 <div class="col-6 col-md-3">
                     <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">與我聯絡</a>
                 </div>
-    
                 <div class="col-6 col-md-3">
                     <a href="https://kevin0826.fanbox.cc/plans" class="text-white footer-link">贊助開發者</a>
                 </div>
-    
                 <div class="col-6 col-md-3">
                     <a href="https://shopee.com/your-shop-link" class="text-white footer-link">線上商店</a>
                 </div>
             </div>
-        
         </div>
- </footer>
-
-
-
+    </footer>
 
 
     <!-- 引入 Bootstrap 的 JavaScript 依賴 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // 確保所有資源完全加載後隱藏 loading 畫面
+        window.onload = function () {
+            setTimeout(function() {
+                $('#loading-overlay').fadeOut(300, function() {
+                    // 在 loading 結束後，開始逐步顯示內容
+                    $('.fade-in').each(function (index) {
+                        const $element = $(this);
+                        setTimeout(function () {
+                            $element.addClass('show');
+                        }, index * 1100); // 每個元素延遲 1.1 秒
+                    });
+                });
+            }, 1000); 
+        };
+
+        // 語言切換功能
+        $(document).ready(function () {
+            $('#language-switcher').click(function () {
+                $('#loading-overlay').fadeIn(300); // 顯示等待動畫
+
+                setTimeout(() => {
+                    var currentLanguage = localStorage.getItem('language') || 'zh';
+                    if (currentLanguage === 'zh') {
+                        localStorage.setItem('language', 'jp');
+                        $('#language-switcher').text('日本語 / 中文');
+                        $('h3:contains("milestone")').text('マイルストーン');
+                        $('h6:contains("資訊相關背景")').text('IT業界の経験を持ち、ソフトウェア会社、ギャラリー、飲食業界など様々な業界で働いてきました');
+                        $('h6:contains("正式開始學習繪畫")').text('2024年1月から正式に絵画の学習を始め、様々なプラットフォームで作品を発表');
+                        $('h6:contains("和大學同學在 popo 平台合作寫一部小說")').text('大学の同級生とpopoで小説を共同執筆、現在プロット、表紙、キャラクター原画を企画中');
+                        $('h6:contains("運用學校專題和工作上的經驗")').text('学校の卒業プロジェクトと仕事の経験を活用してデザイン図とコードを書き、自分専用のウェブサイトを構築');
+                        $('h6:contains("預計開放FANBOX供支持者來小額贊助我")').text('FANBOXを通じて支援者に小額の寄付を募る予定(*’ｰ’*)');
+                    } else {
+                        localStorage.setItem('language', 'zh');
+                        $('#language-switcher').text('中文 / 日本語');
+                        location.reload();
+                    }
+
+                    $('#navbarNav').collapse('hide'); // 點擊語言切換後收起導航欄
+                    $('#loading-overlay').fadeOut(300);
+                }, 1500);
+            });
+
+            $('#navbarNav').on('show.bs.collapse', function () {
+                $('#scrollBtn').hide();
+            });
+
+            $('#navbarNav').on('hidden.bs.collapse', function () {
+                $('#scrollBtn').show();
+            });
+        });
+    </script>
 </body>
 </html>

@@ -253,19 +253,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-         window.onload = function () {
+        window.onload = function () {
             setTimeout(function() {
                 $('#loading-overlay').fadeOut(300, function() {
-                    // 在 loading 結束後，開始逐步顯示內容
-                    $('.fade-in').each(function (index) {
-                        const $element = $(this);
                         setTimeout(function () {
                             $element.addClass('show');
-                        }, index * 1100); 
+                        }, index * 1100); // 每個元素延遲 1.1 秒
                     });
                 });
             }, 1000); 
-        };
+        
         $(document).ready(function() {
             $('#navbarNav').on('show.bs.collapse', function () {
                 $('#social-icons').hide(); // 當導航欄展開時隱藏社群 icon

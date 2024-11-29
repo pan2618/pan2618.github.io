@@ -226,6 +226,15 @@
             $('#navbarNav').on('hidden.bs.collapse', function () {
                 $('#scrollBtn').show();
             });
+
+        var savedLanguage = localStorage.getItem('language') || 'zh';
+        if (savedLanguage === 'jp') {
+            $('#language-switcher').text('日本語 / 中文');
+                        $('#main-title').text('私の作品');
+                        $('#main-description').text('このページでは私が作成した作品を主に紹介します。');
+                        $('nav a[href="about-site.html"]').text('私の作品');
+                        $('nav a[href="about-us.html"]').text('シャトルコックについて');
+            }
         });
     </script>
 </body>

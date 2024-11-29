@@ -257,6 +257,17 @@
             $('#navbarNav').on('hidden.bs.collapse', function () {
                 $('#scrollBtn').show();
             });
+
+        var savedLanguage = localStorage.getItem('language') || 'zh';
+        if (savedLanguage === 'jp') {
+            $('#language-switcher').text('日本語 / 中文');
+            $('h3:contains("milestone")').text('マイルストーン');
+            $('h6:contains("資訊相關背景")').text('IT業界の経験を持ち、ソフトウェア会社、ギャラリー、飲食業界など様々な業界で働いてきました');
+            $('h6:contains("正式開始學習繪畫")').text('2024年1月から正式に絵画の学習を始め、様々なプラットフォームで作品を発表');
+            $('h6:contains("和大學同學在 popo 平台合作寫一部小說")').text('大学の同級生とpopoで小説を共同執筆、現在プロット、表紙、キャラクター原画を企画中');
+            $('h6:contains("運用學校專題和工作上的經驗")').text('学校の卒業プロジェクトと仕事の経験を活用してデザイン図とコードを書き、自分専用のウェブサイトを構築');
+            $('h6:contains("預計開放FANBOX供支持者來小額贊助我")').text('FANBOXを通じて支援者に小額の寄付を募る予定(*’ｰ’*)');
+        }
         });
     </script>
 </body>

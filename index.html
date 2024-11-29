@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- 預加載背景圖片 -->
     <link rel="preload" href="images/image.png" as="image">
-    <style>
+    r<style>
         /* Fullscreen overlay for loading */
         #loading-overlay {
             position: fixed;
@@ -87,6 +87,17 @@
                 opacity: 1;
             }
         }
+
+        /* Fade-in effect for content */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+        }
+        
     </style>
 </head>
 <body>
@@ -242,11 +253,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-         $(document).ready(function() {
-            // 顯示 loading 畫面
+         window.onload = function () {
             setTimeout(function() {
-                $('#loading-overlay').fadeOut(300);
-            }, 1500);
+                $('#loading-overlay').fadeOut(300, function() {
+                    // 在 loading 結束後，開始逐步顯示內容
+                    $('.fade-in').each(function (index) {
+                        const $element = $(this);
+                        setTimeout(function () {
+                            $element.addClass('show');
+                        }, index * 1100); // 每個元素延遲 1.1 秒
+                    });
+                });
+            }, 1000); 
+        };
         $(document).ready(function() {
             $('#navbarNav').on('show.bs.collapse', function () {
                 $('#social-icons').hide(); // 當導航欄展開時隱藏社群 icon

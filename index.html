@@ -253,116 +253,118 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        window.onload = function () {
-            setTimeout(function() {
-                $('#loading-overlay').fadeOut(300, function() {
-                        setTimeout(function () {
-                            $element.addClass('show');
-                        }, index * 1100); // 每個元素延遲 1.1 秒
-                    });
-                });
-            }, 1000); 
-        
-        $(document).ready(function() {
-            $('#navbarNav').on('show.bs.collapse', function () {
-                $('#social-icons').hide(); // 當導航欄展開時隱藏社群 icon
+    $(window).on('load', function () {
+        // 初次載入時，等 1 秒後隱藏 loading 覆蓋層
+        setTimeout(function () {
+            $('#loading-overlay').fadeOut(500, function () {
+                // 確保在 loading 畫面隱藏後，顯示主頁面內容
+                $('.fade-in').addClass('show');
             });
+        }, 1000);
+    });
 
-            $('#navbarNav').on('hidden.bs.collapse', function () {
-                $('#social-icons').show(); // 當導航欄收起時顯示社群 icon
-            });
+    $(document).ready(function () {
+        $('#navbarNav').on('show.bs.collapse', function () {
+            $('#social-icons').hide(); // 當導航欄展開時隱藏社群 icon
+        });
 
-            // 檢測滑動並觸發淡入效果
-            $(window).on('scroll', function() {
-                $('.fade-in').each(function() {
-                    var elementTop = $(this).offset().top;
-                    var viewportBottom = $(window).scrollTop() + $(window).height();
-                    if (elementTop < viewportBottom - 50) {
-                        $(this).addClass('fade-in-triggered');
-                    }
-                });
-            });
+        $('#navbarNav').on('hidden.bs.collapse', function () {
+            $('#social-icons').show(); // 當導航欄收起時顯示社群 icon
+        });
 
-            // 初始檢查
-            $(window).trigger('scroll');
-
-            // 語言切換按鈕
-            $('#language-switcher').click(function() {
-                // 顯示等待動畫
-                $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
-
-                setTimeout(() => {
-                    var currentLanguage = localStorage.getItem('language') || 'zh';
-                    if (currentLanguage === 'zh') {
-                        localStorage.setItem('language', 'jp');
-                        $('#language-switcher').text('中文 / 日本語');
-                        $('#hero-description').text('私のソーシャルアカウントをフォローしてください！');
-                        $('nav a[href="about-site.html"]').text('私の作品');
-                        $('nav a[href="about-us.html"]').text('シャトルコックについて');
-                        $('h3.text-muted').text('特選作品');
-                        $('h6.text-black-50').text('私が個人的に満足しているコレクションから作品を選んでください。');
-                        $('h3.text-muted:contains("其他通路")').text('他のチャネル');
-                        $('h5:contains("周邊商品")').text('周辺商品');
-                        $('p:contains("描述輸入中")').text('説明入力中');
-                        $('p:contains("描述")').text('説明');
-                        $('a.footer-link:contains("商業合作")').text('商業協力');
-                        $('a.footer-link:contains("與我聯絡")').text('お問い合わせ');
-                        $('a.footer-link:contains("贊助開發者")').text('開発者を支援する');
-                        $('a.footer-link:contains("線上商店")').text('オンラインショップ');
-                    } else {
-                        localStorage.setItem('language', 'zh');
-                        $('#language-switcher').text('中文 / 日本語');
-                        $('#hero-description').text('歡迎關注我的社群帳號！');
-                        $('nav a[href="about-site.html"]').text('我的作品');
-                        $('nav a[href="about-us.html"]').text('關於羽球');
-                        $('h3.text-muted').text('精選作品');
-                        $('h6.text-black-50').text('Select the works from the collection that I am personally satisfied with.');
-                        $('h3.text-muted:contains("他のチャネル")').text('其他通路');
-                        $('h5:contains("周辺商品")').text('周邊商品');
-                        $('p:contains("説明入力中")').text('描述輸入中');
-                        $('p:contains("説明")').text('描述');
-                        $('a.footer-link:contains("商業協力")').text('商業合作');
-                        $('a.footer-link:contains("お問い合わせ")').text('與我聯絡');
-                        $('a.footer-link:contains("開発者を支援する")').text('贊助開發者');
-                        $('a.footer-link:contains("オンラインショップ")').text('線上商店');
-                    }
-
-                    $('#navbarNav').collapse('hide'); // 點擊語言切換後收起導航欄
-
-                    // 延遲 1500 毫秒後隱藏 loading 效果
-                    setTimeout(() => {
-                        $('#loading-overlay').fadeOut(300);
-                    }, 1500);
-                }, 1500);
-            });
-
-            // 根據本地存儲的語言狀態設置初始語言
-            var savedLanguage = localStorage.getItem('language') || 'zh';
-            if (savedLanguage === 'jp') {
-                $('#language-switcher').text('中文 / 日本語');
-                $('#hero-description').text('私のソーシャルアカウントをフォローしてください！');
-                $('nav a[href="about-site.html"]').text('私の作品');
-                $('nav a[href="about-us.html"]').text('シャトルコックについて');
-                $('h3.text-muted').text('特選作品');
-                $('h6.text-black-50').text('私が個人的に満足しているコレクションから作品を選んでください。');
-                $('h3.text-muted:contains("其他通路")').text('他のチャネル');
-                $('h5:contains("周邊商品")').text('周辺商品');
-                $('p:contains("描述輸入中")').text('説明入力中');
-                $('p:contains("描述")').text('説明');
-                $('a.footer-link:contains("商業合作")').text('商業協力');
-                $('a.footer-link:contains("與我聯絡")').text('お問い合わせ');
-                $('a.footer-link:contains("贊助開發者")').text('開発者を支援する');
-                $('a.footer-link:contains("線上商店")').text('オンラインショップ');
-            }
-
-            // 社群平台 Icon 單獨淡入效果
-            $('.fade-in').each(function(index) {
-                const $el = $(this);
-                setTimeout(function() {
-                    $el.addClass('fade-in-triggered');
-                }, index * 600); 
+        // 檢測滑動並觸發淡入效果
+        $(window).on('scroll', function () {
+            $('.fade-in').each(function () {
+                var elementTop = $(this).offset().top;
+                var viewportBottom = $(window).scrollTop() + $(window).height();
+                if (elementTop < viewportBottom - 50) {
+                    $(this).addClass('show');
+                }
             });
         });
-    </script>
+
+        // 初始檢查
+        $(window).trigger('scroll');
+
+        // 語言切換按鈕
+        $('#language-switcher').click(function () {
+            // 顯示等待動畫
+            $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
+
+            setTimeout(() => {
+                var currentLanguage = localStorage.getItem('language') || 'zh';
+                if (currentLanguage === 'zh') {
+                    localStorage.setItem('language', 'jp');
+                    $('#language-switcher').text('中文 / 日本語');
+                    $('#hero-description').text('私のソーシャルアカウントをフォローしてください！');
+                    $('nav a[href="about-site.html"]').text('私の作品');
+                    $('nav a[href="about-us.html"]').text('シャトルコックについて');
+                    $('h3.text-muted').text('特選作品');
+                    $('h6.text-black-50').text('私が個人的に満足しているコレクションから作品を選んでください。');
+                    $('h3.text-muted:contains("其他通路")').text('他のチャネル');
+                    $('h5:contains("周邊商品")').text('周辺商品');
+                    $('p:contains("描述輸入中")').text('説明入力中');
+                    $('p:contains("描述")').text('説明');
+                    $('a.footer-link:contains("商業合作")').text('商業協力');
+                    $('a.footer-link:contains("與我聯絡")').text('お問い合わせ');
+                    $('a.footer-link:contains("贊助開發者")').text('開発者を支援する');
+                    $('a.footer-link:contains("線上商店")').text('オンラインショップ');
+                } else {
+                    localStorage.setItem('language', 'zh');
+                    $('#language-switcher').text('中文 / 日本語');
+                    $('#hero-description').text('歡迎關注我的社群帳號！');
+                    $('nav a[href="about-site.html"]').text('我的作品');
+                    $('nav a[href="about-us.html"]').text('關於羽球');
+                    $('h3.text-muted').text('精選作品');
+                    $('h6.text-black-50').text('Select the works from the collection that I am personally satisfied with.');
+                    $('h3.text-muted:contains("他のチャネル")').text('其他通路');
+                    $('h5:contains("周辺商品")').text('周邊商品');
+                    $('p:contains("説明入力中")').text('描述輸入中');
+                    $('p:contains("説明")').text('描述');
+                    $('a.footer-link:contains("商業協力")').text('商業合作');
+                    $('a.footer-link:contains("お問い合わせ")').text('與我聯絡');
+                    $('a.footer-link:contains("開発者を支援する")').text('贊助開發者');
+                    $('a.footer-link:contains("オンラインショップ")').text('線上商店');
+                }
+
+                $('#navbarNav').collapse('hide'); // 點擊語言切換後收起導航欄
+
+                // 延遲 1500 毫秒後隱藏 loading 效果
+                setTimeout(() => {
+                    $('#loading-overlay').fadeOut(300);
+                }, 1500);
+            }, 1500);
+        });
+
+        // 根據本地存儲的語言狀態設置初始語言
+        var savedLanguage = localStorage.getItem('language') || 'zh';
+        if (savedLanguage === 'jp') {
+            $('#language-switcher').text('中文 / 日本語');
+            $('#hero-description').text('私のソーシャルアカウントをフォローしてください！');
+            $('nav a[href="about-site.html"]').text('私の作品');
+            $('nav a[href="about-us.html"]').text('シャトルコックについて');
+            $('h3.text-muted').text('特選作品');
+            $('h6.text-black-50').text('私が個人的に満足しているコレクションから作品を選んでください。');
+            $('h3.text-muted:contains("其他通路")').text('他のチャネル');
+            $('h5:contains("周邊商品")').text('周辺商品');
+            $('p:contains("描述輸入中")').text('説明入力中');
+            $('p:contains("描述")').text('説明');
+            $('a.footer-link:contains("商業合作")').text('商業協力');
+            $('a.footer-link:contains("與我聯絡")').text('お問い合わせ');
+            $('a.footer-link:contains("贊助開發者")').text('開発者を支援する');
+            $('a.footer-link:contains("線上商店")').text('オンラインショップ');
+        }
+
+        // 社群平台 Icon 單獨淡入效果
+        $('.fade-in').each(function (index) {
+            const $el = $(this);
+            setTimeout(function () {
+                $el.addClass('show');
+            }, index * 600);
+        });
+    });
+</script>
+
+
 </body>
 </html>

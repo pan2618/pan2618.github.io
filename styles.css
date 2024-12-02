@@ -442,3 +442,13 @@ footer .row a {
 .container h3, .container h6 {
     text-align: center;
 }
+
+/* 增加的部分，讓按鈕有漸變陰影效果 */
+.social-icons a {
+    transition: box-shadow 0.3s ease-in-out; /* 添加陰影的過渡效果 */
+}
+
+.social-icons a:hover {
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4); /* 當滑鼠移過時增加陰影效果 */
+}
+

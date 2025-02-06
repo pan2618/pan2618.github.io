@@ -25,96 +25,11 @@
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-        #loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(34, 34, 34, 0.95); 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; 
-            visibility: hidden; 
-        }
-
-        .loading {
-            text-align: center;
-        }
-
-        .loading h2 {
-            color: #ccc;
-            margin: 0;
-            font: 0.8em verdana;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .loading span {
-            display: inline-block;
-            vertical-align: middle;
-            width: 0.6em;
-            height: 0.6em;
-            margin: 0.19em;
-            background: #007DB6;
-            border-radius: 0.6em;
-            animation: loading 1s infinite alternate;
-        }
-
-        .loading span:nth-of-type(2) {
-            background: #008FB2;
-            animation-delay: 0.2s;
-        }
-
-        .loading span:nth-of-type(3) {
-            background: #009B9E;
-            animation-delay: 0.4s;
-        }
-
-        .loading span:nth-of-type(4) {
-            background: #00A77D;
-            animation-delay: 0.6s;
-        }
-
-        .loading span:nth-of-type(5) {
-            background: #00B247;
-            animation-delay: 0.8s;
-        }
-
-        .loading span:nth-of-type(6) {
-            background: #5AB027;
-            animation-delay: 1.0s;
-        }
-
-        .loading span:nth-of-type(7) {
-            background: #A0B61E;
-            animation-delay: 1.2s;
-        }
-
-        @keyframes loading {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
     </style>
 </head>
+
+
 <body>
-    <div id="loading-overlay">
-        <div class="loading">
-            <h2>Loading...</h2>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
     <header class="hero-section" id="slideshow" style="background-image: url('images/image.png');">
          <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
@@ -255,6 +170,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
+        $(document).ready(function() {
+            // 顯示 loading 畫面
+            setTimeout(function() {
+                $('#loading-overlay').fadeOut(300);
+            }, 1500); });
+
         $(document).ready(function() {
             $('#navbarNav').on('show.bs.collapse', function () {
                 $('#social-icons').hide(); // 當導航欄展開時隱藏社群 icon

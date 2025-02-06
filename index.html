@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preload" href="images/image.png" as="image">
 
     <style>
        
@@ -25,7 +26,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999; 
+            z-index: 9999; /* 確保在最上層 */
         }
 
         .loading {
@@ -288,8 +289,8 @@
                         localStorage.setItem('language', 'jp');
                         $('#language-switcher').text('中文 / 日本語');
                         $('#hero-description').text('私のソーシャルアカウントをフォローしてください！');
-                        $('nav a[href="about-site.html"]').text('私の作品');
-                        $('nav a[href="about-us.html"]').text('シャトルコックについて');
+                        $('nav a[href="about-work.html"]').text('私の作品');
+                        // $('nav a[href="about-us.html"]').text('シャトルコックについて');
                         $('h3.text-muted').text('特選作品');
                         $('h6.text-black-50').text('私が個人的に満足しているコレクションから作品を選んでください。');
                         $('h3.text-muted:contains("其他通路")').text('他のチャネル');

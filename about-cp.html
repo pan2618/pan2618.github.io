@@ -115,13 +115,16 @@
         </div>
     </div>
 
-
+ 
     <h2>我的密碼安全嗎？</h2>
     <p>請輸入密碼檢測強度：</p>
     <input type="text" id="passwordInput" placeholder="輸入密碼">
     <div class="message" id="message"></div>
-
-    <a href="index.html" class="btn btn-outline-info">回首頁</a>
+    <p></p>
+    <div class="product-info">
+        <a href="index.html" class="btn btn-outline-info">回首頁</a>
+    </div>
+ 
 
 
 
@@ -145,23 +148,29 @@
             });
         });
         document.getElementById("passwordInput").addEventListener("input", function() {
-            let inputText = this.value;
-            let message = document.getElementById("message");
+    let inputText = this.value;
+    let message = document.getElementById("message");
 
-            // 定義特定關鍵字對應的回覆
-            let responses = {
-                "愛爽": "強到靠北",
-                "海希": "強到靠北",
-                "祥": "這個密碼太常見了，請更換"
-            };
+    // 定義特定關鍵字對應的回覆
+    let responses = {
+        "愛爽": "強到靠北",
+        "海希": "強到靠北",
+        "睦希": "強到靠北",
+        "祥": "這個密碼太常見了，請更換",
+        "祥爽": "<img src='images/祥1.jpg' alt='祥子圖片' />" ,
+        "愛祥": "<img src='images/mygo.png' alt='圖片2' />",
+        "春日影": "<img src='images/春日影.jpg' alt='圖片2' />",
 
-            if (responses[inputText]) {
-                message.textContent = "強度評估：" + responses[inputText];
-                message.style.color = "green";
-            } else {
-                message.textContent = "";
-            }
-        });
+    };
+
+    if (responses[inputText]) {
+        message.innerHTML = "強度評估：" + responses[inputText]; 
+        message.style.color = "green";
+    } else {
+        message.textContent = "";
+    }
+});
+
     </script>
 
 </body>

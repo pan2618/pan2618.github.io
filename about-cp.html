@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密碼強度檢測</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .message {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>我的密碼安全嗎？</h2>
+    <p>請輸入密碼檢測強度：</p>
+    <input type="text" id="passwordInput" placeholder="輸入密碼">
+    <div class="message" id="message"></div>
+
+    <script>
+        document.getElementById("passwordInput").addEventListener("input", function() {
+            let inputText = this.value;
+            let message = document.getElementById("message");
+
+            // 定義特定關鍵字對應的回覆
+            let responses = {
+                "愛爽": "強到靠北",
+                "海希": "強到靠北",
+                "祥": "這個密碼太常見了，請更換"
+            };
+
+            if (responses[inputText]) {
+                message.textContent = "強度評估：" + responses[inputText];
+                message.style.color = "green";
+            } else {
+                message.textContent = "";
+            }
+        });
+    </script>
+
+</body>
+</html>

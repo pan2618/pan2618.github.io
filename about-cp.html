@@ -96,6 +96,15 @@
             font-weight: bold;
             color: green;
         }
+
+    /* 手機端樣式 */
+    @media screen and (max-width: 768px) {
+        img {
+            max-width: 100%; /* 在手機上保證圖片不超過屏幕寬度 */
+         height: auto;
+        }
+}
+
         
     </style>
 
@@ -158,10 +167,14 @@
         "睦希": "強到靠北",
         "祥": "這個密碼太常見了，請更換",
         "祥爽": "<img src='images/祥1.jpg' alt='祥子圖片' />" ,
-        "愛祥": "<img src='images/mygo.png' alt='圖片2' />",
+        "愛祥": "<img src='images/祥2.jpg' alt='圖片2' />",
         "春日影": "<img src='images/春日影.jpg' alt='圖片2' />",
+        "初": "<img src='images/初黑.jpg' alt='圖片2' />",
+        "豐": "<img src='images/sddefault (1).jpg' alt='圖片2' />",
 
     };
+
+    
 
     if (responses[inputText]) {
         message.innerHTML = "強度評估：" + responses[inputText]; 
@@ -170,6 +183,8 @@
         message.textContent = "";
     }
 });
+
+
 
     </script>
 

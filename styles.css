@@ -54,13 +54,17 @@ footer {
 }
 
 .hero-section {
+    position: relative;
     height: 61vh;
-
-    background-size: cover; /* 讓圖片覆蓋整個區域 */
-    background-position: center; /* 圖片居中顯示 */
-    background-repeat: no-repeat; /* 防止圖片重複 */
-}
-
+    background: linear-gradient(135deg, #333, #555);
+    animation: gradientShift 65s ease infinite;
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
 
 
 .transition-blur {
@@ -460,4 +464,154 @@ footer .row a {
 
 .youtube-icon {
     animation: youtube-pulsate 1.5s infinite ease-in-out;
+}
+
+
+/* 父容器，可依需求設置背景、內距等 */
+#my-works {
+    position: relative;  /* 讓左右箭頭可絕對定位 */
+    padding: 1rem 0;
+    background: #fff;    /* 若想要深色，可改成 #000 或 #333 */
+    overflow: hidden;
+  }
+  
+  /* 橫向捲動容器：Flex + overflow-x */
+  .horizontal-banners {
+    display: flex;
+    gap: 0;                /* 卡片之間無間距，若想留空可自行調整 */
+    overflow-x: auto;      /* 可橫向滑動 */
+    scroll-behavior: smooth;
+    margin: 0; 
+    padding: 0;
+  }
+  
+  /* 單張 banner 預設大小 */
+  .banner {
+    flex: 0 0 400px; /* 改大一點 */
+    height: 420px;   /* 改高一點 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;      /* 讓內部覆蓋絕對定位 */
+    cursor: pointer; 
+    border-radius: 6px;      /* 小圓角，可自行調整 */
+    margin-right: 8px;   
+  }
+  
+  /* 若想第一個卡片(介紹詞)更寬/高，可另外定義 */
+  .intro-banner {
+    background: #333;  /* 純色背景 */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .intro-banner .intro-text {
+    text-align: center;
+    width: 80%;
+  }
+
+  .info-overlay {
+    position: absolute;
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  
+    /* 預設隱藏 */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* 滑鼠移上 .banner 時，淡入文字 */
+  .banner:hover .info-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  
+  /* 透明的左右按鈕 (不擋作品) */
+  .arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: rgba(255,255,255,0.1); /* 半透明 */
+    border: 2px solid rgba(255,255,255,0.5); 
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    cursor: pointer;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+  }
+  
+  .arrow-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+  }
+  
+  .arrow-btn.left {
+    left: 10px;
+  }
+  
+  .arrow-btn.right {
+    right: 10px;
+  }
+  
+  /* 如果你用的是 Font Awesome icon，可再加大一點 */
+  .arrow-btn i {
+    font-size: 1.2rem;
+  }
+  
+  /* RWD: 在小螢幕可調整卡片尺寸，避免圖片過度放大模糊 */
+  @media (max-width: 768px) {
+    .banner {
+      flex: 0 0 45%;  /* 每張卡片佔 70% 螢幕寬度 */
+      height: 360px;
+    }
+  }
+  .fixed-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  
+  
+  
+  .intro-banner {
+  position: relative;
+  background: url('images/intro-bg.jpg') center/cover no-repeat;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+}
+
+/* 遮罩層 (可淡化背景圖，讓文字清晰) */
+.intro-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  background: rgba(147, 149, 162, 0.5);
+  border-radius: 6px;
+  z-index: 1; 
+}
+
+/* 讓文字層在遮罩之上 */
+.intro-banner .intro-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 80%;
 }

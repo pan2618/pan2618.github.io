@@ -325,8 +325,8 @@
                 $('#social-icons').show(); // 當導航欄收起時顯示社群 icon
             });
 
-             // 檢測滑動並觸發淡入效果
-             $(window).on('scroll', function() {
+            // 檢測滑動並觸發淡入效果
+            $(window).on('scroll', function() {
                 $('.fade-in').each(function() {
                     var elementTop = $(this).offset().top;
                     var viewportBottom = $(window).scrollTop() + $(window).height();
@@ -335,7 +335,6 @@
                     }
                 });
             });
-
             // 初始檢查
             $(window).trigger('scroll');
 

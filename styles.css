@@ -53,19 +53,23 @@ footer {
     padding: 1rem 0;
 }
 
+
 .hero-section {
     position: relative;
     height: 61vh;
     background: linear-gradient(135deg, #333, #555);
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1.5s ease-in-out;
     animation: gradientShift 65s ease infinite;
   }
+  
   @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
   
-
 
 .transition-blur {
     height: 55px; /* 過渡區域的高度，可以根據需要調整 */
@@ -89,14 +93,7 @@ footer {
 .navbar .nav-link {
     font-size:19px;
     text-align: right; /* 將連結文字對齊到右側 */
-    
 
-    /* 右側間距 */
-     /* 調整左側間距 
-
-.navbar .nav-item {
-    margin
-    margin-bottom: 60px; /* 調整距離 */
 }
 
 
@@ -120,9 +117,7 @@ nav.navbar {
     max-height: 250px; /* 限制圖片的最大高度 */
     width: auto;
 }
-.row {
-    margin: 0.5; /* 去除行間距 */
-}
+
 .col-md-4 {
     padding: 0.5rem; /* 縮小列間距 */
 }
@@ -487,8 +482,8 @@ footer .row a {
   
   /* 單張 banner 預設大小 */
   .banner {
-    flex: 0 0 400px; /* 改大一點 */
-    height: 420px;   /* 改高一點 */
+    flex: 0 0 40%;
+    height: 360px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

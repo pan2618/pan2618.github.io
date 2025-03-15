@@ -129,7 +129,7 @@
                             <a class="nav-link text-white" href="about-work.html">我的作品</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="about-cp.html">檢測密碼</a>
+                            <a class="nav-link text-white disabled" href="about-cp.html">施工中</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="#" id="language-switcher">中文 / 日本語</a>
@@ -141,7 +141,7 @@
 
         <div class="hero-content text-center text-white">
             <h2>Shuttlecock</h2>
-            <h4 id="hero-description">每一次揮拍，都是靈感的碰撞</h4>
+            <h4 id="hero-description">正在挑戰畫 100 幅畫中...</h4>
         </div>
         
         <div class="social-icons text-center mt-4 fade-in-container" id="social-icons">
@@ -166,61 +166,48 @@
 
 
     <section id="my-works">
-        <!-- 橫向容器 -->
         <div class="horizontal-banners" id="banner-container">
-          <!-- (可選) 第一個卡片作為介紹詞，若不需要可刪除 -->
-          <div class="banner intro-banner">
-            <div class="intro-text">
-              <h3>精選作品</h3>
-              <p></p>
-              <p>Select the works from the collection that I am personally satisfied with.</p>
+        
+            <div class="banner intro-banner">
+                <div class="intro-text">
+                  <h3 id="intro-title">精選作品</h3>
+                  <p id="intro-desc">Select the works from the collection that I am personally satisfied with.</p>
+                </div>
             </div>
-          </div>
       
-          <!-- 作品卡片 1 -->
+    
           <div class="banner" style="background-image: url('images/screenshot1.png');">
             <div class="info-overlay">
-              <h4>作品標題 1</h4>
-              <p>作品/角色簡介</p>
+              <h5>伊落マリー</h5>
+              <p>Blue Archive</p>
             </div>
           </div>
       
-          <!-- 作品卡片 2 -->
-          <div class="banner" style="background-image: url('images/screenshot1.png');">
+
+          <div class="banner" style="background-image: url('images/screenshot2.png');">
             <div class="info-overlay">
-              <h4>作品標題 2</h4>
-              <p>作品/角色簡介</p>
+              <h5>ホタル</h5>
+              <p>崩壞：星穹鐵道 </p>
             </div>
           </div>
       
-          <!-- 作品卡片 3 -->
-          <div class="banner" style="background-image: url('images/screenshot1.png');">
+  
+          <!-- <div class="banner" style="background-image: url('images/screenshot.png');">
             <div class="info-overlay">
               <h4>作品標題 3</h4>
               <p>作品/角色簡介</p>
             </div>
-          </div>
-          <!-- ... 依需求增減 ... -->
+          </div> -->
+        
       
-        </div> <!-- end banner-container -->
+        </div>
       
-        <!-- 左右切換按鈕 (透明、不擋作品) -->
-        <button class="arrow-btn left" id="arrow-left">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="arrow-btn right" id="arrow-right">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </section>
       
       <!-- JS：自動滑動 + 左右切換功能 -->
       <script>
         const bannerContainer = document.getElementById('banner-container');
         const leftArrow = document.getElementById('arrow-left');
         const rightArrow = document.getElementById('arrow-right');
-      
-        // 滑動距離(每次切換的寬度)
-        // 可用固定值，例如 300，也可用 container 宽度 (bannerContainer.clientWidth)，看你想一次滑幾張
         const scrollStep = 500; 
 
 
@@ -254,13 +241,12 @@
         });
       </script>
       
-
-    
+      
 
     <section id="products" class="product-list fade-in">
         <div class="container">
             <h3 class="text-muted">其他通路</h3>
-            <h6 class="text-black-50">Select the works from the collection that I am personally satisfied with.</h6>
+            <h6 class="text-black-50"></h6>
             <p></p>
             <div class="product-item fade-in">
                 <img src="images/shot1.png" alt="Product Image" class="product-img">
@@ -348,11 +334,11 @@
                     if (currentLanguage === 'zh') {
                         localStorage.setItem('language', 'jp');
                         $('#language-switcher').text('中文 / 日本語');
-                        $('#hero-description').text('私のソーシャルアカウントをフォローしてください！');
+                        $('#hero-description').text('100枚のイラストを描くことに挑戦中');
                         $('nav a[href="about-work.html"]').text('私の作品');
                         // $('nav a[href="about-us.html"]').text('シャトルコックについて');
-                        $('h3.text-muted').text('特選作品');
-                        $('h6.text-black-50').text('私が個人的に満足しているコレクションから作品を選んでください。');
+                        $('div.intro-text h3:contains("精選作品")').text('特選作品');
+                        $('div.intro-text p:contains("Select the works")').text('私が個人的に満足しているコレクションから作品を選んでください。');
                         $('h3.text-muted:contains("其他通路")').text('他のチャネル');
                         $('h5:contains("周邊商品")').text('周辺商品');
                         $('p:contains("描述輸入中")').text('説明入力中');

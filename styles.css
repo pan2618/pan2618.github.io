@@ -56,7 +56,7 @@ footer {
 
 .hero-section {
     position: relative;
-    height: 61vh;
+    height: 63vh;
     background: linear-gradient(135deg, #333, #555);
     background-size: cover;
     background-position: center;
@@ -464,11 +464,13 @@ footer .row a {
 
 /* 父容器，可依需求設置背景、內距等 */
 #my-works {
-    position: relative;  /* 讓左右箭頭可絕對定位 */
-    padding: 1rem 0;
-    background: #fff;    /* 若想要深色，可改成 #000 或 #333 */
+    position: relative;
+    padding: 1rem 0 0 0;  
+    background: #fff;
     overflow: hidden;
-  }
+
+}
+
   
   /* 橫向捲動容器：Flex + overflow-x */
   .horizontal-banners {
@@ -478,6 +480,7 @@ footer .row a {
     scroll-behavior: smooth;
     margin: 0; 
     padding: 0;
+    overflow-y: hidden;
   }
   
   /* 單張 banner 預設大小 */
@@ -568,7 +571,7 @@ footer .row a {
   /* RWD: 在小螢幕可調整卡片尺寸，避免圖片過度放大模糊 */
   @media (max-width: 768px) {
     .banner {
-      flex: 0 0 45%;  /* 每張卡片佔 70% 螢幕寬度 */
+      flex: 0 0 45%; 
       height: 360px;
     }
   }
@@ -593,16 +596,20 @@ footer .row a {
   border-radius: 6px;
 }
 
-/* 遮罩層 (可淡化背景圖，讓文字清晰) */
 .intro-banner::before {
-  content: "";
-  position: absolute;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
-  background: rgba(147, 149, 162, 0.5);
-  border-radius: 6px;
-  z-index: 1; 
-}
-
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      rgba(255, 118, 82, 0.2),  /* 上方較淺的橘紅 */
+      rgba(255, 118, 82, 0.3)   /* 下方較深的橘紅 */
+    );
+    border-radius: 6px;
+    z-index: 1;
+  }
+  
+  
+  
 /* 讓文字層在遮罩之上 */
 .intro-banner .intro-text {
   position: relative;
@@ -610,3 +617,11 @@ footer .row a {
   text-align: center;
   width: 80%;
 }
+
+
+.nav-link.disabled {
+    pointer-events: none; /* 取消點擊 */
+    opacity: 0.5;         /* 視覺上變灰 */
+    cursor: not-allowed;
+  }
+  

@@ -627,54 +627,6 @@ footer .row a {
 
 
 
-  /* 讓整個卡片可以跟其他卡片保持相同大小與風格 */
-.banner.intro-banner {
-    position: relative;
-    width: 40%;            /* 依需求調整寬度，或用 flex: 0 0 40% 等方式 */
-    height: 360px;         /* 依需求調整高度 */
-    background-size: cover;
-    background-position: center;
-    border-radius: 6px;
-    margin-right: 8px;     /* 如果你有多張卡片橫向排列 */
-  }
-  
-  /* 介紹文字 (若想預設一直可見，可用 position: absolute; top: xx%...) */
-  .intro-text {
-    text-align: center;
-    color: #fff;           /* 白色字體 */
-    /* 如果要預設位置，可加 position: absolute; left:0; right:0; top:30%; ... */
-  }
-  
-  /* 透明按鈕區塊 (與其他作品卡片一致的遮罩區塊) */
-  .info-overlay {
-    position: absolute;
-    bottom: 0; 
-    left: 0; 
-    right: 0;
-    text-align: center;    /* 按鈕水平置中 */
-    padding-bottom: 1rem;  /* 與底部留距離 */
-    /* 如果你要 hover 後才出現，可加上預設 opacity:0; transform: translateY(20px);
-       再在 .banner:hover .info-overlay 中設置 opacity:1; transform: none; */
-  }
-  
-  /* 透明、無邊框、白字按鈕 */
-  .more-btn {
-    display: inline-block;
-    background: transparent;  /* 透明背景 */
-    border: none;  
-    color: #fff;
-    padding: 0.3rem 1rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .more-btn:hover {
-    background: rgba(255,255,255,0.2); /* 滑鼠移上時略微顯示 */
-    color: #fff;
-  }
-
-
 
 
   /* 進度條父容器 */
@@ -684,15 +636,75 @@ footer .row a {
     background: rgba(255,255,255,0.2);  /* 淡透明背景 */
     border-radius: 6px;
     overflow: hidden;
-    margin: 0 auto;             /* 置中 */
+    margin: 0 auto;          
   }
   
   /* 進度條本體，使用主題橘紅色漸層 */
   .progress-bar {
     height: 100%;
-    width: 1%;                  /* 初始進度 1%，之後用 JS 更新 */
+    width: 1%;                 
     background: linear-gradient(to right, #FF7652, #FFCA9A);
     transition: width 0.4s ease;  /* 平滑過渡 */
   }
+
+
+
+  /* 父容器 .banner.intro-banner：確保 position: relative & z-index */
+.banner.intro-banner {
+    position: relative;
+    z-index: 1; /* 讓這個卡片本身在上一層 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px;
+    margin-right: 8px;
+
+    width: 40%;
+    height: 360px;
+  }
+  
+  /* 介紹文字 (若想一直可見就保持原狀) */
+  .intro-text {
+    text-align: center;
+    color: #fff;
+    /* 若要固定在卡片某處，可加 position: absolute; top/left... */
+  }
+  
+  /* info-overlay：絕對定位在卡片底部，z-index: 2，確保在按鈕可點擊 */
+  .info-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;             /* 讓連結在最上層，能被點擊 */
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    pointer-events: auto;   /* 確保能接收滑鼠/手指事件 */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* 滑鼠移上時，info-overlay 淡入並向上 */
+  .banner:hover .info-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* 連結樣式：可自行微調 */
+  .info-overlay a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255,255,255,0.1);
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+
+  }
+  .info-overlay a:hover {
+    background: rgba(255,255,255,0.3);
+  }
+  
   
   

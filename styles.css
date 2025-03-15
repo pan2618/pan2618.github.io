@@ -599,8 +599,8 @@ footer .row a {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      rgba(255, 118, 82, 0.2),  /* 上方較淺的橘紅 */
-      rgba(255, 118, 82, 0.3)   /* 下方較深的橘紅 */
+      rgba(255, 118, 82, 0.3),  /* 上方較淺的橘紅 */
+      rgba(255, 118, 82, 0.5)   /* 下方較深的橘紅 */
     );
     border-radius: 6px;
     z-index: 1;

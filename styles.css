@@ -581,28 +581,34 @@ footer .row a {
   }
   
   
-  
-  
-  .intro-banner {
-  position: relative;
-  background: url('images/intro-bg.jpg') center/cover no-repeat;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
-}
 
-.intro-banner::before {
+.intro-banner {
+    position: relative;
+    background: url('images/intro-bg.jpg') center/cover no-repeat;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+  }
+  
+  .intro-banner::before {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      rgba(255, 118, 82, 0.4),  /* 上方較淺的橘紅 */
-      rgba(255, 118, 82, 0.3)   /* 下方較深的橘紅 */
+      rgba(255, 118, 82, 0.4),  /* 調高透明度 */
+      rgba(255, 118, 82, 0.5)
     );
     border-radius: 6px;
     z-index: 1;
+  }
+  
+  .intro-banner .intro-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 80%;
   }
   
   

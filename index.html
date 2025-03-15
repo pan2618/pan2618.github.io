@@ -141,8 +141,24 @@
 
         <div class="hero-content text-center text-white">
             <h2>Shuttlecock</h2>
-            <h4 id="hero-description">正在挑戰畫 100 幅畫中...</h4>
-        </div>
+            <h5 class="progress-label">目前進度</h5>
+            <div class="progress-container">
+              <div class="progress-bar" id="myProgressBar"></div>
+            </div>
+          </div>
+          
+          <script>
+            // 更新進度的函式：current 為當前進度，total 為總進度
+            function updateProgress(current, total) {
+              const percent = (current / total) * 100;
+              document.getElementById('myProgressBar').style.width = percent + "%";
+            }
+          
+            // 初始進度設定：例如 1 / 100
+            updateProgress(1, 100);
+          
+          </script>
+          
         
         <div class="social-icons text-center mt-4 fade-in-container" id="social-icons">
             <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-3 fade-in">
@@ -168,13 +184,21 @@
     <section id="my-works">
         <div class="horizontal-banners" id="banner-container">
         
-            <div class="banner intro-banner">
+            <div class="banner intro-banner" style="background-image: url('images/intro-bg.jpg');">
                 <div class="intro-text">
                   <h3 id="intro-title">精選作品</h3>
                   <p id="intro-desc">Select the works from the collection that I am personally satisfied with.</p>
                 </div>
-            </div>
-      
+              
+                <!-- 這裡放「查看更多」按鈕，點擊可在新分頁開啟 Pixiv -->
+                <div class="info-overlay">
+                  <button class="more-btn" onclick="window.open('https://www.pixiv.net/users/102745883', '_blank')">
+                    查看更多
+                  </button>
+                </div>
+              </div>
+              
+
     
           <div class="banner" style="background-image: url('images/screenshot1.png');">
             <div class="info-overlay">

@@ -61,7 +61,7 @@ footer {
     background-size: cover;
     background-position: center;
     transition: background-image 1.5s ease-in-out;
-    animation: gradientShift 65s ease infinite;
+    animation: gradientShift 89s ease infinite;
   }
   
   @keyframes gradientShift {
@@ -601,8 +601,8 @@ footer .row a {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      rgba(255, 118, 82, 0.2),  /* 上方較淺的橘紅 */
-      rgba(255, 118, 82, 0.3)   /* 下方較深的橘紅 */
+        rgba(239, 163, 140, 0.4),
+        rgba(239, 163, 140, 0.6)
     );
     border-radius: 6px;
     z-index: 1;
@@ -624,4 +624,75 @@ footer .row a {
     opacity: 0.5;         /* 視覺上變灰 */
     cursor: not-allowed;
   }
+
+
+
+  /* 讓整個卡片可以跟其他卡片保持相同大小與風格 */
+.banner.intro-banner {
+    position: relative;
+    width: 40%;            /* 依需求調整寬度，或用 flex: 0 0 40% 等方式 */
+    height: 360px;         /* 依需求調整高度 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px;
+    margin-right: 8px;     /* 如果你有多張卡片橫向排列 */
+  }
+  
+  /* 介紹文字 (若想預設一直可見，可用 position: absolute; top: xx%...) */
+  .intro-text {
+    text-align: center;
+    color: #fff;           /* 白色字體 */
+    /* 如果要預設位置，可加 position: absolute; left:0; right:0; top:30%; ... */
+  }
+  
+  /* 透明按鈕區塊 (與其他作品卡片一致的遮罩區塊) */
+  .info-overlay {
+    position: absolute;
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    text-align: center;    /* 按鈕水平置中 */
+    padding-bottom: 1rem;  /* 與底部留距離 */
+    /* 如果你要 hover 後才出現，可加上預設 opacity:0; transform: translateY(20px);
+       再在 .banner:hover .info-overlay 中設置 opacity:1; transform: none; */
+  }
+  
+  /* 透明、無邊框、白字按鈕 */
+  .more-btn {
+    display: inline-block;
+    background: transparent;  /* 透明背景 */
+    border: none;  
+    color: #fff;
+    padding: 0.3rem 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .more-btn:hover {
+    background: rgba(255,255,255,0.2); /* 滑鼠移上時略微顯示 */
+    color: #fff;
+  }
+
+
+
+
+  /* 進度條父容器 */
+.progress-container {
+    width: 240px;               /* 可根據需求調整 */
+    height: 12px;               /* 高度可調 */
+    background: rgba(255,255,255,0.2);  /* 淡透明背景 */
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0 auto;             /* 置中 */
+  }
+  
+  /* 進度條本體，使用主題橘紅色漸層 */
+  .progress-bar {
+    height: 100%;
+    width: 1%;                  /* 初始進度 1%，之後用 JS 更新 */
+    background: linear-gradient(to right, #FF7652, #FFCA9A);
+    transition: width 0.4s ease;  /* 平滑過渡 */
+  }
+  
   

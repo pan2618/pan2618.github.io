@@ -59,3 +59,13 @@ document.getElementById('scrollUp').addEventListener('click', function() {
 document.getElementById('scrollDown').addEventListener('click', function() {
     window.scrollBy({ top: 200, behavior: 'smooth' });
 });
+
+
+function updateProgress(current, total) {
+    const percent = (current / total) * 100;
+    document.getElementById('myProgressBar').style.width = percent + "%";
+  }
+  
+  // 初始設定進度為 1 / 100
+  updateProgress(10, 100);
+  

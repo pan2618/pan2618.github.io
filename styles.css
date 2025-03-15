@@ -597,8 +597,8 @@ footer .row a {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      rgba(255, 118, 82, 0.4),  /* 調高透明度 */
-      rgba(255, 118, 82, 0.5)
+      rgba(255, 118, 82, 0.3),  /* 調高透明度 */
+      rgba(255, 118, 82, 0.4)
     );
     border-radius: 6px;
     z-index: 1;
@@ -610,7 +610,6 @@ footer .row a {
     text-align: center;
     width: 80%;
   }
-  
   
   
 /* 讓文字層在遮罩之上 */

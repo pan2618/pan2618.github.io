@@ -464,11 +464,12 @@ footer .row a {
 
 /* 父容器，可依需求設置背景、內距等 */
 #my-works {
-    position: relative;  /* 讓左右箭頭可絕對定位 */
-    padding: 1rem 0;
-    background: #fff;    /* 若想要深色，可改成 #000 或 #333 */
+    position: relative;
+    padding: 1rem 0 0 0;  
+    background: #fff;
     overflow: hidden;
-  }
+}
+
   
   /* 橫向捲動容器：Flex + overflow-x */
   .horizontal-banners {
@@ -568,7 +569,7 @@ footer .row a {
   /* RWD: 在小螢幕可調整卡片尺寸，避免圖片過度放大模糊 */
   @media (max-width: 768px) {
     .banner {
-      flex: 0 0 45%;  /* 每張卡片佔 70% 螢幕寬度 */
+      flex: 0 0 45%; 
       height: 360px;
     }
   }
@@ -581,35 +582,30 @@ footer .row a {
   }
   
   
-
-.intro-banner {
-    position: relative;
-    background: url('images/intro-bg.jpg') center/cover no-repeat;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-  }
   
-  .intro-banner::before {
+  
+  .intro-banner {
+  position: relative;
+  background: url('images/intro-bg.jpg') center/cover no-repeat;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+}
+
+.intro-banner::before {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      rgba(255, 118, 82, 0.3),  /* 調高透明度 */
-      rgba(255, 118, 82, 0.4)
+      rgba(255, 118, 82, 0.2),  /* 上方較淺的橘紅 */
+      rgba(255, 118, 82, 0.3)   /* 下方較深的橘紅 */
     );
     border-radius: 6px;
     z-index: 1;
   }
   
-  .intro-banner .intro-text {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    width: 80%;
-  }
   
   
 /* 讓文字層在遮罩之上 */

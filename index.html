@@ -133,9 +133,6 @@
                   </li>
                   <!-- 直接呈現三個語言選項 -->
                   <li class="nav-item">
-                    <a class="nav-link text-white language-option" href="#" data-lang="zh">中文</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link text-white language-option" href="#" data-lang="jp">日本語</a>
                   </li>
                   <li class="nav-item">
@@ -336,188 +333,155 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-        // 首次載入顯示 Loading 畫面
+      $(document).ready(function() {
+        // 檢查是否為重新整理（刷新）—若是，清除儲存的語言設定
+        if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+          localStorage.removeItem('language');
+        }
+      
+        // 初始化：若 localStorage 中沒有語言設定，預設為中文；否則讀取保存的語言
+        var currentLanguage = localStorage.getItem('language') || 'zh';
+        applyLanguage(currentLanguage);
+      
+        // Loading 畫面（首次載入）
         setTimeout(function() {
-            $('#loading-overlay').fadeOut(300);
+          $('#loading-overlay').fadeOut(300);
         }, 2500);
-
-        // Navbar 收合 / 展開時，隱藏或顯示社群 icon
+      
+        // Navbar 收合/展開時，隱藏/顯示社群 icon
         $('#navbarNav').on('show.bs.collapse', function () {
-            $('#social-icons').hide();
+          $('#social-icons').hide();
         });
         $('#navbarNav').on('hidden.bs.collapse', function () {
-            $('#social-icons').show();
+          $('#social-icons').show();
         });
-
+      
         // 捲動淡入效果
         $(window).on('scroll', function() {
-            $('.fade-in').each(function() {
+          $('.fade-in').each(function() {
             var elementTop = $(this).offset().top;
             var viewportBottom = $(window).scrollTop() + $(window).height();
             if (elementTop < viewportBottom - 50) {
-                $(this).addClass('fade-in-triggered');
+              $(this).addClass('fade-in-triggered');
             }
-            });
+          });
         });
         $(window).trigger('scroll');
-
-        // 監聽三個語言按鈕（class="language-option"），直接切換到指定語言
+      
+        // 語言切換：監聽所有帶 .language-option 的按鈕
         $('.language-option').click(function(e) {
-            e.preventDefault();
-            var lang = $(this).data('lang');
-
-            // 顯示 Loading 畫面
-            $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
-
-            setTimeout(function() {
-            // 寫入 localStorage
+          e.preventDefault();
+          var lang = $(this).data('lang');
+      
+          // 顯示 Loading 效果
+          $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
+      
+          setTimeout(function() {
+            // 儲存語言設定
             localStorage.setItem('language', lang);
             console.log("切換後語言：" + lang);
-
-            // 根據 lang 更新頁面文字
-            if (lang === 'zh') {
-                // 中文
-                // 品牌名稱
-                $('h2#brand-name').length ? $('h2#brand-name').text('Shuttlecock')
-                : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
-                // 進度標籤
-                $('h5#progress-label').length ? $('h5#progress-label').text('目前進度')
-                : $('h5.progress-label:contains("現在の進捗"), h5.progress-label:contains("Current Progress")').text('目前進度');
-
-                // Nav / Intro-Banner
-                $('nav a[href="about-work.html"]').text('委託牆');
-                $('#intro-title').text('精選作品');
-                $('#intro-desc').text('Select the works from the collection that I am personally satisfied with.');
-
-                // 其他通路 / 周邊商品 / ...
-                $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('其他通路');
-                $('h5:contains("周辺商品"), h5:contains("Merchandise")').text('周邊商品');
-                $('p:contains("説明入力中"), p:contains("Description coming soon")').text('描述輸入中');
-                $('p:contains("説明"), p:contains("Description")').text('描述');
-
-                // Footer - 其他合作 / 與我聯絡 / 其他平台 / 線上商店
-                $('a.footer-link:contains("商業協力"), a.footer-link:contains("Business Cooperation")').text('商業合作');
-                $('a.footer-link:contains("お問い合わせ"), a.footer-link:contains("Contact Me")').text('與我聯絡');
-                $('a.footer-link:contains("開発者を支援する"), a.footer-link:contains("Support Developer")').text('贊助開發者');
-                $('a.footer-link:contains("オンラインショップ"), a.footer-link:contains("Online Shop")').text('線上商店');
-                
-                // 新增：其他合作 / 其他平台
-                $('a.footer-link:contains("Other Collaboration"), a.footer-link:contains("其他合作")').text('其他合作');
-                $('a.footer-link:contains("Other Platforms"), a.footer-link:contains("其他平台")').text('其他平台');
-
-            } else if (lang === 'jp') {
-                // 日文
-                $('h2#brand-name').length ? $('h2#brand-name').text('シャトルコック')
-                : $('h2:contains("Shuttlecock")').text('シャトルコック');
-                $('h5#progress-label').length ? $('h5#progress-label').text('現在の進捗')
-                : $('h5.progress-label:contains("目前進度"), h5.progress-label:contains("Current Progress")').text('現在の進捗');
-
-                $('nav a[href="about-work.html"]').text('委託進捗');
-                $('#intro-title').text('特選作品');
-                $('#intro-desc').text('私が個人的に満足しているコレクションから作品を選んでください。');
-
-                $('h3.text-muted:contains("其他通路"), h3.text-muted:contains("Other Channels")').text('他のチャネル');
-                $('h5:contains("周邊商品"), h5:contains("Merchandise")').text('周辺商品');
-                $('p:contains("描述輸入中"), p:contains("Description coming soon")').text('説明入力中');
-                $('p:contains("描述"), p:contains("Description")').text('説明');
-
-                // Footer
-                $('a.footer-link:contains("商業合作"), a.footer-link:contains("Business Cooperation")').text('商業協力');
-                $('a.footer-link:contains("與我聯絡"), a.footer-link:contains("Contact Me")').text('お問い合わせ');
-                $('a.footer-link:contains("贊助開發者"), a.footer-link:contains("Support Developer")').text('開発者を支援する');
-                $('a.footer-link:contains("線上商店"), a.footer-link:contains("Online Shop")').text('オンラインショップ');
-                
-                // 新增：其他合作 / 其他平台 => 日文
-                $('a.footer-link:contains("其他合作"), a.footer-link:contains("Other Collaboration")').text('他の協力');
-                $('a.footer-link:contains("其他平台"), a.footer-link:contains("Other Platforms")').text('他のプラットフォーム');
-
-            } else if (lang === 'en') {
-                // 英文
-                $('h2#brand-name').length ? $('h2#brand-name').text('Shuttlecock')
-                : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
-                $('h5#progress-label').length ? $('h5#progress-label').text('Current Progress')
-                : $('h5.progress-label:contains("目前進度"), h5.progress-label:contains("現在の進捗")').text('Current Progress');
-
-                $('nav a[href="about-work.html"]').text('Commission Status Wall');
-                $('#intro-title').text('Featured Works');
-                $('#intro-desc').text('Select the works from the collection that I am personally satisfied with.');
-
-                $('h3.text-muted:contains("其他通路"), h3.text-muted:contains("他のチャネル")').text('Other Channels');
-                $('h5:contains("周邊商品"), h5:contains("周辺商品")').text('Merchandise');
-                $('p:contains("描述輸入中"), p:contains("説明入力中")').text('Description coming soon');
-                $('p:contains("描述"), p:contains("説明")').text('Description');
-
-                // Footer
-                $('a.footer-link:contains("商業合作"), a.footer-link:contains("商業協力")').text('Business Cooperation');
-                $('a.footer-link:contains("與我聯絡"), a.footer-link:contains("お問い合わせ")').text('Contact Me');
-                $('a.footer-link:contains("贊助開發者"), a.footer-link:contains("開発者を支援する")').text('Support Developer');
-                $('a.footer-link:contains("線上商店"), a.footer-link:contains("オンラインショップ")').text('Online Shop');
-                
-                // 新增：其他合作 / 其他平台 => 英文
-                $('a.footer-link:contains("其他合作"), a.footer-link:contains("Other Collaboration")').text('Other Collaboration');
-                $('a.footer-link:contains("其他平台"), a.footer-link:contains("Other Platforms")').text('Other Platforms');
-            }
-
+      
+            // 更新頁面文字
+            applyLanguage(lang);
+      
+            // 收起 Navbar（若在手機展開狀態）
             $('#navbarNav').collapse('hide');
             setTimeout(function() {
-                $('#loading-overlay').fadeOut(300);
+              $('#loading-overlay').fadeOut(300);
             }, 1500);
-            }, 1500);
+          }, 1500);
         });
-
-        // 初始化：根據 localStorage 的語言狀態更新頁面文字
-        var savedLanguage = localStorage.getItem('language') || 'zh';
-        if (savedLanguage === 'jp') {
-            // 日文初始化
-            $('h2#brand-name').length ? $('h2#brand-name').text('シャトルコック') : $('h2:contains("Shuttlecock")').text('シャトルコック');
-            $('h5#progress-label').length ? $('h5#progress-label').text('現在の進捗') : $('h5.progress-label:contains("目前進度")').text('現在の進捗');
+      
+        // 定義一個函式根據語言更新頁面文字
+        function applyLanguage(lang) {
+          if (lang === 'zh') {
+            // 中文
+            $('h2#brand-name').length 
+              ? $('h2#brand-name').text('Shuttlecock')
+              : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
+            $('h5#progress-label').length 
+              ? $('h5#progress-label').text('目前進度')
+              : $('h5.progress-label:contains("現在の進捗"), h5.progress-label:contains("Current Progress")').text('目前進度');
+      
+            $('nav a[href="about-work.html"]').text('委託牆');
+            $('#intro-title').text('精選作品');
+            $('#intro-desc').text('Select the works from the collection that I am personally satisfied with.');
+      
+            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('其他通路');
+            $('h5:contains("周邊商品"), h5:contains("Merchandise")').text('周邊商品');
+            $('p:contains("説明入力中"), p:contains("Description coming soon")').text('描述輸入中');
+            $('p:contains("説明"), p:contains("Description")').text('描述');
+      
+            $('a.footer-link:contains("商業協力"), a.footer-link:contains("Business Cooperation")').text('商業合作');
+            $('a.footer-link:contains("お問い合わせ"), a.footer-link:contains("Contact Me")').text('與我聯絡');
+            $('a.footer-link:contains("開発者を支援する"), a.footer-link:contains("Support Developer")').text('贊助開發者');
+            $('a.footer-link:contains("オンラインショップ"), a.footer-link:contains("Online Shop")').text('線上商店');
+            $('a.footer-link:contains("Other Collaboration"), a.footer-link:contains("其他合作")').text('其他合作');
+            $('a.footer-link:contains("Other Platforms"), a.footer-link:contains("其他平台")').text('其他平台');
+          } else if (lang === 'jp') {
+            // 日文
+            $('h2#brand-name').length 
+              ? $('h2#brand-name').text('シャトルコック')
+              : $('h2:contains("Shuttlecock")').text('シャトルコック');
+            $('h5#progress-label').length 
+              ? $('h5#progress-label').text('現在の進捗')
+              : $('h5.progress-label:contains("目前進捗"), h5.progress-label:contains("Current Progress")').text('現在の進捗');
+      
             $('nav a[href="about-work.html"]').text('私の作品');
             $('#intro-title').text('特選作品');
             $('#intro-desc').text('私が個人的に満足しているコレクションから作品を選んでください。');
-            $('h3.text-muted:contains("其他通路")').text('他のチャネル');
-            $('h5:contains("周邊商品")').text('周辺商品');
-            $('p:contains("描述輸入中")').text('説明入力中');
-            $('p:contains("描述")').text('説明');
-            $('a.footer-link:contains("商業合作")').text('商業協力');
-            $('a.footer-link:contains("與我聯絡")').text('お問い合わせ');
-            $('a.footer-link:contains("贊助開發者")').text('開発者を支援する');
-            $('a.footer-link:contains("線上商店")').text('オンラインショップ');
-            
-            // 其他合作 / 其他平台 => 日文
-            $('a.footer-link:contains("其他合作")').text('他の協力');
-            $('a.footer-link:contains("其他平台")').text('他のプラットフォーム');
-
-        } else if (savedLanguage === 'en') {
-            // 英文初始化
-            $('h2#brand-name').length ? $('h2#brand-name').text('Shuttlecock') : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
-            $('h5#progress-label').length ? $('h5#progress-label').text('Current Progress') : $('h5.progress-label:contains("目前進度")').text('Current Progress');
-            $('nav a[href="about-work.html"]').text('My Works');
+      
+            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('他のチャネル');
+            $('h5:contains("周辺商品"), h5:contains("Merchandise")').text('周辺商品');
+            $('p:contains("描述輸入中"), p:contains("Description coming soon")').text('説明入力中');
+            $('p:contains("描述"), p:contains("Description")').text('説明');
+      
+            $('a.footer-link:contains("商業協力"), a.footer-link:contains("Business Cooperation")').text('商業協力');
+            $('a.footer-link:contains("お問い合わせ"), a.footer-link:contains("Contact Me")').text('お問い合わせ');
+            $('a.footer-link:contains("開発者を支援する"), a.footer-link:contains("Support Developer")').text('開発者を支援する');
+            $('a.footer-link:contains("オンラインショップ"), a.footer-link:contains("Online Shop")').text('オンラインショップ');
+            $('a.footer-link:contains("其他合作"), a.footer-link:contains("Other Collaboration")').text('他の協力');
+            $('a.footer-link:contains("其他平台"), a.footer-link:contains("Other Platforms")').text('他のプラットフォーム');
+          } else if (lang === 'en') {
+            // 英文
+            $('h2#brand-name').length 
+              ? $('h2#brand-name').text('Shuttlecock')
+              : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
+            $('h5#progress-label').length 
+              ? $('h5#progress-label').text('Current Progress')
+              : $('h5.progress-label:contains("目前進度"), h5.progress-label:contains("現在の進捗")').text('Current Progress');
+      
+            $('nav a[href="about-work.html"]').text('Commission Status Wall');
             $('#intro-title').text('Featured Works');
             $('#intro-desc').text('Select the works from the collection that I am personally satisfied with.');
-            $('h3.text-muted:contains("其他通路")').text('Other Channels');
-            $('h5:contains("周邊商品")').text('Merchandise');
-            $('p:contains("描述輸入中")').text('Description coming soon');
-            $('p:contains("描述")').text('Description');
-            $('a.footer-link:contains("商業合作")').text('Business Cooperation');
-            $('a.footer-link:contains("與我聯絡")').text('Contact Me');
-            $('a.footer-link:contains("贊助開發者")').text('Support Developer');
-            $('a.footer-link:contains("線上商店")').text('Online Shop');
-            
-            // 其他合作 / 其他平台 => 英文
-            $('a.footer-link:contains("其他合作")').text('Other Collaboration');
-            $('a.footer-link:contains("其他平台")').text('Other Platforms');
+      
+            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('Other Channels');
+            $('h5:contains("周邊商品"), h5:contains("Merchandise")').text('Merchandise');
+            $('p:contains("描述輸入中"), p:contains("説明入力中")').text('Description coming soon');
+            $('p:contains("描述"), p:contains("説明")').text('Description');
+      
+            $('a.footer-link:contains("商業協力"), a.footer-link:contains("商業協力")').text('Business Cooperation');
+            $('a.footer-link:contains("與我聯絡"), a.footer-link:contains("お問い合わせ")').text('Contact Me');
+            $('a.footer-link:contains("贊助開發者"), a.footer-link:contains("開発者を支援する")').text('Support Developer');
+            $('a.footer-link:contains("線上商店"), a.footer-link:contains("Online Shop")').text('Online Shop');
+            $('a.footer-link:contains("其他合作"), a.footer-link:contains("Other Collaboration")').text('Other Collaboration');
+            $('a.footer-link:contains("其他平台"), a.footer-link:contains("Other Platforms")').text('Other Platforms');
+          }
         }
-        
+      
+        // 初始化：根據 localStorage 語言更新頁面文字
+        var savedLanguage = localStorage.getItem('language') || 'zh';
+        applyLanguage(savedLanguage);
+      
+        // 淡入效果
         $('.fade-in').each(function(index) {
-            const $el = $(this);
-            setTimeout(function() {
+          const $el = $(this);
+          setTimeout(function() {
             $el.addClass('fade-in-triggered');
-            }, index * 600);
+          }, index * 600);
         });
-        });
+      });
     </script>
-
-    
+      
 </body>
 </html>

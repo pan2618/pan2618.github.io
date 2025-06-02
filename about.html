@@ -59,10 +59,17 @@ section{padding:2.5rem 0} /* This is about.html's original style */
 
 /* ---------- 6.  Skills ---------- */
 #skills-title{font-weight:800} /* This is about.html's original style */
-.skills-grid{ /* This is about.html's original style */
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:1.5rem;
+.skills-grid {
+    display: grid;
+    /* 手機版預設：2 欄 */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+/* 平板及更大螢幕，允許 auto-fit 自動決定欄數 (可能是 3、4 或更多欄) */
+@media (min-width: 768px) { /* Bootstrap 的 'md' 中斷點，可視需要調整 */
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
 }
 .skill-item{ /* This is about.html's original style */
     background:var(--card);
@@ -159,6 +166,35 @@ footer a:hover{text-decoration:underline} /* This is about.html's original style
 .navbar .nav-link:not(.disabled):hover {
     color: var(--primary) !important; /* 這是你原有的 hover 顏色 */
 }
+
+/* ... (your existing CSS rules) ... */
+
+/* ---------- Styles for Fanbox Promo Card ---------- */
+#fanbox-promo-card #fanbox_promo_title {
+  color: var(--primary); /* Orange color from your CSS variable */
+  font-weight: 700;      /* Make it a bit bolder, adjust as needed */
+  /* You can also adjust font-size here if needed, e.g., font-size: 1.6rem; */
+}
+
+#fanbox-promo-card #fanbox_promo_button {
+  background-color: #fff;            /* White background */
+  color: var(--primary);             /* Orange text */
+  border: 1px solid var(--primary);  /* Orange border to create the "box" effect */
+  /* The following are often inherited from .btn, but explicitly set if needed */
+  /* padding: .375rem .75rem; */    /* Default Bootstrap button padding */
+  /* border-radius: .25rem; */     /* Default Bootstrap button border radius */
+  font-weight: 500;                /* Adjust font weight as desired */
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; /* Smooth transition */
+}
+
+#fanbox-promo-card #fanbox_promo_button:hover,
+#fanbox-promo-card #fanbox_promo_button:focus { /* Added :focus for accessibility */
+  background-color: var(--primary);  /* Orange background on hover/focus */
+  color: #fff;                     /* White text on hover/focus */
+  border-color: var(--primary);      /* Keep border orange or make it match bg */
+}
+
+/* ... (rest of your CSS rules) ... */
 </style>
 </head>
 
@@ -230,8 +266,13 @@ footer a:hover{text-decoration:underline} /* This is about.html's original style
 </section>
 
 <section class="container">
-  <div id="about-card" class="card p-4 fade-in"></div>
+  <div id="fanbox-promo-card" class="card p-4 fade-in text-center">
+    <h5 id="fanbox_promo_title">第一次角色投票已開放</h5>
+    <p id="fanbox_promo_subtitle">請創作者喝杯咖啡(｡・ω・｡)</p>
+    <a href="https://kevin0826.fanbox.cc/" target="_blank" rel="noopener noreferrer" class="btn" id="fanbox_promo_button">查看詳情</a>
+  </div>
 </section>
+
 
     <footer class="footer bg-dark text-white text-center py-10">
       <div class="container">
@@ -382,7 +423,7 @@ $(document).ready(function() {
             $('#about_nav_wip').text('準備中');
             $('#about_main_title').text('私について');
             $('#about_main_p1').text('こんにちは、Shuttlecockです。物語と絵画を愛するクリエイターです。幼い頃から文字と映像に想像力を膨らませ、物語と視覚の間を行き来し、筆から生まれるキャラクターやシーンを通じて感情と温もりを伝えています。');
-            $('#about_main_p2').text('私の作品は小説、オリジナルイラスト、マルチメディアプロジェクトに及び、多くのオンラインプラットフォームで安定したフォロワーを獲得しています。私の創作に興味があれば、以下のリンクからお気軽にご連絡ください！');
+            $('#about_main_p2').text('私の作品は小説、オリジナルイラスト、マルチメディアプロジェクトに及び。私の創作に興味があれば、以下のリンクからお気軽にご連絡ください！');
             // $('#about_skills_title').text('私のスキル');
             $('#about_skill_novels').text('小説作品'); // Needs Japanese translation
             $('#about_skill_digital').text('デジタルプロジェクト');

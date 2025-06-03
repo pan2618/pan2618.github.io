@@ -361,27 +361,27 @@
 
         // 語言切換：監聽所有帶 .language-option 的按鈕
         $('.language-option').click(function (e) {
-          e.preventDefault();
-          var lang = $(this).data('lang');
+        e.preventDefault();
+        var lang = $(this).data('lang');
 
-          // 顯示 Loading 效果
-          $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
+        $('#loading-overlay').css('visibility', 'visible').fadeIn(100); // Quicker fade in
+
+        setTimeout(function () {
+          localStorage.setItem('language', lang);
+          console.log("切換後語言：" + lang);
+          applyLanguage(lang);
+          $('#navbarNav').collapse('hide');
+          
+          // Ensure fade-in animations are re-triggered after language change if necessary
+          // For simplicity, just re-trigger them. For complex sites, you might need more nuanced logic.
+          $('.fade-in').removeClass('fade-in-triggered').css('opacity', 0); // Reset fade-in elements
+          triggerFadeIn(); // Re-apply fade-in based on current scroll
 
           setTimeout(function () {
-            // 儲存語言設定
-            localStorage.setItem('language', lang);
-            console.log("切換後語言：" + lang);
-
-            // 更新頁面文字
-            applyLanguage(lang);
-
-            // 收起 Navbar（若在手機展開狀態）
-            $('#navbarNav').collapse('hide');
-            setTimeout(function () {
-              $('#loading-overlay').fadeOut(300);
-            }, 1500);
-          }, 1500);
-        });
+            $('#loading-overlay').fadeOut(300);
+          }, 500); // Reduced delay
+        }, 500); // Reduced delay
+      });
 
         // 定義一個函式根據語言更新頁面文字
               function applyLanguage(lang) {

@@ -324,154 +324,192 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-      $(document).ready(function () {
-        // 檢查是否為重新整理（刷新）—若是，清除儲存的語言設定
-        if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-          localStorage.removeItem('language');
-        }
-
-        // 初始化：若 localStorage 中沒有語言設定，預設為中文；否則讀取保存的語言
-        var currentLanguage = localStorage.getItem('language') || 'zh';
-        applyLanguage(currentLanguage);
-
-        // Loading 畫面（首次載入）
-        setTimeout(function () {
+        $(document).ready(function () {
+      // 檢查是否為重新整理（刷新）— User explicitly set it, so we keep it.
+      // if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      // localStorage.removeItem('language');
+      // }
+  
+      // 初始化：若 localStorage 中沒有語言設定，預設為中文；否則讀取保存的語言
+      var currentLanguage = localStorage.getItem('language') || 'zh';
+      applyLanguage(currentLanguage); // Apply initial language based on localStorage or default
+  
+      // Loading 畫面（首次載入） - Using slightly reduced time from your modified version
+      setTimeout(function () {
           $('#loading-overlay').fadeOut(300);
-        }, 2500);
-
-        // Navbar 收合/展開時，隱藏/顯示社群 icon
-        $('#navbarNav').on('show.bs.collapse', function () {
+      }, 1000); // Original was 2500, modified was 1000
+  
+      // Navbar 收合/展開時，隱藏/顯示社群 icon
+      $('#navbarNav').on('show.bs.collapse', function () {
           $('#social-icons').hide();
-        });
-        $('#navbarNav').on('hidden.bs.collapse', function () {
+      });
+      $('#navbarNav').on('hidden.bs.collapse', function () {
           $('#social-icons').show();
-        });
-
-        // 捲動淡入效果
-        $(window).on('scroll', function () {
+      });
+  
+      // 捲動淡入效果 - Encapsulated function
+      function triggerFadeIn() {
           $('.fade-in').each(function () {
-            var elementTop = $(this).offset().top;
-            var viewportBottom = $(window).scrollTop() + $(window).height();
-            if (elementTop < viewportBottom - 50) {
-              $(this).addClass('fade-in-triggered');
-            }
+              var elementTop = $(this).offset().top;
+              var viewportBottom = $(window).scrollTop() + $(window).height();
+              if (elementTop < viewportBottom - 50) {
+                  $(this).addClass('fade-in-triggered');
+              }
           });
-        });
-        $(window).trigger('scroll');
-
-        // 語言切換：監聽所有帶 .language-option 的按鈕
-        $('.language-option').click(function (e) {
+      }
+  
+      $(window).on('scroll', triggerFadeIn);
+      triggerFadeIn(); // Initial check on load
+  
+      // 語言切換：監聽所有帶 .language-option 的按鈕
+      $('.language-option').click(function (e) {
           e.preventDefault();
           var lang = $(this).data('lang');
-
-          // 顯示 Loading 效果
-          $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
-
+  
+          // 顯示 Loading 效果 (quicker fade-in)
+          $('#loading-overlay').css('visibility', 'visible').fadeIn(100);
+  
           setTimeout(function () {
-            // 儲存語言設定
-            localStorage.setItem('language', lang);
-            console.log("切換後語言：" + lang);
-
-            // 更新頁面文字
-            applyLanguage(lang);
-
-            // 收起 Navbar（若在手機展開狀態）
-            $('#navbarNav').collapse('hide');
-            setTimeout(function () {
-              $('#loading-overlay').fadeOut(300);
-            }, 1500);
-          }, 1500);
-        });
-
-        // 定義一個函式根據語言更新頁面文字
-        function applyLanguage(lang) {
-          if (lang === 'zh') {
-            // 中文
-            $('h2#brand-name').length
-              ? $('h2#brand-name').text('Shuttlecock')
-              : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
-            $('h5#progress-label').length
-              ? $('h5#progress-label').text('目前進度')
-              : $('h5.progress-label:contains("現在の進捗"), h5.progress-label:contains("Current Progress")').text('目前進度');
-
-            $('nav a[href="about-work.html"]').text('委託牆');
-            $('#intro-title').text('精選作品');
-            $('#intro-desc').text('Select the works from the collection that I am personally satisfied with.');
-
-            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('其他通路');
-            $('h5:contains("周邊商品"), h5:contains("Merchandise")').text('周邊商品');
-            $('p:contains("説明入力中"), p:contains("Description coming soon")').text('描述輸入中');
-            $('p:contains("説明"), p:contains("Description")').text('描述');
-
-            $('a.footer-link:contains("商業協力"), a.footer-link:contains("Business Cooperation")').text('商業合作');
-            $('a.footer-link:contains("お問い合わせ"), a.footer-link:contains("Contact Me")').text('與我聯絡');
-            $('a.footer-link:contains("開発者を支援する"), a.footer-link:contains("Support Developer")').text('贊助開發者');
-            $('a.footer-link:contains("オンラインショップ"), a.footer-link:contains("Online Shop")').text('線上商店');
-            $('a.footer-link:contains("Other Collaboration"), a.footer-link:contains("其他合作")').text('其他合作');
-            $('a.footer-link:contains("Other Platforms"), a.footer-link:contains("其他平台")').text('其他平台');
-          } else if (lang === 'jp') {
-            // 日文
-            $('h2#brand-name').length
-              ? $('h2#brand-name').text('シャトルコック')
-              : $('h2:contains("Shuttlecock")').text('シャトルコック');
-            $('h5#progress-label').length
-              ? $('h5#progress-label').text('現在の進捗')
-              : $('h5.progress-label:contains("目前進捗"), h5.progress-label:contains("Current Progress")').text('現在の進捗');
-
-            $('nav a[href="about-work.html"]').text('私の作品');
-            $('#intro-title').text('特選作品');
-            $('#intro-desc').text('私が個人的に満足しているコレクションから作品を選んでください。');
-
-            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('他のチャネル');
-            $('h5:contains("周辺商品"), h5:contains("Merchandise")').text('周辺商品');
-            $('p:contains("描述輸入中"), p:contains("Description coming soon")').text('説明入力中');
-            $('p:contains("描述"), p:contains("Description")').text('説明');
-
-            $('a.footer-link:contains("商業協力"), a.footer-link:contains("Business Cooperation")').text('商業協力');
-            $('a.footer-link:contains("お問い合わせ"), a.footer-link:contains("Contact Me")').text('お問い合わせ');
-            $('a.footer-link:contains("開発者を支援する"), a.footer-link:contains("Support Developer")').text('開発者を支援する');
-            $('a.footer-link:contains("オンラインショップ"), a.footer-link:contains("Online Shop")').text('オンラインショップ');
-            $('a.footer-link:contains("其他合作"), a.footer-link:contains("Other Collaboration")').text('他の協力');
-            $('a.footer-link:contains("其他平台"), a.footer-link:contains("Other Platforms")').text('他のプラットフォーム');
-          } else if (lang === 'en') {
-            // 英文
-            $('h2#brand-name').length
-              ? $('h2#brand-name').text('Shuttlecock')
-              : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
-            $('h5#progress-label').length
-              ? $('h5#progress-label').text('Current Progress')
-              : $('h5.progress-label:contains("目前進度"), h5.progress-label:contains("現在の進捗")').text('Current Progress');
-
-            $('nav a[href="about-work.html"]').text('Commission Status Wall');
-            $('#intro-title').text('Featured Works');
-            $('#intro-desc').text('Select the works from the collection that I am personally satisfied with.');
-
-            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('Other Channels');
-            $('h5:contains("周邊商品"), h5:contains("Merchandise")').text('Merchandise');
-            $('p:contains("描述輸入中"), p:contains("説明入力中")').text('Description coming soon');
-            $('p:contains("描述"), p:contains("説明")').text('Description');
-
-            $('a.footer-link:contains("商業協力"), a.footer-link:contains("商業協力")').text('Business Cooperation');
-            $('a.footer-link:contains("與我聯絡"), a.footer-link:contains("お問い合わせ")').text('Contact Me');
-            $('a.footer-link:contains("贊助開發者"), a.footer-link:contains("開発者を支援する")').text('Support Developer');
-            $('a.footer-link:contains("線上商店"), a.footer-link:contains("Online Shop")').text('Online Shop');
-            $('a.footer-link:contains("其他合作"), a.footer-link:contains("Other Collaboration")').text('Other Collaboration');
-            $('a.footer-link:contains("其他平台"), a.footer-link:contains("Other Platforms")').text('Other Platforms');
+              // 儲存語言設定
+              localStorage.setItem('language', lang);
+              console.log("切換後語言：" + lang);
+  
+              // 更新頁面文字
+              applyLanguage(lang);
+  
+              // 收起 Navbar（若在手機展開狀態）
+              $('#navbarNav').collapse('hide');
+  
+              // Reset and re-trigger fade-in animations after language change
+              $('.fade-in').removeClass('fade-in-triggered').css('opacity', 0); // Reset fade-in elements
+              triggerFadeIn(); // Re-apply fade-in based on current scroll and for newly visible elements
+  
+              setTimeout(function () {
+                  $('#loading-overlay').fadeOut(300);
+              }, 500); // Reduced delay
+          }, 500); // Reduced delay
+      });
+  
+      // 定義一個函式根據語言更新頁面文字 (New version from your modified code)
+      function applyLanguage(lang) {
+          let translations = {
+              zh: {
+                  "loading-text": "載入中...",
+                  "nav-home": "首頁",
+                  "nav-commission-wall": "委託牆", // Assuming ID for: nav a[href="about-work.html"]
+                  "nav-novels": "小說集",
+                  "nav-about-me": "關於我",
+                  "hero-main-title": "Shuttlecock", // Assuming ID for: h2#brand-name or h2:contains(...)
+                  "hero-progress-label": "目前進度", // Assuming ID for: h5#progress-label or h5.progress-label
+                  "intro-title": "精選作品",
+                  "intro-desc": "從個人滿意的收藏中挑選出的作品。", // Note: Original had English text here for 'zh'. I'm using your new Chinese text.
+                  "intro-banner-more": "更多",
+                  "other-channels-heading": "其他通路", // Assuming ID for: h3.text-muted
+                  // Merchandise and description items from original need IDs in HTML
+                  // For example, if you have <h5 id="merch-title">周邊商品</h5>
+                  "merch-title": "周邊商品", // Example, ensure HTML has id="merch-title"
+                  "merch-desc": "描述輸入中",   // Example, ensure HTML has id="merch-desc"
+                  "footer-copyright": "© 2025 Shuttlecock 網站",
+                  "footer-link-business-coop": "商業合作", // Assuming ID for: a.footer-link:contains("商業協力")
+                  "footer-link-contact-me": "與我聯絡",
+                  "footer-link-support-dev": "贊助開發者", // Assuming ID for: a.footer-link:contains("開発者を支援する")
+                  "footer-link-online-shop": "線上商店",
+                  "footer-link-other-collab": "其他合作",
+                  "footer-link-other-platforms": "其他平台"
+              },
+              jp: {
+                  "loading-text": "読み込み中...",
+                  "nav-home": "ホーム",
+                  "nav-commission-wall": "私の作品", // Assuming ID for: nav a[href="about-work.html"]
+                  "nav-novels": "小説集",
+                  "nav-about-me": "私について",
+                  "hero-main-title": "シャトルコック", // Assuming ID for: h2#brand-name or h2:contains(...)
+                  "hero-progress-label": "現在の進捗", // Assuming ID for: h5#progress-label or h5.progress-label
+                  "intro-title": "特選作品",
+                  "intro-desc": "私が個人的に満足しているコレクションから作品を選んでください。",
+                  "intro-banner-more": "もっと見る",
+                  "other-channels-heading": "他のチャネル", // Assuming ID for: h3.text-muted
+                  "merch-title": "周辺商品", // Example
+                  "merch-desc": "説明入力中",   // Example
+                  "footer-copyright": "© 2025 Shuttlecock ウェブサイト",
+                  "footer-link-business-coop": "商業協力", // Assuming ID for: a.footer-link:contains("商業協力")
+                  "footer-link-contact-me": "お問い合わせ",
+                  "footer-link-support-dev": "開発者を支援する", // Assuming ID for: a.footer-link:contains("開発者を支援する")
+                  "footer-link-online-shop": "オンラインショップ",
+                  "footer-link-other-collab": "他の協力",
+                  "footer-link-other-platforms": "他のプラットフォーム"
+              },
+              en: {
+                  "loading-text": "LOADING...",
+                  "nav-home": "Home",
+                  "nav-commission-wall": "Commission Status Wall", // Assuming ID for: nav a[href="about-work.html"]
+                  "nav-novels": "Novels",
+                  "nav-about-me": "About Me",
+                  "hero-main-title": "Shuttlecock", // Assuming ID for: h2#brand-name or h2:contains(...)
+                  "hero-progress-label": "Current Progress", // Assuming ID for: h5#progress-label or h5.progress-label
+                  "intro-title": "Featured Works",
+                  "intro-desc": "Select the works from the collection that I am personally satisfied with.",
+                  "intro-banner-more": "More",
+                  "other-channels-heading": "Other Channels", // Assuming ID for: h3.text-muted
+                  "merch-title": "Merchandise", // Example
+                  "merch-desc": "Description coming soon",   // Example
+                  "footer-copyright": "© 2025 Shuttlecock website",
+                  "footer-link-business-coop": "Business Cooperation", // Assuming ID for: a.footer-link:contains("商業協力")
+                  "footer-link-contact-me": "Contact Me",
+                  "footer-link-support-dev": "Support Developer", // Assuming ID for: a.footer-link:contains("開発者を支援する")
+                  "footer-link-online-shop": "Online Shop",
+                  "footer-link-other-collab": "Other Collaboration",
+                  "footer-link-other-platforms": "Other Platforms"
+              }
+          };
+  
+          // Your original applyLanguage had specific handling for brand-name and progress-label
+          // This new structure assumes these also have unique IDs.
+          // For example, if h2#brand-name is what you used, its ID in the translations object would be "brand-name".
+          // I've used "hero-main-title" and "hero-progress-label" as placeholders for these.
+          // Adjust the IDs in the `translations` object and your HTML accordingly.
+  
+          // Similarly for elements like:
+          // $('h5:contains("周邊商品"), h5:contains("Merchandise")').text(...)
+          // $('p:contains("説明入力中"), p:contains("Description coming soon")').text(...)
+          // These now need unique IDs in your HTML to be targeted by the loop below.
+          // I've added "merch-title" and "merch-desc" as examples in the translations.
+          // You'll need to ensure your HTML elements have these IDs.
+  
+          // Footer links were also more complex: $('a.footer-link:contains("商業協力"), a.footer-link:contains("Business Cooperation")')
+          // These now need unique IDs like "footer-link-business-coop".
+  
+          let currentTranslations = translations[lang];
+          if (currentTranslations) {
+              for (const id in currentTranslations) {
+                  // Check if element with ID exists before trying to set text
+                  if ($('#' + id).length) {
+                      $('#' + id).text(currentTranslations[id]);
+                  } else {
+                      // console.warn("Element with ID '" + id + "' not found for translation.");
+                  }
+              }
+              // Update document language attribute
+              $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang);
           }
-        }
-
-        // 初始化：根據 localStorage 語言更新頁面文字
-        var savedLanguage = localStorage.getItem('language') || 'zh';
-        applyLanguage(savedLanguage);
-
-        // 淡入效果
-        $('.fade-in').each(function (index) {
+      }
+  
+      // 初始化：根據 localStorage 語言更新頁面文字 (already called at the top)
+      // var savedLanguage = localStorage.getItem('language') || 'zh';
+      // applyLanguage(savedLanguage); // This would be redundant if called again here
+  
+      // 原本的初始淡入效果 (staggered) - This provides a different initial animation
+      $('.fade-in').each(function (index) {
           const $el = $(this);
           setTimeout(function () {
-            $el.addClass('fade-in-triggered');
-          }, index * 600);
-        });
+              $el.addClass('fade-in-triggered');
+          }, index * 200); // Adjusted timing a bit, original was 600, can be reverted
       });
+  
+      // Ensure elements already in view on load are also processed by triggerFadeIn,
+      // especially if the staggered animation above doesn't cover all initially visible .fade-in items.
+      // $(window).trigger('scroll'); // Already called by triggerFadeIn() itself after definition
+  });
     </script>
 
 </body>

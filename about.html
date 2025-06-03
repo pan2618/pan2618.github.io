@@ -26,90 +26,85 @@ body{
     background:#fff;
     color:#333;
 }
-/* 可選：整頁背景圖 */
 body.with-bg{
     background:#fff url("") center/cover no-repeat fixed;
 }
 body.with-bg::before{
     content:"";
     position:fixed;inset:0;
-    background:inherit;            /* 套用 body 背景 */
+    background:inherit;      /* 套用 body 背景 */
     z-index:-1;
 }
 
 /* ---------- 3.  導覽列 ---------- */
-.navbar{ /* This is about.html's original navbar style */
+.navbar{
     background:var(--dark);
 }
-.navbar-brand, /* This is about.html's original navbar style */
-.navbar .nav-link{color:#fff!important;font-weight:600} /* This is about.html's original navbar style */
-.navbar .nav-link:not(.disabled):hover{color:var(--primary)!important} /* This is about.html's original navbar style */
-.navbar-toggler-icon{ /* This is about.html's original navbar style */
+.navbar-brand,
+.navbar .nav-link{color:#fff!important;font-weight:600}
+.navbar .nav-link:not(.disabled):hover{color:var(--primary)!important}
+.navbar-toggler-icon{
     background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ffffff' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
 }
 
-body{padding-top:56px}            /* 固定導覽列高度 - This is about.html's original style */
+body{padding-top:56px}      /* 固定導覽列高度 */
 
 /* ---------- 4.  區塊間距 ---------- */
-section{padding:2.5rem 0} /* This is about.html's original style */
-.card{border:none;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.05)} /* This is about.html's original style */
+section{padding:2.5rem 0}
+.card{border:none;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.05)}
 
 /* ---------- 5.  About ---------- */
-#about-card h1{color:var(--primary);font-size:2rem;font-weight:800} /* This is about.html's original style */
+#about-card h1{color:var(--primary);font-size:2rem;font-weight:800}
 
 /* ---------- 6.  Skills ---------- */
-#skills-title{font-weight:800} /* This is about.html's original style */
+#skills-title{font-weight:800}
 .skills-grid {
     display: grid;
-    /* 手機版預設：2 欄 */
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
 }
-/* 平板及更大螢幕，允許 auto-fit 自動決定欄數 (可能是 3、4 或更多欄) */
-@media (min-width: 768px) { /* Bootstrap 的 'md' 中斷點，可視需要調整 */
+@media (min-width: 768px) {
     .skills-grid {
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     }
 }
-.skill-item{ /* This is about.html's original style */
+.skill-item{
     background:var(--card);
     border-radius:12px;
     padding:1.5rem .5rem;
     text-align:center;
     transition:.3s;
 }
-.skill-item:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(0,0,0,.1)} /* This is about.html's original style */
-.skill-icon{color:var(--primary);font-size:2rem;margin-bottom:.5rem} /* This is about.html's original style */
-.skill-label{color:var(--grey);margin-top:.5rem;font-weight:500} /* This is about.html's original style */
-.skill-circle{width:110px;height:110px;margin:0 auto;position:relative} /* This is about.html's original style */
-.skill-circle .progressbar-text{ /* This is about.html's original style */
+.skill-item:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(0,0,0,.1)}
+.skill-icon{color:var(--primary);font-size:2rem;margin-bottom:.5rem}
+.skill-label{color:var(--grey);margin-top:.5rem;font-weight:500}
+.skill-circle{width:110px;height:110px;margin:0 auto;position:relative}
+.skill-circle .progressbar-text{
     position:absolute;inset:0;
     display:flex;align-items:center;justify-content:center;
     font-weight:700;font-size:1.3rem;color:#000;
 }
 
 /* ---------- 7.  Footer ---------- */
-footer{ /* This is about.html's original footer style */
+footer{
     background:var(--dark);
     color:#ccc;
     text-align:center;
-    padding:2rem 0; /* about.html uses 2rem, index.html footer from previous might be py-10 or py-3 */
+    padding:2rem 0; /* about.html uses 2rem */
     font-size:.9rem
 }
-footer a{color:var(--primary);margin:0 .3rem;text-decoration:none} /* This is about.html's original style */
-footer a:hover{text-decoration:underline} /* This is about.html's original style */
+footer a{color:var(--primary);margin:0 .3rem;text-decoration:none}
+footer a:hover{text-decoration:underline}
 
-/* 卡片（About、Skill item）統一底色 & 毛玻璃 */
-.card, /* This is about.html's original style */
-.skill-item{ /* This is about.html's original style, note .card was defined earlier with different properties */
-  background:rgba(250, 246, 246, 0.55);    /* 55% 透明白 */
-  backdrop-filter:blur(15px);        /* 毛玻璃 */
+.card,
+.skill-item{
+  background:rgba(250, 246, 246, 0.55);  /* 55% 透明白 */
+  backdrop-filter:blur(15px);      /* 毛玻璃 */
   -webkit-backdrop-filter:blur(35px); /* Safari */
   border:1px solid rgba(255,255,255,.35);
   box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* === CSS ADDED FROM INDEX.HTML FOR LOADING OVERLAY === */
 #loading-overlay {
     position: fixed;
     top: 0;
@@ -125,76 +120,45 @@ footer a:hover{text-decoration:underline} /* This is about.html's original style
 }
 .loading { text-align: center; }
 .loading h2 { color: #ccc; margin: 0; font: 0.8em verdana; text-transform: uppercase; letter-spacing: 0.1em; }
-.loading span { display: inline-block; vertical-align: middle; width: 0.6em; height: 0.6em; margin: 0.19em; background: #007DB6; border-radius: 0.6em; animation: loading 1s infinite alternate; } /* Using original keyframe name 'loading' */
+.loading span { display: inline-block; vertical-align: middle; width: 0.6em; height: 0.6em; margin: 0.19em; background: #007DB6; border-radius: 0.6em; animation: loading-anim 1s infinite alternate; } /* Renamed animation to avoid conflict if any */
 .loading span:nth-of-type(2) { background: #008FB2; animation-delay: 0.2s; }
 .loading span:nth-of-type(3) { background: #009B9E; animation-delay: 0.4s; }
 .loading span:nth-of-type(4) { background: #00A77D; animation-delay: 0.6s; }
 .loading span:nth-of-type(5) { background: #00B247; animation-delay: 0.8s; }
 .loading span:nth-of-type(6) { background: #5AB027; animation-delay: 1.0s; }
 .loading span:nth-of-type(7) { background: #A0B61E; animation-delay: 1.2s; }
-@keyframes loading { 0% { opacity: 0; } 100% { opacity: 1; } } /* Using original keyframe name 'loading' */
+@keyframes loading-anim { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-/* === CSS ADDED FROM INDEX.HTML FOR FADE-IN EFFECT (essential for about.html's own scanFade JS) === */
-/* about.html's scanFade JS adds .fade-in-triggered to elements with .fade-in */
-.fade-in { /* Initial state for elements handled by scanFade in about.html */
+.fade-in {
     opacity: 0;
-    /* transform: translateY(20px); // This was from index.html; about.html's scanFade doesn't assume initial transform */
-    /* transition: opacity 0.9s ease-out, transform 0.9s ease-out; // This was from index.html */
 }
-.fade-in-triggered { /* Class added by about.html's scanFade JS */
+.fade-in-triggered {
     opacity: 1 !important; 
-    transform: translateY(0) !important; /* Ensuring it moves to final position */
-    transition: opacity 0.9s ease-out, transform 0.9s ease-out; /* Apply transition here */
+    transform: translateY(0) !important;
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
 }
 
-/* about.html 的 <style> 標籤內，或其他 CSS 文件 */
-
-/* 原有的導覽列連結樣式 (請確保這條規則仍然存在，因為它定義了普通連結的樣式) */
-.navbar .nav-link {
-    color: #fff !important;
-    font-weight: 600;
-}
-
-/* === 新增或修改：針對禁用狀態的導覽列連結 === */
 .navbar .nav-link.disabled {
-    color: rgba(255, 255, 255, 0.45) !important; /* 設定一個較淡的白色，使其看起來被禁用 */
-    /* Bootstrap 的 .disabled class 已經處理了 pointer-events: none; 來阻止點擊 */
-    /* cursor: not-allowed; /* 可選：添加這個來改變滑鼠指標樣式 */
+    color: rgba(255, 255, 255, 0.45) !important;
 }
 
-/* 如果你希望非禁用連結在 hover 時有特定顏色，確保原有 hover 樣式還在 */
-.navbar .nav-link:not(.disabled):hover {
-    color: var(--primary) !important; /* 這是你原有的 hover 顏色 */
-}
-
-/* ... (your existing CSS rules) ... */
-
-/* ---------- Styles for Fanbox Promo Card ---------- */
 #fanbox-promo-card #fanbox_promo_title {
-  color: var(--primary); /* Orange color from your CSS variable */
-  font-weight: 700;      /* Make it a bit bolder, adjust as needed */
-  /* You can also adjust font-size here if needed, e.g., font-size: 1.6rem; */
+  color: var(--primary);
+  font-weight: 700;
 }
-
 #fanbox-promo-card #fanbox_promo_button {
-  background-color: #fff;            /* White background */
-  color: var(--primary);             /* Orange text */
-  border: 1px solid var(--primary);  /* Orange border to create the "box" effect */
-  /* The following are often inherited from .btn, but explicitly set if needed */
-  /* padding: .375rem .75rem; */    /* Default Bootstrap button padding */
-  /* border-radius: .25rem; */     /* Default Bootstrap button border radius */
-  font-weight: 500;                /* Adjust font weight as desired */
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; /* Smooth transition */
+  background-color: #fff;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  font-weight: 500;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
-
 #fanbox-promo-card #fanbox_promo_button:hover,
-#fanbox-promo-card #fanbox_promo_button:focus { /* Added :focus for accessibility */
-  background-color: var(--primary);  /* Orange background on hover/focus */
-  color: #fff;                     /* White text on hover/focus */
-  border-color: var(--primary);      /* Keep border orange or make it match bg */
+#fanbox-promo-card #fanbox_promo_button:focus {
+  background-color: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
 }
-
-/* ... (rest of your CSS rules) ... */
 </style>
 </head>
 
@@ -202,7 +166,7 @@ footer a:hover{text-decoration:underline} /* This is about.html's original style
 
   <div id="loading-overlay">
     <div class="loading">
-      <h2>LOADING...</h2>
+      <h2 id="loading-text">LOADING...</h2>
       <span></span>
       <span></span>
       <span></span>
@@ -244,23 +208,35 @@ footer a:hover{text-decoration:underline} /* This is about.html's original style
 </nav>
 
 <section class="container">
-  <div id="about-card" class="card p-4 fade-in"> <h1 id="about_main_title">關於我</h1> <p id="about_main_p1">你好，我是羽球，一位熱愛故事與繪畫的創作者。從小就對文字與影像充滿想像，喜歡在敘事與視覺之間遊走，透過筆下的角色與場景，傳遞情感與溫度。</p> <p id="about_main_p2">我的作品涵蓋小說、二創與多媒體專案，如果你對我的創作有興趣，歡迎透過下方連結與我聯絡！</p> </div>
+  <div id="about-card" class="card p-4 fade-in">
+    <h1 id="about_main_title">關於我</h1>
+    <p id="about_main_p1">你好，我是羽球，一位熱愛故事與繪畫的創作者。從小就對文字與影像充滿想像，喜歡在敘事與視覺之間遊走，透過筆下的角色與場景，傳遞情感與溫度。</p>
+    <p id="about_main_p2">我的作品涵蓋小說、二創與多媒體專案，如果你對我的創作有興趣，歡迎透過下方連結與我聯絡！</p>
+  </div>
 </section>
 
 <section id="my-skills-stats">
-  <div class="container"> <div class="skills-grid">
-      <div class="skill-item fade-in"> <div class="skill-icon"><i class="fas fa-book"></i></div>
+  <div class="container">
+    <div class="skills-grid">
+      <div class="skill-item fade-in">
+        <div class="skill-icon"><i class="fas fa-book"></i></div>
         <div class="skill-circle" data-frac="0.07" data-text="3+"></div>
-        <div class="skill-label" id="about_skill_novels">小說作品</div> </div>
-      <div class="skill-item fade-in"> <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
+        <div class="skill-label" id="about_skill_novels">小說作品</div>
+      </div>
+      <div class="skill-item fade-in">
+        <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
         <div class="skill-circle" data-frac="0.15" data-text="5+"></div>
-        <div class="skill-label" id="about_skill_digital">數位專案</div> </div>
-      <div class="skill-item fade-in"> <div class="skill-icon"><i class="fas fa-paint-brush"></i></div>
+        <div class="skill-label" id="about_skill_digital">數位專案</div>
+      </div>
+      <div class="skill-item fade-in">
+        <div class="skill-icon"><i class="fas fa-paint-brush"></i></div>
         <div class="skill-circle" data-frac="0.2" data-text="10+"></div>
-        <div class="skill-label" id="about_skill_illustrations">插畫創作</div> </div>
-      <div class="skill-item fade-in"> <div class="skill-icon"><i class="fas fa-users"></i></div>
-        <div class="skill-circle" data-frac="1" data-text="50+"></div>
-        <div class="skill-label" id="about_skill_community">社群追蹤</div> </div>
+        <div class="skill-label" id="about_skill_illustrations">插畫創作</div>
+      </div>
+      <div class="skill-item fade-in">
+        <div class="skill-icon"><i class="fas fa-users"></i></div>
+        <div class="skill-circle" data-frac="1" data-text="50+"></div> <div class="skill-label" id="about_skill_community">社群追蹤</div>
+      </div>
     </div>
   </div>
 </section>
@@ -273,49 +249,44 @@ footer a:hover{text-decoration:underline} /* This is about.html's original style
   </div>
 </section>
 
-
-    <footer class="footer bg-dark text-white text-center py-10">
-      <div class="container">
-        <h6>&copy; 2025 Shuttlecock website</h6>
-        <h6 class="text-info">shuttlecock0826@gmail.com</h6>
-        <p></p>
-        <div class="row">
-          <div class="col-6 col-md-3">
-            <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">其他合作</a>
-          </div>
-          <div class="col-6 col-md-3">
-            <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">與我聯絡</a>
-          </div>
-          <div class="col-6 col-md-3">
-            <a href="https://kevin0826.fanbox.cc/plans" class="text-white footer-link">其他平台</a>
-          </div>
-          <div class="col-6 col-md-3">
-            <a href="https://shopee.com/your-shop-link" class="text-white footer-link">線上商店</a>
-          </div>
-        </div>
+<footer class="footer bg-dark text-white text-center py-4"> <div class="container">
+    <h6 id="about_footer_copyright">&copy; 2025 Shuttlecock website</h6>
+    <h6 class="text-info">shuttlecock0826@gmail.com</h6>
+    <p></p>
+    <div class="row">
+      <div class="col-6 col-md-3 mb-2">
+        <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link" id="about_footer_collab">其他合作</a>
       </div>
-    </footer>
+      <div class="col-6 col-md-3 mb-2">
+        <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link" id="about_footer_contact">與我聯絡</a>
+      </div>
+      <div class="col-6 col-md-3 mb-2">
+        <a href="https://kevin0826.fanbox.cc/plans" class="text-white footer-link" id="about_footer_platforms">其他平台</a>
+      </div>
+      <div class="col-6 col-md-3 mb-2">
+        <a href="https://shopee.com/your-shop-link" class="text-white footer-link" id="about_footer_shop">線上商店</a>
+      </div>
+    </div>
+  </div>
+</footer>
     
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-// === ALL SCRIPT LOGIC WRAPPED IN $(document).ready() for proper execution ===
 $(document).ready(function() {
 
     /* ---------- A. 淡入 (Original from about.html) ---------- */
-    // This function and its CSS for .fade-in and .fade-in-triggered are kept as per about.html's original design
     function scanFade(){
-        $('.fade-in').each(function(){ // Targets elements with class .fade-in
+        $('.fade-in').each(function(){
             const $el=$(this),top=$el.offset().top,view=$(window).scrollTop()+$(window).height();
-            // Check if the element is within viewport (with 50px offset)
             if(top < view - 50){ 
-                $el.addClass('fade-in-triggered'); // Add class to trigger CSS transition
+                $el.addClass('fade-in-triggered');
             }
         });
     }
-    $(window).on('scroll load resize', scanFade); // Call scanFade on scroll, load, and resize
+    $(window).on('scroll load resize', scanFade);
 
     /* ---------- B. 整頁背景（可選） (Original from about.html) ---------- */
     if($('body').hasClass('with-bg')){
@@ -325,17 +296,17 @@ $(document).ready(function() {
 
     /* ---------- C. ProgressBar 圓環 (Original from about.html) ---------- */
     let skillStarted=false;
-    const skillsStatsSectionEl = document.getElementById('my-skills-stats'); // Element to observe
-    if (skillsStatsSectionEl) { // Only set up observer if the target section exists
+    const skillsStatsSectionEl = document.getElementById('my-skills-stats');
+    if (skillsStatsSectionEl) {
         const progressBarIo = new IntersectionObserver(entries=>{
             entries.forEach(en=>{
                 if(en.isIntersecting && !skillStarted){
                     $('.skill-circle').each(function(){
                         const frac=parseFloat(this.dataset.frac),
-                                text=this.dataset.text;
+                              text=this.dataset.text;
                         const bar=new ProgressBar.Circle(this,{
                             strokeWidth:6,
-                            color:'var(--primary)', // Using CSS variable from about.html
+                            color:'var(--primary)',
                             trailColor:'#e5e5e5',
                             duration:1800,
                             easing:'easeInOut',
@@ -344,113 +315,134 @@ $(document).ready(function() {
                         bar.animate(frac,()=>{bar.setText(text);});
                     });
                     skillStarted=true;
-                    progressBarIo.disconnect(); // Important: stop observing after animation
+                    progressBarIo.disconnect();
                 }
             });
-        },{threshold:0.4}); // Trigger when 40% of the section is visible
+        },{threshold:0.4});
         progressBarIo.observe(skillsStatsSectionEl);
     }
 
-    // === JAVASCRIPT ADDED FROM INDEX.HTML FOR LOADING AND TRANSLATION ===
+    // === COMMON SCRIPT LOGIC FOR LOADING AND TRANSLATION ===
 
-    // 1. Initial Page Load Loading Screen Effect (from index.html, adapted)
-    // This runs once per session for any page, shows a brief loading.
-    // If you want it only for the first ever visit to index.html, this logic would need to be different.
+    // 1. Initial Page Load Loading Screen Effect
     if (!sessionStorage.getItem('siteAlreadyLoadedThisSession')) {
-        $('#loading-overlay').css('visibility', 'visible').show(); // Make it visible first
+        $('#loading-overlay').css('visibility', 'visible').show();
         setTimeout(function () {
-            $('#loading-overlay').fadeOut(300); // Use index.html's fadeOut time
-        }, 800); // Shorter display time than index.html's 2500ms for subsequent pages
+            $('#loading-overlay').fadeOut(300);
+        }, 800); 
         sessionStorage.setItem('siteAlreadyLoadedThisSession', 'true');
     } else {
-        // If not the first page load in session, hide loading overlay immediately without fade.
         $('#loading-overlay').css('visibility', 'hidden').hide();
     }
     
-    // 2. Language Persistence & Initial Application (from index.html)
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-        localStorage.removeItem('preferred_language'); // Clear on hard refresh
-    }
-    var siteLanguage = localStorage.getItem('preferred_language') || 'zh'; // Default to 'zh'
-    applyLanguage(siteLanguage); // Apply on page load
+    // 2. Language Persistence & Initial Application
+    // Removed clearing localStorage on hard refresh to maintain preference
+    var siteLanguage = localStorage.getItem('preferred_language') || 'zh';
+    applyLanguage(siteLanguage);
 
-    // 3. Language Switch Event Handler (from index.html)
+    // 3. Language Switch Event Handler
     $('.language-option').on('click', function (e) {
         e.preventDefault();
         var newLang = $(this).data('lang');
 
-        $('#loading-overlay').css('visibility', 'visible').fadeIn(300); // Show loading (from index.html)
+        $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
 
         setTimeout(function () { 
             localStorage.setItem('preferred_language', newLang);
             applyLanguage(newLang);
             
-            // Collapse about.html's specific navbar ('#nav')
-            $('#nav.show').collapse('hide'); // Bootstrap 4: .collapse('hide') on the element with .show
+            $('#nav.show').collapse('hide');
+
+            // Re-trigger fade-in for elements that might have changed
+            $('.fade-in').removeClass('fade-in-triggered').css('opacity', 0);
+            scanFade();
+
 
             setTimeout(function () { 
-                $('#loading-overlay').fadeOut(300); // Hide loading (from index.html)
-            }, 500); // index.html had 1500ms here, using shorter 500ms
-        }, 500); // index.html had 1500ms here, using shorter 500ms
+                $('#loading-overlay').fadeOut(300);
+            }, 500);
+        }, 500);
     });
 
-    // 4. ApplyLanguage Function (Tailored for about.html using the new IDs)
+    // 4. ApplyLanguage Function
     function applyLanguage(lang) {
-        // Update language attribute on HTML tag for accessibility
         $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang);
 
-        if (lang === 'zh') {
-            $('#about_nav_brand').text('Home');
-            $('#about_nav_novels').text('小說集');
-            $('#about_nav_wip').text('施工中');
-            $('#about_main_title').text('關於我');
-            $('#about_main_p1').text('你好，我是羽球，一位熱愛故事與繪畫的創作者。從小就對文字與影像充滿想像，喜歡在敘事與視覺之間遊走，透過筆下的角色與場景，傳遞情感與溫度。');
-            $('#about_main_p2').text('我的作品涵蓋小說、二創與多媒體專案，如果你對我的創作有興趣，歡迎透過下方連結與我聯絡！');
-            // $('#about_skills_title').text('我的技能');
-            $('#about_skill_novels').text('小說作品');
-            $('#about_skill_digital').text('數位專案');
-            $('#about_skill_illustrations').text('插畫創作');
-            $('#about_skill_community').text('社群追蹤');
-            $('#about_footer_copyright').text('© 2025 Shuttlecock website');
-            // $('#about_footer_email').text('shuttlecock0826@gmail.com'); // Email usually not translated
-            $('#about_footer_collab').text('其他合作');
-            $('#about_footer_contact').text('與我聯絡');
-            $('#about_footer_platforms').text('其他平台');
-            $('#about_footer_shop').text('線上商店');
-        } else if (lang === 'jp') {
-            $('#about_nav_brand').text('ホーム');
-            $('#about_nav_novels').text('小説集');
-            $('#about_nav_wip').text('準備中');
-            $('#about_main_title').text('私について');
-            $('#about_main_p1').text('こんにちは、Shuttlecockです。物語と絵画を愛するクリエイターです。幼い頃から文字と映像に想像力を膨らませ、物語と視覚の間を行き来し、筆から生まれるキャラクターやシーンを通じて感情と温もりを伝えています。');
-            $('#about_main_p2').text('私の作品は小説、オリジナルイラスト、マルチメディアプロジェクトに及び。私の創作に興味があれば、以下のリンクからお気軽にご連絡ください！');
-            // $('#about_skills_title').text('私のスキル');
-            $('#about_skill_novels').text('小説作品'); // Needs Japanese translation
-            $('#about_skill_digital').text('デジタルプロジェクト');
-            $('#about_skill_illustrations').text('イラスト制作');
-            $('#about_skill_community').text('コミュニティ'); // Needs Japanese translation for "追蹤"
-            $('#about_footer_copyright').text('© 2025 Shuttlecock ウェブサイト');
-            $('#about_footer_collab').text('その他の協力');
-            $('#about_footer_contact').text('お問い合わせ');
-            $('#about_footer_platforms').text('他のプラットフォーム');
-            $('#about_footer_shop').text('オンラインショップ');
-        } else if (lang === 'en') {
-            $('#about_nav_brand').text('Home');
-            $('#about_nav_novels').text('Novels');
-            $('#about_nav_wip').text('In Progress');
-            $('#about_main_title').text('About Me');
-            $('#about_main_p1').text('Hello, I\'m Shuttlecock, a creator passionate about stories and illustration. Since childhood, I\'ve been fascinated by words and visuals, enjoying the journey between narrative and art, conveying emotions and warmth through my characters and scenes.');
-            $('#about_main_p2').text('My work includes novels, original illustrations, and multimedia projects, and I have garnered a stable following on various online platforms. If you are interested in my creations, please feel free to contact me via the links below!');
-            // $('#about_skills_title').text('My Skills');
-            $('#about_skill_novels').text('Novel Works');
-            $('#about_skill_digital').text('Digital Projects');
-            $('#about_skill_illustrations').text('Illustrations');
-            $('#about_skill_community').text('Community Following');
-            $('#about_footer_copyright').text('© 2025 Shuttlecock website');
-            $('#about_footer_collab').text('Other Collaborations');
-            $('#about_footer_contact').text('Contact Me');
-            $('#about_footer_platforms').text('Other Platforms');
-            $('#about_footer_shop').text('Online Store');
+        let t = {
+            zh: {
+                "loading-text": "載入中...",
+                "about_nav_brand": "Home", // Assuming "Home" is universal or you want to translate it
+                "about_nav_novels": "小說集",
+                "about_nav_about_me": "關於我",
+                // "about_nav_wip": "施工中", // Element not in HTML
+                "about_main_title": "關於我",
+                "about_main_p1": "你好，我是羽球，一位熱愛故事與繪畫的創作者。從小就對文字與影像充滿想像，喜歡在敘事與視覺之間遊走，透過筆下的角色與場景，傳遞情感與溫度。",
+                "about_main_p2": "我的作品涵蓋小說、二創與多媒體專案，如果你對我的創作有興趣，歡迎透過下方連結與我聯絡！",
+                // "about_skills_title": "我的技能", // Element not in HTML
+                "about_skill_novels": "小說作品",
+                "about_skill_digital": "數位專案",
+                "about_skill_illustrations": "插畫創作",
+                "about_skill_community": "社群追蹤",
+                "fanbox_promo_title": "第一次角色投票已開放",
+                "fanbox_promo_subtitle": "請創作者喝杯咖啡吧(｡・ω・｡)",
+                "fanbox_promo_button": "查看詳情",
+                "about_footer_copyright": "© 2025 Shuttlecock 網站",
+                "about_footer_collab": "其他合作",
+                "about_footer_contact": "與我聯絡",
+                "about_footer_platforms": "其他平台",
+                "about_footer_shop": "線上商店",
+            },
+            jp: {
+                "loading-text": "読み込み中...",
+                "about_nav_brand": "ホーム",
+                "about_nav_novels": "小説集", // Needs specific JP translation if different from '小説集'
+                "about_nav_about_me": "私について",
+                // "about_nav_wip": "準備中",
+                "about_main_title": "私について",
+                "about_main_p1": "こんにちは、羽球です。物語と絵画を愛するクリエイターです。幼い頃から文字と映像に想像力を膨らませ、物語と視覚の間を行き来し、筆から生まれるキャラクターやシーンを通じて感情と温もりを伝えています。",
+                "about_main_p2": "私の作品は小説、二次創作、マルチメディアプロジェクトに及びます。私の創作に興味があれば、以下のリンクからお気軽にご連絡ください！",
+                // "about_skills_title": "私のスキル",
+                "about_skill_novels": "小説作品",
+                "about_skill_digital": "デジタルプロジェクト",
+                "about_skill_illustrations": "イラスト制作",
+                "about_skill_community": "コミュニティ・フォロワー",
+                "fanbox_promo_title": "第一回キャラクター投票開催中",
+                "fanbox_promo_subtitle": "クリエイターにコーヒーを一杯どうぞ(｡・ω・｡)",
+                "fanbox_promo_button": "詳細を見る",
+                "about_footer_copyright": "© 2025 Shuttlecock ウェブサイト",
+                "about_footer_collab": "その他の協力",
+                "about_footer_contact": "お問い合わせ",
+                "about_footer_platforms": "他のプラットフォーム",
+                "about_footer_shop": "オンラインショップ",
+            },
+            en: {
+                "loading-text": "LOADING...",
+                "about_nav_brand": "Home",
+                "about_nav_novels": "Novels",
+                "about_nav_about_me": "About Me",
+                // "about_nav_wip": "In Progress",
+                "about_main_title": "About Me",
+                "about_main_p1": "Hello, I'm Shuttlecock, a creator passionate about stories and illustration. Since childhood, I've been fascinated by words and visuals, enjoying the journey between narrative and art, conveying emotions and warmth through my characters and scenes.",
+                "about_main_p2": "My work includes novels, fan art, and multimedia projects. If you are interested in my creations, please feel free to contact me via the links below!",
+                // "about_skills_title": "My Skills",
+                "about_skill_novels": "Novel Works",
+                "about_skill_digital": "Digital Projects",
+                "about_skill_illustrations": "Illustrations",
+                "about_skill_community": "Community Following",
+                "fanbox_promo_title": "First Character Poll Now Open",
+                "fanbox_promo_subtitle": "Treat the creator to a coffee (｡・ω・｡)",
+                "fanbox_promo_button": "View Details",
+                "about_footer_copyright": "© 2025 Shuttlecock website",
+                "about_footer_collab": "Other Collaborations",
+                "about_footer_contact": "Contact Me",
+                "about_footer_platforms": "Other Platforms",
+                "about_footer_shop": "Online Store",
+            }
+        };
+
+        let currentTranslations = t[lang] || t['zh']; // Default to Chinese if lang not found
+        for (const id in currentTranslations) {
+            $('#' + id).text(currentTranslations[id]);
         }
     }
 });

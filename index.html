@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shuttlecock art</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="preload" href="images/image.png" as="image">
 
   <style>
+    /* Your Original CSS for loading and fade-in */
     #loading-overlay {
       position: fixed;
       top: 0;
@@ -18,10 +18,11 @@
       width: 100%;
       height: 100%;
       background: rgba(34, 34, 34, 0.95);
-      display: flex;
+      display: flex; /* Kept flex for centering, as per original */
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      /* visibility: visible; /* JS handles this now */
     }
 
     .loading {
@@ -30,7 +31,7 @@
 
     .loading h2 {
       color: #ccc;
-      margin: 0;
+      margin: 0 0 15px 0; /* Added bottom margin based on visual from previous step */
       font: 0.8em verdana;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -98,6 +99,18 @@
       opacity: 1 !important;
       transform: translateY(0) !important;
     }
+
+    /* Added for navbar toggler icon based on your original HTML structure, if Bootstrap defaults aren't sufficient */
+    .navbar-toggler-icon {
+        /* If you have custom styling for the toggler, ensure it's in styles.css or here */
+        /* Example: Bootstrap's default might need help on some backgrounds */
+        /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); */
+    }
+    .pixiv-icon { /* Style for your Pixiv icon if not in styles.css */
+        width: 28px; /* Or your preferred size */
+        height: 28px;
+        vertical-align: middle; /* Align with other icons */
+    }
   </style>
 </head>
 
@@ -105,7 +118,7 @@
 
   <div id="loading-overlay">
     <div class="loading">
-      <h2>LOADING...</h2>
+      <h2 id="loading-text">LOADING...</h2>
       <span></span>
       <span></span>
       <span></span>
@@ -116,32 +129,26 @@
     </div>
   </div>
 
-
   <header class="hero-section" id="slideshow" style="background-image: url('images/image.png');">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
-        <h5 class="navbar-brand text-white" href="index.html">Home</h5>
+        <a id="nav-brand-home" class="navbar-brand text-white" href="index.html">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
-            <!-- <li class="nav-item">
-                    <a class="nav-link text-white disabled" href="about-work.html" tabindex="-1" aria-disabled="true">委託牆</a>
-                  </li> -->
             <li class="nav-item">
-              <a class="nav-link text-white disabled" href="novels.html">小說集</a>
+              <a id="nav-link-novels" class="nav-link text-white disabled" href="novels.html">小說集</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link text-white disabled" href="about-cp.html" tabindex="-1" aria-disabled="true">施工中</a>
-            </li>
-             -->
             <li class="nav-item">
-              <a class="nav-link text-white" href="about.html" tabindex="-1" aria-disabled="true">關於我</a>
+              <a id="nav-link-about" class="nav-link text-white" href="about.html" tabindex="-1" aria-disabled="true">關於我</a>
             </li>
 
-            <!-- 直接呈現三個語言選項 -->
+            <li class="nav-item">
+              <a class="nav-link text-white language-option" href="#" data-lang="zh">中文</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link text-white language-option" href="#" data-lang="jp">日本語</a>
             </li>
@@ -153,27 +160,23 @@
       </div>
     </nav>
 
-
     <div class="hero-content text-center text-white">
-      <h2>Shuttlecock</h2>
-      <h5 class="progress-label">目前進度</h5>
+      <h2 id="hero-title">Shuttlecock</h2>
+      <h5 id="hero-progress-label" class="progress-label">目前進度</h5>
       <div class="progress-container">
         <div class="progress-bar" id="myProgressBar"></div>
       </div>
     </div>
 
     <script>
-      // 更新進度的函式：current 為當前進度，total 為總進度
       function updateProgress(current, total) {
         const percent = (current / total) * 100;
-        document.getElementById('myProgressBar').style.width = percent + "%";
+        if (document.getElementById('myProgressBar')) {
+            document.getElementById('myProgressBar').style.width = percent + "%";
+        }
       }
-
-      // 初始進度設定：例如 1 / 100
-      updateProgress(1, 100);
-
+      updateProgress(1, 100); // Your original example
     </script>
-
 
     <div class="social-icons text-center mt-4 fade-in-container" id="social-icons">
       <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-3 fade-in">
@@ -195,134 +198,122 @@
     </div>
   </header>
 
-
-
   <section id="my-works">
     <div class="horizontal-banners" id="banner-container">
-
       <div class="banner intro-banner" style="background-image: url('images/intro-bg.jpg');">
         <div class="intro-text">
           <h3 id="intro-title">精選作品</h3>
           <p id="intro-desc">Select the works from the collection that I am personally satisfied with.</p>
         </div>
-
-        <!-- info-overlay：確保絕對定位，並在上層 (z-index) -->
         <div class="info-overlay">
-          <a href="https://www.pixiv.net/users/102745883" class="text-white footer-link">
+          <a id="intro-banner-more" href="https://www.pixiv.net/users/102745883" class="text-white footer-link">
             More
           </a>
         </div>
       </div>
-
-
       <div class="banner" style="background-image: url('images/screenshot1.png');">
         <div class="info-overlay">
           <h5>伊落マリー</h5>
           <p>Blue Archive</p>
         </div>
       </div>
-
-
       <div class="banner" style="background-image: url('images/screenshot2.png');">
         <div class="info-overlay">
           <h5>レゼ</h5>
           <p>チェンソーマン</p>
         </div>
       </div>
-
-
-      <!-- <div class="banner" style="background-image: url('images/screenshot.png');">
-            <div class="info-overlay">
-              <h4>作品標題 3</h4>
-              <p>作品/角色簡介</p>
-            </div>
-          </div> -->
-
-
     </div>
 
-
-    <!-- JS：自動滑動 + 左右切換功能 -->
     <script>
       const bannerContainer = document.getElementById('banner-container');
-      const leftArrow = document.getElementById('arrow-left');
-      const rightArrow = document.getElementById('arrow-right');
+      const leftArrow = document.getElementById('arrow-left'); // Element not in HTML
+      const rightArrow = document.getElementById('arrow-right'); // Element not in HTML
       const scrollStep = 500;
+      // const autoInterval = 3000; // autoInterval was not defined in your original snippet here.
+                                // If you need auto-sliding, define it. Example: const autoInterval = 4000;
 
+      if (bannerContainer) { // Check if container exists
+        if (leftArrow) {
+            leftArrow.addEventListener('click', () => {
+            bannerContainer.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+            if (typeof autoSlide !== 'undefined') clearInterval(autoSlide); // Clear if autoSlide is running
+            });
+        }
+        if (rightArrow) {
+            rightArrow.addEventListener('click', () => {
+            bannerContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
+            if (typeof autoSlide !== 'undefined') clearInterval(autoSlide); // Clear if autoSlide is running
+            });
+        }
 
-      // 監聽左右按鈕點擊
-      leftArrow.addEventListener('click', () => {
-        bannerContainer.scrollBy({
-          left: -scrollStep,
-          behavior: 'smooth'
-        });
-      });
-      rightArrow.addEventListener('click', () => {
-        bannerContainer.scrollBy({
-          left: scrollStep,
-          behavior: 'smooth'
-        });
-      });
+        // Example of how autoSlide might have been intended, if autoInterval is defined:
+        /*
+        if (typeof autoInterval !== 'undefined') {
+            let autoSlide = setInterval(() => {
+                if (bannerContainer.scrollLeft + bannerContainer.clientWidth >= bannerContainer.scrollWidth -1) {
+                    bannerContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    bannerContainer.scrollBy({ left: scrollStep, behavior: 'smooth'});
+                }
+            }, autoInterval);
 
-      // 自動滑動 (每隔 autoInterval 毫秒向右移動 scrollStep)
-      let autoSlide = setInterval(() => {
-        bannerContainer.scrollBy({
-          left: scrollStep,
-          behavior: 'smooth'
-        });
-      }, autoInterval);
-
-      // 若使用者手動操作，則暫停自動滑動
-      [bannerContainer, leftArrow, rightArrow].forEach(elem => {
-        elem.addEventListener('click', () => {
-          clearInterval(autoSlide);
-        });
-      });
+            [bannerContainer, leftArrow, rightArrow].forEach(elem => {
+                if (elem) { // Check if arrow elements exist
+                    elem.addEventListener('click', () => { // Also clear on manual arrow click
+                        clearInterval(autoSlide);
+                    });
+                    elem.addEventListener('wheel', () => clearInterval(autoSlide), { once: true }); // Clear on scroll/touch
+                    elem.addEventListener('touchstart', () => clearInterval(autoSlide), { once: true });
+                }
+            });
+        }
+        */
+      }
     </script>
+  </section>
 
-
-
-    <section id="products" class="product-list fade-in">
-      <div class="container">
-        <h3 class="text-muted">其他通路</h3>
-        <h6 class="text-black-50"></h6>
-        <p></p>
-        <div class="product-item fade-in">
-          <img src="images/2726.jpg" alt="Product Image" class="product-img">
-          <div class="product-info">
-            <h5>第一次角色投票已開放</h5>
-            <p>請創作者喝杯咖啡(｡・ω・｡)</p>
-            <a href="https://kevin0826.fanbox.cc/" class="btn btn-outline-info">查看詳情</a> 
-          </div>
-      </div>
-      </div>
-    </section> 
-
-    <footer class="footer bg-dark text-white text-center py-10">
-      <div class="container">
-        <h6>&copy; 2025 Shuttlecock website</h6>
-        <h6 class="text-info">shuttlecock0826@gmail.com</h6>
-        <p></p>
-        <div class="row">
-          <div class="col-6 col-md-3">
-            <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">其他合作</a>
-          </div>
-          <div class="col-6 col-md-3">
-            <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">與我聯絡</a>
-          </div>
-          <div class="col-6 col-md-3">
-            <a href="https://kevin0826.fanbox.cc/plans" class="text-white footer-link">其他平台</a>
-          </div>
-          <div class="col-6 col-md-3">
-            <a href="https://shopee.com/your-shop-link" class="text-white footer-link">線上商店</a>
-          </div>
+  <section id="products" class="product-list fade-in">
+    <div class="container">
+      <h3 id="products-other-channels-heading" class="text-muted">其他通路</h3>
+      <h6 class="text-black-50"></h6>
+      <p></p>
+      <div class="product-item fade-in">
+        <img src="images/2726.jpg" alt="Product Image" class="product-img">
+        <div class="product-info">
+          <h5 id="product-item-title-1">第一次角色投票已開放</h5>
+          <p id="product-item-desc-1">請創作者喝杯咖啡(｡・ω・｡)</p>
+          <a id="product-item-button-1" href="https://kevin0826.fanbox.cc/" class="btn btn-outline-info">查看詳情</a>
         </div>
       </div>
-    </footer>
+    </div>
+  </section>
+
+  <footer class="footer bg-dark text-white text-center py-10"> <div class="container">
+      <h6 id="footer-copyright">© 2025 Shuttlecock website</h6>
+      <h6 class="text-info">shuttlecock0826@gmail.com</h6>
+      <p></p>
+      <div class="row">
+        <div class="col-6 col-md-3">
+          <a id="footer-link-other-collab" href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">其他合作</a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a id="footer-link-contact-me" href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">與我聯絡</a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a id="footer-link-other-platforms" href="https://kevin0826.fanbox.cc/plans" class="text-white footer-link">其他平台</a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a id="footer-link-online-shop" href="https://shopee.com/your-shop-link" class="text-white footer-link">線上商店</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
   <script>
     $(document).ready(function () {
         // 檢查是否為重新整理（刷新）—若是，清除儲存的語言設定 (User's original preference)
@@ -330,13 +321,13 @@
             localStorage.removeItem('language');
         }
 
-        var currentLanguage = localStorage.getItem('language') || 'zh';
+        var currentLanguage = localStorage.getItem('language') || 'zh'; // Default to Chinese
         applyLanguage(currentLanguage);
 
-        // Loading 畫面（首次載入） - Using original timing
+        // Loading 畫面（首次載入）
         setTimeout(function () {
             $('#loading-overlay').fadeOut(300);
-        }, 1500); // Adjusted for quicker initial view, original was 2500
+        }, 1500); // Adjusted from original 2500 for a slightly quicker initial view, user can revert to 2500
 
         // Navbar 收合/展開時，隱藏/顯示社群 icon
         $('#navbarNav').on('show.bs.collapse', function () {
@@ -349,18 +340,18 @@
         // 捲動淡入效果 - Encapsulated function
         function triggerFadeIn() {
             $('.fade-in').each(function () {
-                if (!$(this).hasClass('fade-in-triggered')) { // Only trigger if not already triggered
+                // Only trigger if not already triggered to prevent re-animation on every scroll
+                if (!$(this).hasClass('fade-in-triggered')) { 
                     var elementTop = $(this).offset().top;
                     var viewportBottom = $(window).scrollTop() + $(window).height();
-                    if (elementTop < viewportBottom - 50) {
+                    if (elementTop < viewportBottom - 50) { // 50px buffer
                         $(this).addClass('fade-in-triggered');
                     }
                 }
             });
         }
-
         $(window).on('scroll', triggerFadeIn);
-        // Initial triggerFadeIn is called after staggered fade-in
+        // Initial trigger is handled after staggered fade-in logic
 
         // 語言切換：監聽所有帶 .language-option 的按鈕
         $('.language-option').click(function (e) {
@@ -373,19 +364,18 @@
                 localStorage.setItem('language', lang);
                 console.log("切換後語言：" + lang);
                 applyLanguage(lang);
-                $('#navbarNav').collapse('hide');
+                $('#navbarNav').collapse('hide'); // Collapse navbar on mobile after selection
 
                 // Reset and re-trigger fade-in animations
-                $('.fade-in').removeClass('fade-in-triggered').css('opacity', 0);
+                $('.fade-in').removeClass('fade-in-triggered').css('opacity', 0); // Reset state
                 
-                // Re-apply initial staggered fade-in for elements that should appear immediately
-                applyInitialStaggeredFadeIn();
-                triggerFadeIn(); // Re-apply scroll-based fade-in for elements in view
+                applyInitialStaggeredFadeIn(); // Re-apply for elements that should appear immediately
+                triggerFadeIn(); // Re-apply scroll-based for elements in view
 
                 setTimeout(function () {
                     $('#loading-overlay').fadeOut(300);
-                }, 500); 
-            }, 500); 
+                }, 500); // Short delay for loading screen to cover changes
+            }, 500); // Short delay to apply language
         });
 
         function applyLanguage(lang) {
@@ -393,13 +383,13 @@
                 zh: {
                     "loading-text": "載入中...",
                     "nav-brand-home": "首頁",
-                    "nav-link-commission": "委託牆", // If uncommented in HTML
+                    // "nav-link-commission": "委託牆", // Uncomment if HTML element exists
                     "nav-link-novels": "小說集",
                     "nav-link-about": "關於我",
                     "hero-title": "Shuttlecock",
                     "hero-progress-label": "目前進度",
                     "intro-title": "精選作品",
-                    "intro-desc": "從個人滿意的收藏中挑選出的作品。", // Original had English here, using new Chinese.
+                    "intro-desc": "從個人滿意的收藏中挑選出的作品。", // Using Chinese as per your new JS
                     "intro-banner-more": "更多",
                     "products-other-channels-heading": "其他通路",
                     "product-item-title-1": "第一次角色投票已開放",
@@ -410,13 +400,13 @@
                     "footer-link-contact-me": "與我聯絡",
                     "footer-link-other-platforms": "其他平台",
                     "footer-link-online-shop": "線上商店",
-                    "footer-link-biz-coop": "商業合作", // Needs HTML element with this ID
-                    "footer-link-support-dev": "贊助開發者" // Needs HTML element with this ID
+                    // "footer-link-biz-coop": "商業合作", // Needs HTML element with this ID
+                    // "footer-link-support-dev": "贊助開發者" // Needs HTML element with this ID
                 },
                 jp: {
                     "loading-text": "読み込み中...",
                     "nav-brand-home": "ホーム",
-                    "nav-link-commission": "私の作品",
+                    // "nav-link-commission": "私の作品",
                     "nav-link-novels": "小説集",
                     "nav-link-about": "私について",
                     "hero-title": "シャトルコック",
@@ -433,13 +423,13 @@
                     "footer-link-contact-me": "お問い合わせ",
                     "footer-link-other-platforms": "他のプラットフォーム",
                     "footer-link-online-shop": "オンラインショップ",
-                    "footer-link-biz-coop": "商業協力",
-                    "footer-link-support-dev": "開発者を支援する"
+                    // "footer-link-biz-coop": "商業協力",
+                    // "footer-link-support-dev": "開発者を支援する"
                 },
                 en: {
                     "loading-text": "LOADING...",
                     "nav-brand-home": "Home",
-                    "nav-link-commission": "Commission Status Wall",
+                    // "nav-link-commission": "Commission Status Wall",
                     "nav-link-novels": "Novels",
                     "nav-link-about": "About Me",
                     "hero-title": "Shuttlecock",
@@ -456,8 +446,8 @@
                     "footer-link-contact-me": "Contact Me",
                     "footer-link-other-platforms": "Other Platforms",
                     "footer-link-online-shop": "Online Shop",
-                    "footer-link-biz-coop": "Business Cooperation",
-                    "footer-link-support-dev": "Support Developer"
+                    // "footer-link-biz-coop": "Business Cooperation",
+                    // "footer-link-support-dev": "Support Developer"
                 }
             };
 
@@ -466,20 +456,22 @@
                 for (const id in currentTranslations) {
                     if ($('#' + id).length) {
                         $('#' + id).text(currentTranslations[id]);
+                    } else {
+                        // console.warn("Element with ID '" + id + "' not found for translation.");
                     }
                 }
-                $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang);
+                $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang); // Set HTML lang attribute
             }
         }
 
+        // Function for initial staggered fade-in (your original logic)
         function applyInitialStaggeredFadeIn() {
             $('.fade-in').each(function (index) {
                 const $el = $(this);
-                // Only apply if not already triggered by scroll, or apply with a delay
-                if (!$el.hasClass('fade-in-triggered')) {
+                if (!$el.hasClass('fade-in-triggered')) { // Avoid re-animating already visible elements
                     setTimeout(function () {
                         $el.addClass('fade-in-triggered');
-                    }, index * 200); // Original was 600, 200 for quicker feel
+                    }, index * 200); // Original was 600ms, 200ms for a quicker feel. Can be reverted.
                 }
             });
         }
@@ -487,16 +479,12 @@
         // Initial staggered fade-in for elements visible on load
         applyInitialStaggeredFadeIn();
         
-        // Initial scroll check for any other elements already in viewport
-        // Needs a slight delay to ensure layout is complete after staggered fades might start
+        // Initial scroll check for any other elements already in viewport after layout
         setTimeout(function() {
-            triggerFadeIn();
-        }, 250); // Small delay
+            triggerFadeIn(); // Call after initial DOM manipulation and staggered fades
+        }, 250); // A small delay to ensure layout is mostly stable
     });
   </script>
 
 </body>
-
-</body>
-
 </html>

@@ -448,18 +448,21 @@
         }
       }
       
-      // Initial fade-in triggering after a slight delay to ensure all elements are ready
-      // setTimeout(function() {
-      //    $('.fade-in').each(function (index) {
-      //      const $el = $(this);
-      //      // No need for staggered timeout here as scroll trigger will handle it
-      //      // If you want initial elements above fold to fade in without scroll, trigger it directly
-      //    });
-      //    $(window).trigger('scroll'); // Trigger scroll once to apply fade-in for visible elements
-      // }, 100); // Small delay
-
     });
+        // 初始化：根據 localStorage 語言更新頁面文字
+        var savedLanguage = localStorage.getItem('language') || 'zh';
+        applyLanguage(savedLanguage);
+
+        // 淡入效果
+        $('.fade-in').each(function (index) {
+          const $el = $(this);
+          setTimeout(function () {
+            $el.addClass('fade-in-triggered');
+          }, index * 600);
+        });
+      });
   </script>
 
 </body>
 </html>
+

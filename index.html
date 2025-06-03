@@ -359,8 +359,34 @@
         });
         $(window).trigger('scroll');
 
-        // 語言切換：監聽所有帶 .language-option 的按鈕
-        $('.language-option').click(function (e) {
+      var currentLanguage = localStorage.getItem('language') || 'zh';
+      applyLanguage(currentLanguage);
+
+      setTimeout(function () {
+        $('#loading-overlay').fadeOut(300);
+      }, 1000); // Reduced loading time for quicker access
+
+      $('#navbarNav').on('show.bs.collapse', function () {
+        $('#social-icons').hide();
+      });
+      $('#navbarNav').on('hidden.bs.collapse', function () {
+        $('#social-icons').show();
+      });
+
+      function triggerFadeIn() {
+        $('.fade-in').each(function () {
+          var elementTop = $(this).offset().top;
+          var viewportBottom = $(window).scrollTop() + $(window).height();
+          if (elementTop < viewportBottom - 50) {
+            $(this).addClass('fade-in-triggered');
+          }
+        });
+      }
+      
+      $(window).on('scroll', triggerFadeIn);
+      triggerFadeIn(); // Initial check
+
+      $('.language-option').click(function (e) {
         e.preventDefault();
         var lang = $(this).data('lang');
 
@@ -383,8 +409,7 @@
         }, 500); // Reduced delay
       });
 
-        // 定義一個函式根據語言更新頁面文字
-              function applyLanguage(lang) {
+      function applyLanguage(lang) {
         let translations = {
           jp: {
             // Loading
@@ -451,6 +476,18 @@
           $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang);
         }
       }
+      
+      // Initial fade-in triggering after a slight delay to ensure all elements are ready
+      // setTimeout(function() {
+      //    $('.fade-in').each(function (index) {
+      //      const $el = $(this);
+      //      // No need for staggered timeout here as scroll trigger will handle it
+      //      // If you want initial elements above fold to fade in without scroll, trigger it directly
+      //    });
+      //    $(window).trigger('scroll'); // Trigger scroll once to apply fade-in for visible elements
+      // }, 100); // Small delay
+
+    });
    
         // 初始化：根據 localStorage 語言更新頁面文字
         var savedLanguage = localStorage.getItem('language') || 'zh';
@@ -469,9 +506,6 @@
 </body>
 
 </html>
-
-
-
 
 
 

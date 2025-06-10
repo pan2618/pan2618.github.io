@@ -491,7 +491,7 @@
                 if (!$el.hasClass('fade-in-triggered')) { // Avoid re-animating already visible elements
                     setTimeout(function () {
                         $el.addClass('fade-in-triggered');
-                    }, index * 200); // Original was 600ms, 200ms for a quicker feel. Can be reverted.
+                    }, index * 1000); // Original was 600ms, 200ms for a quicker feel. Can be reverted.
                 }
             });
         }

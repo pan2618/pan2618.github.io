@@ -103,17 +103,30 @@
       transform: translateY(0) !important;
     }
 
+    /* Added for navbar toggler icon based on your original HTML structure, if Bootstrap defaults aren't sufficient */
     .navbar-toggler-icon {
-      /* background-image: url("data:image/svg+xml,..."); */
+      /* If you have custom styling for the toggler, ensure it's in styles.css or here */
+      /* Example: Bootstrap's default might need help on some backgrounds */
+      /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); */
     }
 
     .pixiv-icon {
+      /* Style for your Pixiv icon if not in styles.css */
       width: 28px;
+      /* Or your preferred size */
       height: 28px;
       vertical-align: middle;
+      /* Align with other icons */
     }
 
     /* --- ENHANCED HORIZONTAL GALLERY STYLES (維持原有尺寸版) --- */
+
+    #my-works {
+      padding: 0rem 0;
+      /* 稍微增加上下留白，讓放大的卡片有空間 */
+      overflow: hidden;
+      /* 隱藏區塊本身可能出現的滾動條 */
+    }
 
     .horizontal-banners {
       display: flex;
@@ -235,6 +248,10 @@
               <a id="nav-link-about" class="nav-link text-white" href="about.html" tabindex="-1"
                 aria-disabled="true">關於我</a>
             </li>
+
+            <!--        <li class="nav-item">
+              <a class="nav-link text-white language-option" href="#" data-lang="zh">中文</a>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link text-white language-option" href="#" data-lang="jp">日本語</a>
             </li>
@@ -313,38 +330,48 @@
 
     <script>
       const bannerContainer = document.getElementById('banner-container');
+      const leftArrow = document.getElementById('arrow-left'); // Element not in HTML
+      const rightArrow = document.getElementById('arrow-right'); // Element not in HTML
+      const scrollStep = 500;
+      // const autoInterval = 3000; // autoInterval was not defined in your original snippet here.
+      // If you need auto-sliding, define it. Example: const autoInterval = 4000;
 
-      if (bannerContainer) {
-        let isDragging = false;
-        let startX;
-        let scrollLeft;
+      if (bannerContainer) { // Check if container exists
+        if (leftArrow) {
+          leftArrow.addEventListener('click', () => {
+            bannerContainer.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+            if (typeof autoSlide !== 'undefined') clearInterval(autoSlide); // Clear if autoSlide is running
+          });
+        }
+        if (rightArrow) {
+          rightArrow.addEventListener('click', () => {
+            bannerContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
+            if (typeof autoSlide !== 'undefined') clearInterval(autoSlide); // Clear if autoSlide is running
+          });
+        }
 
-        bannerContainer.addEventListener('mousedown', (e) => {
-          isDragging = true;
-          bannerContainer.classList.add('dragging');
-          // Get the initial mouse position
-          startX = e.pageX - bannerContainer.offsetLeft;
-          // Get the initial scroll position
-          scrollLeft = bannerContainer.scrollLeft;
-        });
+        // Example of how autoSlide might have been intended, if autoInterval is defined:
+        /*
+        if (typeof autoInterval !== 'undefined') {
+            let autoSlide = setInterval(() => {
+                if (bannerContainer.scrollLeft + bannerContainer.clientWidth >= bannerContainer.scrollWidth -1) {
+                    bannerContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    bannerContainer.scrollBy({ left: scrollStep, behavior: 'smooth'});
+                }
+            }, autoInterval);
 
-        bannerContainer.addEventListener('mouseleave', () => {
-          isDragging = false;
-          bannerContainer.classList.remove('dragging');
-        });
-
-        bannerContainer.addEventListener('mouseup', () => {
-          isDragging = false;
-          bannerContainer.classList.remove('dragging');
-        });
-
-        bannerContainer.addEventListener('mousemove', (e) => {
-          if (!isDragging) return; // Stop the function if not dragging
-          e.preventDefault(); // Prevent default behavior (like text selection)
-          const x = e.pageX - bannerContainer.offsetLeft;
-          const walk = (x - startX) * 2; // The '2' is a multiplier for scroll speed
-          bannerContainer.scrollLeft = scrollLeft - walk;
-        });
+            [bannerContainer, leftArrow, rightArrow].forEach(elem => {
+                if (elem) { // Check if arrow elements exist
+                    elem.addEventListener('click', () => { // Also clear on manual arrow click
+                        clearInterval(autoSlide);
+                    });
+                    elem.addEventListener('wheel', () => clearInterval(autoSlide), { once: true }); // Clear on scroll/touch
+                    elem.addEventListener('touchstart', () => clearInterval(autoSlide), { once: true });
+                }
+            });
+        }
+        */
       }
     </script>
   </section>
@@ -471,12 +498,13 @@
           zh: {
             "loading-text": "LOADING...",
             "nav-brand-home": "Home",
+            // "nav-link-commission": "委託牆", // Uncomment if HTML element exists
             "nav-link-novels": "小說集",
             "nav-link-about": "關於我",
             "hero-title": "Shuttlecock",
             "hero-progress-label": "目前進度",
             "intro-title": "精選作品",
-            "intro-desc": "Select the works from the collection that I am personally satisfied with.",
+            "intro-desc": "Select the works from the collection that I am personally satisfied with.", // Using Chinese as per your new JS
             "intro-banner-more": "更多",
             "products-other-channels-heading": "其他通路",
             "product-item-title-1": "第一次角色投票已開放",
@@ -487,6 +515,8 @@
             "footer-link-contact-me": "與我聯絡",
             "footer-link-other-platforms": "其他平台",
             "footer-link-online-shop": "線上商店",
+            // "footer-link-biz-coop": "商業合作", // Needs HTML element with this ID
+            // "footer-link-support-dev": "贊助開發者" // Needs HTML element with this ID
             "products-subtitle": "Creator’s Other Channels & Platforms",
             "product-item-title-2": "進度更新",
             "product-item-desc-2": "新增\"關於我\"頁面",
@@ -495,6 +525,7 @@
           jp: {
             "loading-text": "読み込み中...",
             "nav-brand-home": "ホーム",
+            // "nav-link-commission": "私の作品",
             "nav-link-novels": "小説集",
             "nav-link-about": "私について",
             "hero-title": "シャトルコック",
@@ -511,6 +542,8 @@
             "footer-link-contact-me": "お問い合わせ",
             "footer-link-other-platforms": "他のプラットフォーム",
             "footer-link-online-shop": "オンラインショップ",
+            // "footer-link-biz-coop": "商業協力",
+            // "footer-link-support-dev": "開発者を支援する"
             "products-subtitle": "クリエーターの他のチャンネル＆プラットフォーム",
             "product-item-title-2": "進捗アップデート",
             "product-item-desc-2": "「私について」ページが追加されました",
@@ -519,6 +552,7 @@
           en: {
             "loading-text": "LOADING...",
             "nav-brand-home": "Home",
+            // "nav-link-commission": "Commission Status Wall",
             "nav-link-novels": "Novels",
             "nav-link-about": "About Me",
             "hero-title": "Shuttlecock",
@@ -535,6 +569,8 @@
             "footer-link-contact-me": "Contact Me",
             "footer-link-other-platforms": "Other Platforms",
             "footer-link-online-shop": "Online Shop",
+            // "footer-link-biz-coop": "Business Cooperation",
+            // "footer-link-support-dev": "Support Developer"
             "products-subtitle": "Creator’s Other Channels & Platforms",
             "product-item-title-2": "Progress Update",
             "product-item-desc-2": "Added \"About Me\" page",
@@ -547,6 +583,8 @@
           for (const id in currentTranslations) {
             if ($('#' + id).length) {
               $('#' + id).text(currentTranslations[id]);
+            } else {
+              // console.warn("Element with ID '" + id + "' not found for translation.");
             }
           }
           $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang); // Set HTML lang attribute
@@ -560,7 +598,7 @@
           if (!$el.hasClass('fade-in-triggered')) { // Avoid re-animating already visible elements
             setTimeout(function () {
               $el.addClass('fade-in-triggered');
-            }, index * 200); // Reduced delay for a quicker feel
+            }, index * 1500); // Original was 600ms, 200ms for a quicker feel. Can be reverted.
           }
         });
       }

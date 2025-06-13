@@ -705,5 +705,30 @@ footer .row a {
     background: rgba(255,255,255,0.3);
   }
   
+
+
+
+/* ---  最簡潔的邊框閃爍提示 --- */
+
+/* 1. 定義一個簡單的邊框閃爍動畫 */
+@keyframes flash-border {
+  /* 動畫中 50% 的時間，邊框會變成白色 */
+  50% {
+    border-color: rgba(255, 240, 231, 0.9);
+  }
+}
+
+/* 2. 將動畫應用到按鈕上 */
+.hero-section .navbar-toggler {
+  /* 關鍵：預設給一個「透明」的邊框佔住位置 */
+  border: 2px solid transparent;
   
+  /* 應用動畫：每 1.8 秒閃爍一次，無限循環 */
+  animation: flash-border 2.8s infinite;
+
+  /* 清除掉 Bootstrap 可能會干擾的預設樣式 */
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
   

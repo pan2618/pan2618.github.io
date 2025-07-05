@@ -269,32 +269,51 @@ footer a:hover{text-decoration:underline}
     </div>
   </div>
 </footer>
-    
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/progressbar.js@1.0.1/dist/progressbar.min.js"></script>
 
 <script>
 $(document).ready(function() {
 
-    /* ---------- A. 淡入 (Original from about.html) ---------- */
+    // ---------- A. 語言處理 ----------
+    
+    // 【核心修改】頁面載入時，優先從 localStorage 讀取由首頁設定的語言
+    var currentLanguage = localStorage.getItem('language') || 'zh';
+    applyLanguage(currentLanguage);
+
+    // 語言切換按鈕的點擊事件
+    $('.language-option').on('click', function (e) {
+        e.preventDefault();
+        var newLang = $(this).data('lang');
+        
+        // 【核心修改】將新的語言選擇存入同一個 localStorage 'language' 中
+        localStorage.setItem('language', newLang); 
+        
+        // 為了讓效果立即呈現，我們直接呼叫翻譯函式，而不是刷新頁面
+        applyLanguage(newLang);
+        
+        $('#nav.show').collapse('hide');
+    });
+
+    // ---------- B. 頁面功能 (淡入、進度環等) ----------
+
     function scanFade(){
-        $('.fade-in').each(function(){
-            const $el=$(this),top=$el.offset().top,view=$(window).scrollTop()+$(window).height();
+        $('.fade-in:not(.fade-in-triggered)').each(function(){
+            const $el=$(this), top=$el.offset().top, view=$(window).scrollTop()+$(window).height();
             if(top < view - 50){ 
                 $el.addClass('fade-in-triggered');
             }
         });
     }
-    $(window).on('scroll load resize', scanFade);
-
-    /* ---------- B. 整頁背景（可選） (Original from about.html) ---------- */
+    
     if($('body').hasClass('with-bg')){
         const url=$('body').data('bg');
         if(url) $('body').css('background-image','url('+url+')');
     }
 
-    /* ---------- C. ProgressBar 圓環 (Original from about.html) ---------- */
     let skillStarted=false;
     const skillsStatsSectionEl = document.getElementById('my-skills-stats');
     if (skillsStatsSectionEl) {
@@ -302,14 +321,10 @@ $(document).ready(function() {
             entries.forEach(en=>{
                 if(en.isIntersecting && !skillStarted){
                     $('.skill-circle').each(function(){
-                        const frac=parseFloat(this.dataset.frac),
-                              text=this.dataset.text;
+                        const frac=parseFloat(this.dataset.frac), text=this.dataset.text;
                         const bar=new ProgressBar.Circle(this,{
-                            strokeWidth:6,
-                            color:'var(--primary)',
-                            trailColor:'#e5e5e5',
-                            duration:1800,
-                            easing:'easeInOut',
+                            strokeWidth:6, color:'var(--primary)', trailColor:'#e5e5e5',
+                            duration:1800, easing:'easeInOut',
                             text:{value:'0',className:'progressbar-text'}
                         });
                         bar.animate(frac,()=>{bar.setText(text);});
@@ -321,64 +336,23 @@ $(document).ready(function() {
         },{threshold:0.4});
         progressBarIo.observe(skillsStatsSectionEl);
     }
-
-    // === COMMON SCRIPT LOGIC FOR LOADING AND TRANSLATION ===
-
-    // 1. Initial Page Load Loading Screen Effect
-    if (!sessionStorage.getItem('siteAlreadyLoadedThisSession')) {
-        $('#loading-overlay').css('visibility', 'visible').show();
-        setTimeout(function () {
-            $('#loading-overlay').fadeOut(300);
-        }, 800); 
-        sessionStorage.setItem('siteAlreadyLoadedThisSession', 'true');
-    } else {
-        $('#loading-overlay').css('visibility', 'hidden').hide();
-    }
     
-    // 2. Language Persistence & Initial Application
-    // Removed clearing localStorage on hard refresh to maintain preference
-    var siteLanguage = localStorage.getItem('preferred_language') || 'zh';
-    applyLanguage(siteLanguage);
-
-    // 3. Language Switch Event Handler
-    $('.language-option').on('click', function (e) {
-        e.preventDefault();
-        var newLang = $(this).data('lang');
-
-        $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
-
-        setTimeout(function () { 
-            localStorage.setItem('preferred_language', newLang);
-            applyLanguage(newLang);
-            
-            $('#nav.show').collapse('hide');
-
-            // Re-trigger fade-in for elements that might have changed
-            $('.fade-in').removeClass('fade-in-triggered').css('opacity', 0);
-            scanFade();
+    // 初始載入時觸發一次淡入掃描
+    $(window).on('scroll load resize', scanFade);
 
 
-            setTimeout(function () { 
-                $('#loading-overlay').fadeOut(300);
-            }, 500);
-        }, 500);
-    });
-
-    // 4. ApplyLanguage Function
+    // ---------- C. 翻譯字典與應用函式 ----------
     function applyLanguage(lang) {
         $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang);
 
         let t = {
             zh: {
-                "loading-text": "載入中...",
-                "about_nav_brand": "Home", // Assuming "Home" is universal or you want to translate it
+                "about_nav_brand": "Home",
                 "about_nav_novels": "小說集",
                 "about_nav_about_me": "關於我",
-                // "about_nav_wip": "施工中", // Element not in HTML
-                "about_main_title": "About Me",
+                "about_main_title": "關於我",
                 "about_main_p1": "我是羽球，一位熱愛故事與繪畫的創作者。從小就對文字與影像充滿想像，喜歡在敘事與視覺之間遊走，透過筆下的角色與場景，傳遞情感與溫度。",
                 "about_main_p2": "我的作品涵蓋小說、二創與多媒體專案，如果對我的創作有興趣，歡迎透過下方連結與我聯絡！",
-                // "about_skills_title": "我的技能", // Element not in HTML
                 "about_skill_novels": "小說作品",
                 "about_skill_digital": "數位專案",
                 "about_skill_illustrations": "插畫創作",
@@ -393,15 +367,12 @@ $(document).ready(function() {
                 "about_footer_shop": "線上商店",
             },
             jp: {
-                "loading-text": "読み込み中...",
                 "about_nav_brand": "ホーム",
-                "about_nav_novels": "小説集", // Needs specific JP translation if different from '小説集'
+                "about_nav_novels": "小説集",
                 "about_nav_about_me": "私について",
-                // "about_nav_wip": "準備中",
                 "about_main_title": "私について",
                 "about_main_p1": "こんにちは、羽球です。物語と絵画を愛するクリエイターです。幼い頃から文字と映像に想像力を膨らませ、物語と視覚の間を行き来し、筆から生まれるキャラクターやシーンを通じて感情と温もりを伝えています。",
                 "about_main_p2": "私の作品は小説、二次創作、マルチメディアプロジェクトに及びます。私の創作に興味があれば、以下のリンクからお気軽にご連絡ください！",
-                // "about_skills_title": "私のスキル",
                 "about_skill_novels": "小説作品",
                 "about_skill_digital": "デジタルプロジェクト",
                 "about_skill_illustrations": "イラスト制作",
@@ -416,15 +387,12 @@ $(document).ready(function() {
                 "about_footer_shop": "オンラインショップ",
             },
             en: {
-                "loading-text": "LOADING...",
                 "about_nav_brand": "Home",
                 "about_nav_novels": "Novels",
                 "about_nav_about_me": "About Me",
-                // "about_nav_wip": "In Progress",
                 "about_main_title": "About Me",
                 "about_main_p1": "Hello, I'm Shuttlecock, a creator passionate about stories and illustration. Since childhood, I've been fascinated by words and visuals, enjoying the journey between narrative and art, conveying emotions and warmth through my characters and scenes.",
                 "about_main_p2": "My work includes novels, fan art, and multimedia projects. If you are interested in my creations, please feel free to contact me via the links below!",
-                // "about_skills_title": "My Skills",
                 "about_skill_novels": "Novel Works",
                 "about_skill_digital": "Digital Projects",
                 "about_skill_illustrations": "Illustrations",
@@ -440,7 +408,7 @@ $(document).ready(function() {
             }
         };
 
-        let currentTranslations = t[lang] || t['zh']; // Default to Chinese if lang not found
+        let currentTranslations = t[lang] || t['zh']; 
         for (const id in currentTranslations) {
             $('#' + id).text(currentTranslations[id]);
         }

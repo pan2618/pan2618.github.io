@@ -704,7 +704,230 @@ footer .row a {
   .info-overlay a:hover {
     background: rgba(255,255,255,0.3);
   }
+
+
+
+  /* --- 6. 最新動態 (依照您的最終指定修改) --- */
+
+/* 區塊整體容器 */
+#products.news-list-section {
+  position: relative;
+  overflow: hidden;
+
+  /* 【您的指定樣式】 */
+  background-color: #f8f9fa;
+  padding: 20px 0;
+}
+
+/* 移除不再需要的舊樣式 */
+.news-list-section .section-bg,
+.news-list-section .section-overlay {
+  display: none;
+}
+
+/* 區塊標題 - 使用清晰的深色文字 */
+.news-list-section .section-header {
+  text-align: center;
+  margin-bottom: 40px; /* 配合較小的 padding，縮小間距 */
+}
+.news-list-section .section-header h3 {
+  font-family: var(--font-family-heading, 'Helvetica Neue', sans-serif);
+  font-size: 2.2rem; /* 稍微縮小標題以適應新的 padding */
+  font-weight: 600;
+  color: #343a40; /* 深色文字 */
+}
+.news-list-section .section-header h6 {
+  font-size: 0.9rem;
+  color: #6c757d; /* 次要文字 */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* 時間軸本體 */
+.news-timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 30px;
+}
+
+/* 時間軸的垂直線 */
+.news-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background-color: #dee2e6; /* 淺灰色線條 */
+}
+
+/* 動態項目 */
+.news-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 10px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+/* 時間軸節點 */
+.news-item::before {
+  content: '';
+  position: absolute;
+  left: -33px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  background-color: #f8f9fa; 
+  border: 3px solid #ced4da;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.news-item:hover {
+  background-color: #e9ecef; /* 滑鼠移上時的背景色 */
+}
+.news-item:hover::before {
+  border-color: #EFA38C;
+}
+
+/* 項目內容排版 */
+.news-date {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-right: 15px;
+  min-width: 90px;
+}
+
+.news-tag {
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 15px;
+  margin-right: 15px;
+  font-weight: 500;
+}
+.tag-support {
+  color: #C75B4D;
+  background-color: rgba(239, 163, 140, 0.2);
+}
+.tag-update {
+  color: #17a2b8;
+  background-color: rgba(23, 162, 184, 0.15);
+}
+
+.news-title {
+  flex-grow: 1;
+  font-size: 1.05rem;
+  color: #343a40;
+  font-weight: 500;
+}
+
+.news-new-badge {
+  font-size: 0.8rem;
+  color: #D96D5F;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+/* "查看更多" 按鈕 */
+.view-more-container {
+  text-align: center;
+  margin-top: 30px;
+}
+.view-more-btn {
+  display: inline-flex;
+  align-items: center;
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.view-more-btn:hover {
+  color: #343a40;
+}
+.view-more-btn .circle-arrow {
+  border-color: #ced4da;
+}
+.view-more-btn:hover .circle-arrow {
+  border-color: #343a40;
+}
+.view-more-btn .circle-arrow::after {
+  border-color: #6c757d;
+}
+.view-more-btn:hover .circle-arrow::after {
+  border-color: #343a40;
+}
   
+  
+/* --- 7. 最新動態標籤 | 閃亮現代感效果 --- */
 
+/* 1. 定義一個控制光澤掃描的動畫 */
+@keyframes shimmer-effect {
+  0% {
+    background-position: 150% 0; /* 動畫開始時，光澤在標籤的右側外 */
+  }
+  100% {
+    background-position: -150% 0;/* 動畫結束時，光澤移動到標籤的左側外 */
+  }
+}
 
+/* 2. 為所有 .news-tag 應用基礎動畫屬性 */
+.news-tag {
+  position: relative; /* 為了可能的未來擴充，先加上定位 */
+  overflow: hidden;  /* 隱藏超出邊框的光澤 */
+  
+  /* 將背景從單色改為漸層。這個漸層包含一個透明的亮點，用於製造光澤效果 */
+  background-size: 300% 100%; /* 將背景尺寸擴大為3倍寬，讓光澤有足夠的移動空間 */
+  
+  /* 應用動畫：動畫名稱 / 持續時間 / 延遲 / 循環次數 / 運動曲線 */
+  animation: shimmer-effect 3.5s 1s infinite linear;
+}
 
+/* 3. 為不同標籤設置各自的「光澤漸層」背景 */
+
+/* “贊助方案”標籤的粉橘色光澤 */
+.tag-support {
+  background-image: linear-gradient(
+    110deg,
+    rgba(239, 163, 140, 0.2) 0%,   /* 左側的原始背景色 */
+    rgba(239, 163, 140, 0.2) 40%,  /* 光澤前 */
+    rgba(245, 200, 180, 0.5) 50%,  /* 光澤本體 (更亮更飽和) */
+    rgba(239, 163, 140, 0.2) 60%,  /* 光澤後 */
+    rgba(239, 163, 140, 0.2) 100%  /* 右側的原始背景色 */
+  );
+  color: #C75B4D;
+}
+
+/* “進度更新”標籤的資訊藍光澤 */
+.tag-update {
+  background-image: linear-gradient(
+    110deg,
+    rgba(23, 162, 184, 0.15) 0%,
+    rgba(23, 162, 184, 0.15) 40%,
+    rgba(137, 207, 240, 0.4) 50%, /* 藍色的光澤 */
+    rgba(23, 162, 184, 0.15) 60%,
+    rgba(23, 162, 184, 0.15) 100%
+  );
+  color: #17a2b8;
+  animation-delay: 1.5s; /* 讓兩個標籤的動畫錯開，更有層次感 */
+}
+
+/* 調整標題字重，解決「太粗」的問題 */
+.news-title {
+  font-weight: 400; /* 400 等同於 'normal'，是標準的文字粗細 */
+}
+
+/* 社群圖示的 Hover 效果 */
+.social-icons .fade-in {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons .fade-in:hover {
+  transform: translateY(-5px); /* 向上微移 */
+  color: #FFD0C0 !important; /* 變成柔和的粉色光暈 */
+}

@@ -922,6 +922,39 @@ footer .row a {
   font-weight: 400; /* 400 等同於 'normal'，是標準的文字粗細 */
 }
 
+/* --- 9. 響應式設計 (Media Queries) --- */
+
+/* ... 您現有的其他 @media 規則 ... */
+
+/* 斷點：小於 768px */
+@media (max-width: 768px) {
+  /* ... 您現有的 .banner 規則 ... */
+
+  /* 【新增/替換】修正手機版動態消息，確保其在同一行顯示 */
+  .news-item {
+    padding: 8px 5px; /* 稍微減少項目的上下內距 */
+    flex-wrap: nowrap;  /* 強制不換行，這是預設值，但明確寫出以確保 */
+  }
+
+  /* 讓標題在空間不足時自動顯示 ... */
+  .news-title {
+    white-space: nowrap;   /* 強制文字不換行 */
+    overflow: hidden;      /* 隱藏超出的部分 */
+    text-overflow: ellipsis; /* 將超出的部分顯示為 ... */
+  }
+
+  /* 稍微縮小其他元素的尺寸，騰出空間 */
+  .news-date {
+    font-size: 0.8rem;
+    margin-right: 8px;
+  }
+  .news-tag {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    margin-right: 8px;
+  }
+}
+
 /* 社群圖示的 Hover 效果 */
 .social-icons .fade-in {
   transition: transform 0.3s ease, color 0.3s ease;

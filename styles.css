@@ -931,3 +931,15 @@ footer .row a {
   transform: translateY(-5px); /* 向上微移 */
   color: #FFD0C0 !important; /* 變成柔和的粉色光暈 */
 }
+
+  /* 讓標題在空間不足時自動顯示 ... */
+  .news-title {
+    white-space: nowrap;   /* 強制文字不換行 */
+    overflow: hidden;      /* 隱藏超出的部分 */
+    text-overflow: ellipsis; /* 將超出的部分顯示為 ... */
+  }
+  .news-tag {
+    font-size: 0.8rem;
+    padding: 3px 9px;
+    margin-right: 10px;
+  }

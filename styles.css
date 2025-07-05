@@ -890,33 +890,78 @@ footer .row a {
 
 /* 3. 為不同標籤設置各自的「光澤漸層」背景 */
 
-/* “贊助方案”標籤的粉橘色光澤 */
+/* --- 7. 最新動態標籤 | 雙層發光科幻感效果 --- */
+
+/* 1. 定義「光澤掃描」動畫 */
+@keyframes shimmer-effect {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 2. 定義「呼吸光暈」動畫 */
+@keyframes pulsate-glow-support {
+  0%, 100% { box-shadow: 0 0 8px rgba(239, 163, 140, 0.3); }
+  50% { box-shadow: 0 0 16px rgba(239, 163, 140, 0.7); }
+}
+
+@keyframes pulsate-glow-update {
+  0%, 100% { box-shadow: 0 0 8px rgba(23, 162, 184, 0.3); }
+  50% { box-shadow: 0 0 16px rgba(23, 162, 184, 0.6); }
+}
+
+
+/* 3. 為所有 .news-tag 恢復圓角樣式並設定基礎屬性 */
+.news-tag {
+  /* 維持您原本的樣式 */
+  font-size: 0.8rem;
+  padding: 5px 12px;
+  border-radius: 15px; /* 關鍵：恢復您的圓角膠囊形狀 */
+  margin-right: 15px;
+  font-weight: 600;
+
+  /* 動畫相關設定 */
+  position: relative;
+  overflow: hidden;
+  background-size: 300% 100%; /* 為光澤掃描準備 */
+  transition: all 0.3s ease;
+}
+
+/* 4. 為不同標籤應用各自的顏色和「雙層動畫」 */
+
+/* “贊助方案”標籤 */
 .tag-support {
-  background-image: linear-gradient(
-    110deg,
-    rgba(239, 163, 140, 0.2) 0%,   /* 左側的原始背景色 */
-    rgba(239, 163, 140, 0.2) 40%,  /* 光澤前 */
-    rgba(245, 200, 180, 0.5) 50%,  /* 光澤本體 (更亮更飽和) */
-    rgba(239, 163, 140, 0.2) 60%,  /* 光澤後 */
-    rgba(239, 163, 140, 0.2) 100%  /* 右側的原始背景色 */
-  );
   color: #C75B4D;
-}
-
-/* “進度更新”標籤的資訊藍光澤 */
-.tag-update {
+  background-color: rgba(239, 163, 140, 0.2);
+  /* 光澤掃描的漸層 */
   background-image: linear-gradient(
     110deg,
-    rgba(23, 162, 184, 0.15) 0%,
-    rgba(23, 162, 184, 0.15) 40%,
-    rgba(137, 207, 240, 0.4) 50%, /* 藍色的光澤 */
-    rgba(23, 162, 184, 0.15) 60%,
-    rgba(23, 162, 184, 0.15) 100%
+    transparent 0%, transparent 50%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 60%, transparent 100%
   );
-  color: #17a2b8;
-  animation-delay: 1.5s; /* 讓兩個標籤的動畫錯開，更有層次感 */
+  
+  /* 【核心】同時應用兩種動畫，用逗號隔開 */
+  animation: 
+    shimmer-effect 4s infinite linear 1s, /* 光澤掃描動畫 */
+    pulsate-glow-support 3s infinite ease-in-out; /* 呼吸光暈動畫 */
 }
 
+/* “進度更新”標籤 */
+.tag-update {
+  color: #17a2b8;
+  background-color: rgba(23, 162, 184, 0.15);
+
+  /* 【核心】同時應用兩種動畫，用逗號隔開 */
+  animation: 
+    shimmer-effect 4s infinite linear 1.5s, /* 光澤掃描動畫，延遲與 support 錯開 */
+    pulsate-glow-update 3s infinite ease-in-out; /* 呼吸光暈動畫 */
+}
+
+/* 5. (可選) 滑鼠移上去時，讓效果更強烈 */
+.news-tag:hover {
+  transform: scale(1.05); /* 輕微放大 */
+  filter: brightness(1.1); /* 稍微提亮 */
+}
 /* 調整標題字重，解決「太粗」的問題 */
 .news-title {
   font-weight: 400; /* 400 等同於 'normal'，是標準的文字粗細 */
@@ -943,3 +988,15 @@ footer .row a {
     padding: 3px 9px;
     margin-right: 10px;
   }
+
+/* 調整標題顏色，使其更柔和 */
+.news-title {
+  /* 使用與日期、副標題相同的次要文字顏色 */
+  color: #6c757d; 
+}
+
+.section-divider.gradient-fade {
+  height: 3px; /* 調整高度 */
+  background: linear-gradient(to bottom, #f8f9fa, #333); /* 上方淺色漸變到下方深色 */
+  opacity: 6.5; /* 可選：調整透明度 */
+}

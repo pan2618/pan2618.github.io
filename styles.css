@@ -61,7 +61,7 @@ footer {
     background-size: cover;
     background-position: center;
     transition: background-image 1.5s ease-in-out;
-    animation: gradientShift 89s ease infinite;
+    animation: gradientShift 101s ease infinite;
   }
   
   @keyframes gradientShift {

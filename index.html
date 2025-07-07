@@ -216,27 +216,22 @@
     /* ---  最簡潔的邊框閃爍提示 --- */
 
     /* 1. 定義一個簡單的邊框閃爍動畫 */
-    @keyframes flash-border {
-
-      /* 動畫中 50% 的時間，邊框會變成白色 */
+    /* @keyframes flash-border {
       50% {
         border-color: rgba(255, 251, 249, 0.9);
       }
-    }
+    } */
 
     /* 2. 將動畫應用到按鈕上 */
-    .hero-section .navbar-toggler {
-      /* 關鍵：預設給一個「透明」的邊框佔住位置 */
+    /* .hero-section .navbar-toggler {
       border: 2px solid transparent;
 
-      /* 應用動畫：每 1.8 秒閃爍一次，無限循環 */
       animation: flash-border 3.5s infinite;
 
-      /* 清除掉 Bootstrap 可能會干擾的預設樣式 */
       background-color: transparent !important;
       box-shadow: none !important;
       outline: none !important;
-    }
+    } */
   </style>
 </head>
 
@@ -291,10 +286,11 @@
 
     <div class="hero-content text-center text-white">
       <h2 id="hero-title">Shuttlecock</h2>
-      <h5 id="hero-progress-label" class="progress-label">目前進度</h5>
-      <div class="progress-container">
-        <div class="progress-bar" id="myProgressBar"></div>
-      </div>
+      <p class="announcement-subtitle">
+        <span class="icon-broadcast"></span>
+        <span id="announcement-text"></span>
+      </p>
+
     </div>
 
     <script>
@@ -426,37 +422,37 @@
     </div>
   </section> -->
 
-   <section id="products" class="news-list-section fade-in">
-      <div class="section-bg" style="background-image: url('images/image.png');"></div>
-      <div class="section-overlay"></div>
+  <section id="products" class="news-list-section fade-in">
+    <div class="section-bg" style="background-image: url('images/image.png');"></div>
+    <div class="section-overlay"></div>
 
-      <div class="container">
-          <div class="section-header">
-              <h3 id="products-other-channels-heading" class="text-muted">最新動態</h3>
-              <h6 id="products-subtitle" class="text-black-50">Latest News & Updates</h6>
-          </div>
-
-          <div class="news-timeline">
-              <a id="product-item-1" href="https://kevin0826.fanbox.cc/" target="_blank" class="news-item fade-in">
-                  <span id="news-tag-support" class="news-tag tag-support">贊助方案</span>
-                  <span id="news-title-1" class="news-title">第一次角色投票已開放</span>
-                  <span id="news-badge-1" class="news-new-badge">NEW</span>
-              </a>
-
-              <a id="product-item-2" href="about.html" class="news-item fade-in">
-                  <span id="news-tag-update" class="news-tag tag-update">進度更新</span>
-                  <span id="news-title-2" class="news-title">新增「關於我」頁面</span>
-              </a>
-
-              </div>
-
-          <div class="view-more-container">
-              <a href="https://www.pixiv.net/users/102745883/fanbox" target="_blank" class="view-more-btn">
-                  <span>View more</span>
-                  <span class="circle-arrow"></span>
-              </a>
-          </div>
+    <div class="container">
+      <div class="section-header">
+        <h3 id="products-other-channels-heading" class="text-muted">最新動態</h3>
+        <h6 id="products-subtitle" class="text-black-50">Latest News & Updates</h6>
       </div>
+
+      <div class="news-timeline">
+        <a id="product-item-1" href="https://kevin0826.fanbox.cc/" target="_blank" class="news-item fade-in">
+          <span id="news-tag-support" class="news-tag tag-support">贊助方案</span>
+          <span id="news-title-1" class="news-title">第一次角色投票已開放</span>
+          <span id="news-badge-1" class="news-new-badge">NEW</span>
+        </a>
+
+        <a id="product-item-2" href="about.html" class="news-item fade-in">
+          <span id="news-tag-update" class="news-tag tag-update">進度更新</span>
+          <span id="news-title-2" class="news-title">新增「關於我」頁面</span>
+        </a>
+
+      </div>
+
+      <div class="view-more-container">
+        <a href="https://www.pixiv.net/users/102745883/fanbox" target="_blank" class="view-more-btn">
+          <span>View more</span>
+          <span class="circle-arrow"></span>
+        </a>
+      </div>
+    </div>
   </section>
 
   <div class="section-divider gradient-fade"></div>
@@ -487,185 +483,172 @@
     </div>
   </footer>
 
-
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
     $(document).ready(function () {
-      // 檢查是否為重新整理（刷新）—若是，清除儲存的語言設定 (User's original preference)
-      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-        localStorage.removeItem('language');
+
+      // ===================================================================
+      // 1. 全域變數與函式定義
+      // ===================================================================
+
+      var announcements = [];
+      var textElement = $('#announcement-text');
+      var textArrayIndex = 0;
+      var charIndex = 0;
+      var typewriterTimeouts = [];
+      var currentLanguage = '';
+
+      /**
+       * 語言翻譯應用函式 (您的原始碼，已整合打字機翻譯)
+       */
+      function applyLanguage(lang) {
+        let translations = {
+          zh: {
+            "nav-brand-home": "Home", "nav-link-novels": "小說集", "nav-link-about": "關於我", "hero-title": "Shuttlecock", "hero-progress-label": "目前進度", "intro-title": "精選作品", "intro-desc": "Select the works from the collection that I am personally satisfied with.", "intro-banner-more": "更多", "products-other-channels-heading": "其他通路", "products-subtitle": "Creator’s Other Channels & Platforms", "footer-copyright": "© 2025 Shuttlecock website", "footer-link-other-collab": "其他合作", "footer-link-contact-me": "與我聯絡", "footer-link-other-platforms": "其他平台", "footer-link-online-shop": "線上商店", "news-tag-support": "贊助方案", "news-title-1": "第一次角色投票已開放", "news-badge-1": "NEW", "news-tag-update": "進度更新", "news-title-2": "新增「關於我」頁面",
+            "hero_announcements": ["Fanbox 新方案已開放！", "追蹤我的IG來獲取最新消息！",]
+          },
+          jp: {
+            "nav-brand-home": "ホーム", "nav-link-novels": "小説集", "nav-link-about": "私について", "hero-title": "シャトルコック", "hero-progress-label": "現在の進捗", "intro-title": "特選作品", "intro-desc": "私が個人的に満足しているコレクションから作品を選んでください。", "intro-banner-more": "もっと見る", "products-other-channels-heading": "他のチャネル", "products-subtitle": "クリエーターの他のチャンネル＆プラットフォーム", "footer-copyright": "© 2025 Shuttlecock ウェブサイト", "footer-link-other-collab": "他の協力", "footer-link-contact-me": "お問い合わせ", "footer-link-other-platforms": "他のプラットフォーム", "footer-link-online-shop": "オンラインショップ", "news-tag-support": "スポンサープラン", "news-title-1": "第一回キャラクター人気投票開催中", "news-badge-1": "NEW", "news-tag-update": "進捗更新", "news-title-2": "「私について」ページを追加",
+            "hero_announcements": ["Fanboxで新しいプランが公開されました！", "インスタをフォローして最新情報をゲット！", ]
+          },
+          en: {
+            "nav-brand-home": "Home", "nav-link-novels": "Novels", "nav-link-about": "About Me", "hero-title": "Shuttlecock", "hero-progress-label": "Current Progress", "intro-title": "Featured Works", "intro-desc": "Select the works from the collection that I am personally satisfied with.", "intro-banner-more": "More", "products-other-channels-heading": "Other Channels", "products-subtitle": "Creator’s Other Channels & Platforms", "footer-copyright": "© 2025 Shuttlecock website", "footer-link-other-collab": "Other Collaboration", "footer-link-contact-me": "Contact Me", "footer-link-other-platforms": "Other Platforms", "footer-link-online-shop": "Online Shop", "news-tag-support": "Sponsorship", "news-title-1": "First Character Poll Now Open", "news-badge-1": "NEW", "news-tag-update": "Update", "news-title-2": "Added \"About Me\" Page",
+            "hero_announcements": ["New Fanbox plan now available!", "Follow my IG for the latest updates!", ]
+          }
+        };
+
+        let t_data = translations[lang] || translations['zh'];
+        if (t_data) {
+          if (t_data.hero_announcements) { announcements = t_data.hero_announcements; }
+          for (const id in t_data) {
+            if (typeof t_data[id] === 'string' && $('#' + id).length) {
+              $('#' + id).text(t_data[id]);
+            }
+          }
+          $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang);
+        }
       }
 
-      var currentLanguage = localStorage.getItem('language') || 'zh'; // Default to Chinese
-      applyLanguage(currentLanguage);
+      // --- 打字機函式 (您的原始碼) ---
+      function type() {
+        if (!announcements || announcements.length === 0 || !announcements[textArrayIndex]) return;
+        if (charIndex < announcements[textArrayIndex].length) {
+          textElement.append(announcements[textArrayIndex].charAt(charIndex));
+          charIndex++;
+          typewriterTimeouts.push(setTimeout(type, 120));
+        } else {
+          typewriterTimeouts.push(setTimeout(erase, 3000));
+        }
+      }
+      function erase() {
+        if (charIndex > 0) {
+          textElement.html(textElement.html().slice(0, -1));
+          charIndex--;
+          typewriterTimeouts.push(setTimeout(erase, 60));
+        } else {
+          textArrayIndex = (textArrayIndex + 1) % announcements.length;
+          typewriterTimeouts.push(setTimeout(type, 500));
+        }
+      }
 
-      // Loading 畫面（首次載入）
-      setTimeout(function () {
-        $('#loading-overlay').fadeOut(300);
-      }, 1500); // Adjusted from original 2500 for a slightly quicker initial view, user can revert to 2500
-
-      // Navbar 收合/展開時，隱藏/顯示社群 icon
-      $('#navbarNav').on('show.bs.collapse', function () {
-        $('#social-icons').hide();
-      });
-      $('#navbarNav').on('hidden.bs.collapse', function () {
-        $('#social-icons').show();
-      });
-
-      // 捲動淡入效果 - Encapsulated function
+      // --- 淡入效果函式 (您的原始碼) ---
       function triggerFadeIn() {
         $('.fade-in').each(function () {
-          // Only trigger if not already triggered to prevent re-animation on every scroll
           if (!$(this).hasClass('fade-in-triggered')) {
             var elementTop = $(this).offset().top;
             var viewportBottom = $(window).scrollTop() + $(window).height();
-            if (elementTop < viewportBottom - 50) { // 50px buffer
+            if (elementTop < viewportBottom - 50) {
               $(this).addClass('fade-in-triggered');
             }
           }
         });
       }
-      $(window).on('scroll', triggerFadeIn);
-      // Initial trigger is handled after staggered fade-in logic
-
-      // 語言切換：監聽所有帶 .language-option 的按鈕
-      $('.language-option').click(function (e) {
-        e.preventDefault();
-        var lang = $(this).data('lang');
-
-        $('#loading-overlay').css('visibility', 'visible').fadeIn(100); // Quicker fade in
-
-        setTimeout(function () {
-          localStorage.setItem('language', lang);
-          console.log("切換後語言：" + lang);
-          applyLanguage(lang);
-          $('#navbarNav').collapse('hide'); // Collapse navbar on mobile after selection
-
-          // Reset and re-trigger fade-in animations
-          $('.fade-in').removeClass('fade-in-triggered').css('opacity', 0); // Reset state
-
-          applyInitialStaggeredFadeIn(); // Re-apply for elements that should appear immediately
-          triggerFadeIn(); // Re-apply scroll-based for elements in view
-
-          setTimeout(function () {
-            $('#loading-overlay').fadeOut(300);
-          }, 500); // Short delay for loading screen to cover changes
-        }, 500); // Short delay to apply language
-      });
-
-     function applyLanguage(lang) {
-      let translations = {
-        zh: {
-          "loading-text": "LOADING...",
-          "nav-brand-home": "Home",
-          "nav-link-novels": "小說集",
-          "nav-link-about": "關於我",
-          "hero-title": "Shuttlecock",
-          "hero-progress-label": "目前進度",
-          "intro-title": "精選作品",
-          "intro-desc": "Select the works from the collection that I am personally satisfied with.",
-          "intro-banner-more": "更多",
-          "products-other-channels-heading": "其他通路",
-          "products-subtitle": "Creator’s Other Channels & Platforms",
-          "footer-copyright": "© 2025 Shuttlecock website",
-          "footer-link-other-collab": "其他合作",
-          "footer-link-contact-me": "與我聯絡",
-          "footer-link-other-platforms": "其他平台",
-          "footer-link-online-shop": "線上商店",
-          // --- 以下為本次新增 ---
-          "news-tag-support": "贊助方案",
-          "news-title-1": "第一次角色投票已開放",
-          "news-badge-1": "NEW",
-          "news-tag-update": "進度更新",
-          "news-title-2": "新增「關於我」頁面"
-        },
-        jp: {
-          "loading-text": "読み込み中...",
-          "nav-brand-home": "ホーム",
-          "nav-link-novels": "小説集",
-          "nav-link-about": "私について",
-          "hero-title": "シャトルコック",
-          "hero-progress-label": "現在の進捗",
-          "intro-title": "特選作品",
-          "intro-desc": "私が個人的に満足しているコレクションから作品を選んでください。",
-          "intro-banner-more": "もっと見る",
-          "products-other-channels-heading": "他のチャネル",
-          "products-subtitle": "クリエーターの他のチャンネル＆プラットフォーム",
-          "footer-copyright": "© 2025 Shuttlecock ウェブサイト",
-          "footer-link-other-collab": "他の協力",
-          "footer-link-contact-me": "お問い合わせ",
-          "footer-link-other-platforms": "他のプラットフォーム",
-          "footer-link-online-shop": "オンラインショップ",
-          // --- 以下為本次新增 ---
-          "news-tag-support": "スポンサープラン",
-          "news-title-1": "第一回キャラクター人気投票開催中",
-          "news-badge-1": "NEW",
-          "news-tag-update": "進捗更新",
-          "news-title-2": "「私について」ページを追加"
-        },
-        en: {
-          "loading-text": "LOADING...",
-          "nav-brand-home": "Home",
-          "nav-link-novels": "Novels",
-          "nav-link-about": "About Me",
-          "hero-title": "Shuttlecock",
-          "hero-progress-label": "Current Progress",
-          "intro-title": "Featured Works",
-          "intro-desc": "Select the works from the collection that I am personally satisfied with.",
-          "intro-banner-more": "More",
-          "products-other-channels-heading": "Other Channels",
-          "products-subtitle": "Creator’s Other Channels & Platforms",
-          "footer-copyright": "© 2025 Shuttlecock website",
-          "footer-link-other-collab": "Other Collaboration",
-          "footer-link-contact-me": "Contact Me",
-          "footer-link-other-platforms": "Other Platforms",
-          "footer-link-online-shop": "Online Shop",
-          // --- 以下為本次新增 ---
-          "news-tag-support": "Sponsorship",
-          "news-title-1": "First Character Poll Now Open",
-          "news-badge-1": "NEW",
-          "news-tag-update": "Update",
-          "news-title-2": "Added \"About Me\" Page"
-        }
-      };
-
-      let currentTranslations = translations[lang];
-      if (currentTranslations) {
-        for (const id in currentTranslations) {
-          if ($('#' + id).length) {
-            $('#' + id).text(currentTranslations[id]);
-          } else {
-            // console.warn("Element with ID '" + id + "' not found for translation.");
-          }
-        }
-        $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang); // Set HTML lang attribute
-      }
-    }
-
-      // Function for initial staggered fade-in (your original logic)
       function applyInitialStaggeredFadeIn() {
         $('.fade-in').each(function (index) {
           const $el = $(this);
-          if (!$el.hasClass('fade-in-triggered')) { // Avoid re-animating already visible elements
+          if (!$el.hasClass('fade-in-triggered')) {
             setTimeout(function () {
               $el.addClass('fade-in-triggered');
-            }, index * 1500); // Original was 600ms, 200ms for a quicker feel. Can be reverted.
+            }, index * 1500);
           }
         });
       }
 
-      // Initial staggered fade-in for elements visible on load
-      applyInitialStaggeredFadeIn();
+      // ===================================================================
+      // 2. 頁面初始化與事件監聽 (您的原始邏輯)
+      // ===================================================================
 
-      // Initial scroll check for any other elements already in viewport after layout
+      // --- 初始設定 ---
+      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        localStorage.removeItem('language');
+      }
+      currentLanguage = localStorage.getItem('language') || 'zh';
+      applyLanguage(currentLanguage);
+
+      // --- 事件監聽 ---
+      $('#navbarNav').on('show.bs.collapse', () => $('#social-icons').hide());
+      $('#navbarNav').on('hidden.bs.collapse', () => $('#social-icons').show());
+      $(window).on('scroll', triggerFadeIn);
+
+      // 語言切換按鈕 (保留您原本的無刷新流程，並整合打字機重置)
+      $('.language-option').click(function (e) {
+        e.preventDefault();
+        var lang = $(this).data('lang');
+        if (lang === currentLanguage) return;
+
+        $('#loading-overlay').css('visibility', 'visible').fadeIn(100);
+
+        setTimeout(function () {
+          localStorage.setItem('language', lang);
+          currentLanguage = lang;
+
+          // 在更新文字前，先清除舊的打字機動畫
+          typewriterTimeouts.forEach(clearTimeout);
+          typewriterTimeouts = [];
+          textElement.html('');
+          charIndex = 0;
+          textArrayIndex = 0;
+
+          // 應用新語言 (這會更新靜態文字和打字機的 announcements 陣列)
+          applyLanguage(lang);
+
+          // 用新的內容，重新啟動打字機
+          if (textElement.length) {
+            type();
+          }
+
+          $('#navbarNav').collapse('hide');
+
+          // 【您的淡入效果重置邏輯，完整保留】
+          $('.fade-in').removeClass('fade-in-triggered').css('opacity', 0);
+          applyInitialStaggeredFadeIn();
+          triggerFadeIn();
+
+          setTimeout(function () {
+            $('#loading-overlay').fadeOut(300);
+          }, 500);
+        }, 500);
+      });
+
+      // --- 頁面最終啟動 ---
       setTimeout(function () {
-        triggerFadeIn(); // Call after initial DOM manipulation and staggered fades
-      }, 250); // A small delay to ensure layout is mostly stable
+        $('#loading-overlay').fadeOut(300);
+      }, 1500);
+
+      applyInitialStaggeredFadeIn();
+      setTimeout(triggerFadeIn, 250);
+
+      if (textElement.length) {
+        type();
+      }
+
     });
   </script>
+
+
 
 </body>
 

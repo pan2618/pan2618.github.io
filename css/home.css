@@ -1,0 +1,404 @@
+/* ==========================================================================
+   1. Hero Section (主視覺與動畫區塊)
+   ========================================================================== */
+.hero-section {
+    position: relative; /* 定位基準點，讓裡面的絕對定位元素(如文字)參考這裡 */
+    height: 65vh;       /* [調整高度] 66vh 代表佔據螢幕高度的 66%。想變高就改大數字 */
+    
+    /* [調整背景色] 這是漸層背景，若圖片沒載入會顯示這個。你可以改 #333, #555 */
+    background: linear-gradient(135deg, #333, #555); 
+    
+    background-size: cover;      /* 強制背景圖填滿整個區塊，可能會裁切邊緣 */
+    background-position: center; /* 背景圖永遠置中對齊 */
+    
+    /* 背景圖片切換時的淡入淡出時間，1.5s = 1.5秒 */
+    transition: background-image 1.5s ease-in-out; 
+    
+    /* [調整動畫速度] 101s 代表跑完一次循環要 101秒。數字越小跑越快 */
+    animation: gradientShift 101s ease infinite; 
+}
+
+/* 背景緩慢移動的動畫定義 */
+@keyframes gradientShift {
+    0%   { background-position: 0% 50%; }   /* 起點位置 */
+    50%  { background-position: 100% 50%; } /* 移動到另一端 */
+    100% { background-position: 0% 50%; }   /* 回到起點 */
+}
+
+/* 底部模糊過渡層 (讓 Hero 和下面內容銜接更自然) */
+.transition-blur {
+    height: 55px; /* [調整模糊高度] 越高模糊範圍越大 */
+    /* 從透明到白色的漸層，製造霧化效果 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    filter: blur(10px); /* [調整模糊程度] 數字越大越糊 */
+    margin-top: -20px;  /* 往上拉一點，覆蓋在 Hero 底部 */
+}
+
+/* Slideshow 文字動畫 (初始狀態) */
+#slideshow-text, #slideshow-description {
+    opacity: 0; /* 一開始是隱藏的 */
+    /* 執行淡入動畫，2s = 2秒，forwards = 結束後停留在最後狀態(顯示) */
+    animation: fadeIn 2s forwards; 
+}
+
+/* 文字淡入動畫定義 */
+@keyframes fadeIn {
+    from { opacity: 0; } /* 從完全透明 */
+    to { opacity: 1; }   /* 到完全不透明 */
+}
+
+/* 進度條容器 (那條長長的背景) */
+.progress-container {
+    width: 240px;      /* [調整總寬度] */
+    height: 12px;      /* [調整總高度] */
+    background: rgba(255,255,255,0.2); /* 半透明白色背景 */
+    border-radius: 6px; /* 圓角程度，數字一半高度就是正圓角 */
+    overflow: hidden;   /* 確保裡面的進度條不會跑出圓角 */
+    margin: 0 auto;     /* 水平置中 */
+}
+
+/* 進度條本體 (會動的那條) */
+.progress-bar {
+    height: 100%; 
+    width: 1%; /* 初始寬度，JS 會動態改變這個值 */
+    /* [調整顏色] 這是橘色漸層，你可以改 #HEX 色碼 */
+    background: linear-gradient(to right, #FF7652, #FFCA9A); 
+    transition: width 0.4s ease; /* 寬度變化時的平滑過渡 */
+}
+
+/* Social Icons (社群圖示區) */
+.social-icons {
+    display: flex;             /* 啟用彈性排版 */
+    justify-content: center;   /* 水平置中 */
+    align-items: center;       /* 垂直置中 */
+}
+.social-icons img.pixiv-icon {
+    width: 30px; height: 30px; /* [調整圖示大小] */
+    margin-left: 1px; margin-right: 1px; /* 圖示之間的間距 */
+}
+.social-icons .fade-in {
+    /* 設定 hover 時的變形與顏色過渡時間 */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.social-icons .fade-in:hover {
+    transform: translateY(-5px); /* 滑鼠移上去時往上浮動 5px */
+    color: #FFD0C0 !important;   /* [調整 Hover 顏色] 變成粉色光暈 */
+}
+
+/* Youtube Icon 呼吸動畫定義 */
+@keyframes youtube-pulsate {
+    /* 0% 和 100% 是原始狀態 */
+    0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+    /* 50% 是放大並發光的狀態 */
+    50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+}
+/* 應用動畫：1.5s循環一次，infinite代表無限循環 */
+.youtube-icon { animation: youtube-pulsate 1.5s infinite ease-in-out; }
+
+/* ==========================================================================
+   2. Horizontal Banners (橫向捲動作品集)
+   ========================================================================== */
+#my-works {
+    position: relative;
+    padding: 1rem 0 0 0; /* 上方留白 */
+    background: #fff;    /* 背景色 */
+    overflow: hidden;    /* 防止內容溢出 */
+}
+
+/* 這是針對 Bootstrap Grid 的修正 */
+#my-works .row {
+    display: flex; flex-wrap: wrap; justify-content: center;
+}
+#my-works .col-6 {
+    padding-left: 5px; padding-right: 5px;
+}
+
+/* 畫廊捲動容器 */
+.horizontal-banners {
+    display: flex;    /* 讓圖片橫向排列 */
+    gap: 0;           /* 圖片之間的間隙設為 0 */
+    overflow-x: auto; /* 允許橫向捲動 */
+    
+    /* [關鍵功能] 讓捲動像磁鐵一樣吸附在圖片中間 */
+    scroll-snap-type: x mandatory; 
+    
+    cursor: grab; /* 滑鼠游標變成「抓取」的手勢 */
+    scroll-behavior: smooth; /* 平滑捲動 */
+    
+    margin: 0; 
+    padding: 20px 0;   /* [重要] 增加上下內距，不然圖片放大時會被切掉 */
+    overflow-y: hidden; /* 禁止垂直捲動 */
+    
+    /* 隱藏醜陋的捲軸 (Firefox / IE) */
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+/* 隱藏捲軸 (Chrome / Safari) */
+.horizontal-banners::-webkit-scrollbar { display: none; } 
+
+/* 當 JS 偵測到正在拖曳時的樣式 */
+.horizontal-banners.dragging {
+    cursor: grabbing; /* 游標變成「抓緊」 */
+    scroll-snap-type: none; /* 拖曳時暫時關閉磁吸，手感比較好 */
+}
+
+/* 單張 Banner 卡片設定 */
+.banner {
+    flex: 0 0 40%;    /* [調整寬度] 0 0 40% 代表固定佔容器的 40% 寬 */
+    height: 360px;    /* [調整高度] 固定高度 */
+    background-size: cover;    /* 圖片填滿 */
+    background-position: center; /* 圖片置中 */
+    background-repeat: no-repeat;
+    position: relative;
+    cursor: pointer;  /* 滑鼠變手指 */
+    border-radius: 6px; /* 圓角 */
+    margin-right: 8px;  /* 右邊留一點縫隙 */
+    
+    /* [關鍵功能] 告訴容器這張卡片要對齊中間 */
+    scroll-snap-align: center; 
+    
+    /* 設定變形與濾鏡的動畫時間 */
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+/* 互動特效：當滑鼠進入畫廊區域時 */
+.horizontal-banners:hover .banner {
+    filter: brightness(0.65) saturate(0.9); /* 所有圖片變暗、飽和度降低 */
+    transform: scale(0.96); /* 所有圖片稍微縮小 */
+}
+/* 互動特效：當滑鼠指到「特定那張」圖片時 */
+.horizontal-banners .banner:hover {
+    filter: brightness(1) saturate(1); /* 恢復亮度與飽和度 */
+    transform: scale(1.04); /* [調整放大比例] 該圖片放大 1.04 倍 */
+    z-index: 10; /* 確保放大的圖片壓在別張上面 */
+}
+
+/* RWD 設定：手機版調整 */
+@media (max-width: 768px) {
+    .banner {
+        flex: 0 0 45%; /* [調整手機寬度] 手機上改為佔 45% 寬 */
+        height: 360px; /* 高度維持 */
+    }
+}
+
+/* 第一張介紹卡片 (Intro Banner) 特殊設定 */
+.intro-banner {
+    /* 設定背景圖 */
+    background: url('images/intro-bg.jpg') center/cover no-repeat;
+    display: flex; justify-content: center; align-items: center; /* 讓文字置中 */
+    position: relative; z-index: 1;
+}
+.banner.intro-banner {
+    width: 40%; /* 強制設定寬度 (其實跟上面重複了，可保留以防萬一) */
+}
+
+/* 介紹卡片的遮罩層 (讓文字更清楚) */
+.intro-banner::before {
+    content: "";
+    position: absolute; inset: 0; /* 填滿整個卡片 */
+    /* [調整遮罩顏色] 這裡是橘粉色的半透明漸層 */
+    background: linear-gradient(rgba(239, 163, 140, 0.5), rgba(239, 163, 140, 0.7));
+    border-radius: 6px; z-index: 1;
+}
+/* 介紹卡片的文字 */
+.intro-banner .intro-text {
+    position: relative; z-index: 2; /* 確保文字在遮罩上面 */
+    text-align: center; width: 80%; color: #fff;
+}
+
+/* 懸浮資訊層 (滑鼠移上去才出現的黑底文字) */
+.info-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0; /* 固定在底部 */
+    z-index: 2;
+    background: rgba(0,0,0,0.5); /* 半透明黑底 */
+    color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    
+    /* 預設隱藏設定 */
+    pointer-events: auto; /* 允許點擊裡面的連結 */
+    opacity: 0;           /* 透明 */
+    transform: translateY(20px); /* 稍微往下偏移 */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* 動畫時間 */
+}
+
+/* 當滑鼠移到 Banner 上時，顯示資訊層 */
+.banner:hover .info-overlay {
+    opacity: 1;             /* 變不透明 */
+    transform: translateY(0); /* 回到原位 */
+}
+
+/* 資訊層裡面的按鈕連結 */
+.info-overlay a {
+    display: inline-block; color: #fff; text-decoration: none;
+    background: rgba(255,255,255,0.1); padding: 0.4rem 1rem; border-radius: 4px;
+}
+.info-overlay a:hover { background: rgba(255,255,255,0.3); } /* Hover 變亮 */
+
+/* 左右箭頭按鈕 */
+.arrow-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); /* 垂直置中 */
+    z-index: 2;
+    background: rgba(255,255,255,0.1); /* 半透明背景 */
+    border: 2px solid rgba(255,255,255,0.5); /* 邊框 */
+    border-radius: 50%; /* 圓形 */
+    width: 40px; height: 40px; /* 大小 */
+    color: #fff; cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+}
+.arrow-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: #fff; }
+.arrow-btn.left { left: 10px; }   /* 左邊距 */
+.arrow-btn.right { right: 10px; } /* 右邊距 */
+.arrow-btn i { font-size: 1.2rem; } /* 圖示大小 */
+
+/* ==========================================================================
+   3. News List Section (最新動態與發光標籤)
+   ========================================================================== */
+#products.news-list-section {
+    position: relative; overflow: hidden;
+    background-color: #f8f9fa; /* 淺灰背景 */
+    padding: 10px 0;
+}
+
+/* 標題區塊 */
+.news-list-section .section-header { text-align: center; margin-bottom: 30px; }
+.news-list-section .section-header h3 {
+    font-family: var(--font-family-heading, 'Helvetica Neue', sans-serif);
+    font-size: 2.0rem; font-weight: 600; color: #343a40; /* 深灰字 */
+}
+.news-list-section .section-header h6 {
+    font-size: 0.9rem; color: #6c757d; letter-spacing: 1px; text-transform: uppercase;
+}
+
+/* Timeline (時間軸容器) */
+.news-timeline {
+    position: relative; max-width: 700px; margin: 0 auto; padding-left: 30px;
+}
+/* 時間軸的那條直線 */
+.news-timeline::before {
+    content: ''; position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 2px; background-color: #dee2e6; /* 線條顏色 */
+}
+
+/* News Item (單則動態) */
+.news-item {
+    position: relative; display: flex; align-items: center;
+    padding: 12px 10px; margin-bottom: 10px;
+    text-decoration: none; border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+.news-item:hover { background-color: #e9ecef; } /* Hover 背景變深一點 */
+
+/* 時間軸上的小圓點 */
+.news-item::before {
+    content: ''; position: absolute; left: -33px; top: 50%;
+    width: 18px; height: 18px;
+    background-color: #f8f9fa; border: 3px solid #ced4da; /* 圓點邊框 */
+    border-radius: 50%; transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+.news-item:hover::before { border-color: #EFA38C; } /* Hover 時圓點變色 */
+
+/* 動態標題文字 */
+.news-title {
+    flex-grow: 1; font-size: 1.05rem; color: #6c757d;
+    font-weight: 400; 
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* 文字過長顯示... */
+}
+.news-new-badge {
+    font-size: 0.8rem; color: #D96D5F; font-weight: bold; margin-left: 15px;
+}
+
+/* --- 發光標籤特效 (Shimmer) --- */
+.news-tag {
+    font-size: 0.8rem; padding: 5px 12px;
+    border-radius: 15px; /* 膠囊形狀 */
+    margin-right: 15px; font-weight: 600;
+    position: relative; overflow: hidden;
+    background-size: 300% 100%; /* 背景拉大，為了做掃光動畫 */
+    transition: all 0.3s ease;
+}
+.news-tag:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+/* 光澤掃描動畫 (反光條移動) */
+@keyframes shimmer-effect {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+/* 呼吸燈動畫 (Support 標籤用 - 橘色) */
+@keyframes pulsate-glow-support {
+    0%, 100% { box-shadow: 0 0 8px rgba(239, 163, 140, 0.3); }
+    50% { box-shadow: 0 0 16px rgba(239, 163, 140, 0.7); }
+}
+/* 呼吸燈動畫 (Update 標籤用 - 藍色) */
+@keyframes pulsate-glow-update {
+    0%, 100% { box-shadow: 0 0 8px rgba(23, 162, 184, 0.3); }
+    50% { box-shadow: 0 0 16px rgba(23, 162, 184, 0.6); }
+}
+
+/* 贊助標籤樣式設定 */
+.tag-support {
+    color: #C75B4D; background-color: rgba(239, 163, 140, 0.2);
+    /* 設定反光條的漸層 */
+    background-image: linear-gradient(110deg, transparent 0%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, transparent 60%, transparent 100%);
+    /* 結合兩個動畫 */
+    animation: shimmer-effect 4s infinite linear 1s, pulsate-glow-support 3s infinite ease-in-out;
+}
+
+/* 更新標籤樣式設定 */
+.tag-update {
+    color: #17a2b8; background-color: rgba(23, 162, 184, 0.15);
+    animation: shimmer-effect 4s infinite linear 1.5s, pulsate-glow-update 3s infinite ease-in-out;
+}
+
+/* 查看更多按鈕 */
+.view-more-container { text-align: center; margin-top: 30px; }
+.view-more-btn {
+    display: inline-flex; align-items: center;
+    color: #6c757d; text-decoration: none; font-size: 1rem;
+    transition: color 0.3s ease;
+}
+.view-more-btn:hover { color: #343a40; }
+/* 圓圈箭頭樣式 */
+.view-more-btn .circle-arrow { border-color: #ced4da; }
+.view-more-btn:hover .circle-arrow { border-color: #343a40; }
+.view-more-btn .circle-arrow::after { border-color: #6c757d; }
+.view-more-btn:hover .circle-arrow::after { border-color: #343a40; }
+
+/* 區塊分隔線 (漸層線) */
+.section-divider.gradient-fade {
+    height: 3px; 
+    background: linear-gradient(to bottom, #f8f9fa, #333); 
+    opacity: 6.5; /* [注意] opacity 最大值通常是 1，寫 6.5 等同於 1 (不透明) */
+}
+
+/* 其他 Legacy 樣式 (舊有支援) */
+.img-fluid { max-height: 250px; width: auto; }
+.col-md-4 { padding: 0.5rem; }
+#screenshots .row { display: flex; justify-content: center; align-items: center; }
+#screenshots .col-md-4 { flex: 0 0 33.3333%; max-width: 33.3333%; padding: 15px; }
+@media (max-width: 768px) { #screenshots .col-md-4 { flex: 0 0 50%; max-width: 32%; } }
+
+/* 輪播按鈕覆寫 (若有用到 Bootstrap Carousel) */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.8) !important; border-radius: 50% !important;
+    width: 30px !important; height: 30px !important;
+    background-size: 50% !important; background-position: center !important; background-repeat: no-repeat !important;
+}
+
+/* 商品列表樣式 */
+.product-list { background-color: #f8f9fa; padding: 20px 0; }
+.product-item {
+    display: flex; align-items: center; background-color: #fff;
+    border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; padding: 15px; max-width: 800px; height: auto; margin-left: auto; margin-right: auto;
+}
+.product-img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 15px; }
+.product-info { flex-grow: 1; text-align: left; }
+.product-info h5 { margin: 0 0 5px 0; font-weight: bold; color: #333; font-size: 1rem; }
+.product-info p { margin: 0 0 5px 0; color: #666; font-size: 0.875rem; }
+.product-info .btn {
+    text-transform: uppercase; font-size: 0.875rem; margin-top: 5px; text-align: left;
+    padding: 5px 10px; display: inline-block;
+}

@@ -1,487 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shuttlecock art</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="preload" href="images/image.png" as="image">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shuttlecock art</title>
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/home.css">
 
-    <style>
-        #loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(34, 34, 34, 0.95); /* 半透明深色背景 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; /* 確保在最上層 */
-        }
-
-        .loading {
-            text-align: center;
-        }
-
-        .loading h2 {
-            color: #ccc;
-            margin: 0;
-            font: 0.8em verdana;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .loading span {
-            display: inline-block;
-            vertical-align: middle;
-            width: 0.6em;
-            height: 0.6em;
-            margin: 0.19em;
-            background: #007DB6;
-            border-radius: 0.6em;
-            animation: loading 1s infinite alternate;
-        }
-
-        .loading span:nth-of-type(2) {
-            background: #008FB2;
-            animation-delay: 0.2s;
-        }
-
-        .loading span:nth-of-type(3) {
-            background: #009B9E;
-            animation-delay: 0.4s;
-        }
-
-        .loading span:nth-of-type(4) {
-            background: #00A77D;
-            animation-delay: 0.6s;
-        }
-
-        .loading span:nth-of-type(5) {
-            background: #00B247;
-            animation-delay: 0.8s;
-        }
-
-        .loading span:nth-of-type(6) {
-            background: #5AB027;
-            animation-delay: 1.0s;
-        }
-
-        .loading span:nth-of-type(7) {
-            background: #A0B61E;
-            animation-delay: 1.2s;
-        }
-
-        @keyframes loading {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
-        }
-
-        .fade-in-triggered {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    </style>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  
+  <link rel="preload" href="assets/images/image.png" as="image">
 </head>
 
 <body>
 
-    <div id="loading-overlay">
-        <div class="loading">
-            <h2>LOADING...</h2>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+  <header class="hero-section" id="slideshow" style="background-image: url('assets/images/image.png');">
+    
+    <div class="hero-content text-center text-white">
+      <h2 id="hero-title">Shuttlecock</h2>
+      <p class="announcement-subtitle">
+        <span class="icon-broadcast"></span>
+        <span id="announcement-text"></span>
+      </p>
     </div>
-    
 
-    <header class="hero-section" id="slideshow" style="background-image: url('images/image.png');">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-              <h5 class="navbar-brand text-white" href="index.html">Home</h5>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                    <a class="nav-link text-white disabled" href="about-work.html" tabindex="-1" aria-disabled="true">委託牆</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white disabled" href="about-cp.html" tabindex="-1" aria-disabled="true">施工中</a>
-                  </li>
-                  <!-- 直接呈現三個語言選項 -->
-                  <li class="nav-item">
-                    <a class="nav-link text-white language-option" href="#" data-lang="jp">日本語</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white language-option" href="#" data-lang="en">English</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-        </nav>
-          
+    <div class="social-icons text-center mt-4 fade-in-container" id="social-icons">
+      <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-3 fade-in">
+        <i class="fab fa-instagram fa-2x"></i>
+      </a>
+      <a href="https://x.com/pnzyu322858" target="_blank" class="text-white mx-3 fade-in">
+        <i class="fab fa-twitter fa-2x"></i>
+      </a>
+      <a href="https://www.youtube.com/@bananaguardian-b8g/featured" target="_blank" class="text-white mx-3 fade-in">
+        <i class="fab fa-youtube fa-2x"></i>
+      </a>
+      <a href="https://www.pixiv.net/users/102745883" target="_blank" class="text-white mx-3 fade-in">
+        <img src="assets/images/pixiv-icon.png" alt="Pixiv" class="pixiv-icon">
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100034321654632&locale=zh_TW" target="_blank"
+        class="text-white mx-3 fade-in">
+        <i class="fab fa-facebook fa-2x"></i>
+      </a>
+    </div>
+  </header>
 
-        <div class="hero-content text-center text-white">
-            <h2>Shuttlecock</h2>
-            <h5 class="progress-label">目前進度</h5>
-            <div class="progress-container">
-              <div class="progress-bar" id="myProgressBar"></div>
-            </div>
-          </div>
-          
-          <script>
-            // 更新進度的函式：current 為當前進度，total 為總進度
-            function updateProgress(current, total) {
-              const percent = (current / total) * 100;
-              document.getElementById('myProgressBar').style.width = percent + "%";
-            }
-          
-            // 初始進度設定：例如 1 / 100
-            updateProgress(1, 100);
-          
-          </script>
-          
-        
-        <div class="social-icons text-center mt-4 fade-in-container" id="social-icons">
-            <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-3 fade-in">
-                <i class="fab fa-instagram fa-2x"></i>
-            </a>
-            <a href="https://x.com/pnzyu322858" target="_blank" class="text-white mx-3 fade-in">
-                <i class="fab fa-twitter fa-2x"></i>
-            </a>
-            <a href="https://www.youtube.com/@bananaguardian-b8g/featured" target="_blank" class="text-white mx-3 fade-in">
-                <i class="fab fa-youtube fa-2x"></i>
-            </a>
-            <a href="https://www.pixiv.net/users/102745883" target="_blank" class="text-white mx-3 fade-in">
-                <img src="images/pixiv-icon.png" alt="Pixiv" class="pixiv-icon">
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=100034321654632&locale=zh_TW" target="_blank" class="text-white mx-3 fade-in">
-                <i class="fab fa-facebook fa-2x"></i>
-            </a>
+  <section id="my-works">
+    <div class="horizontal-banners" id="banner-container">
+      <div class="banner intro-banner" style="background-image: url('assets/images/intro-bg.jpg');">
+        <div class="intro-text">
+          <h3 id="intro-title">精選作品</h3>
+          <p id="intro-desc">Select the works from the collection that I am personally satisfied with.</p>
         </div>
-    </header>
-
-
-
-    <section id="my-works">
-        <div class="horizontal-banners" id="banner-container">
-        
-            <div class="banner intro-banner" style="background-image: url('images/intro-bg.jpg');">
-                <div class="intro-text">
-                  <h3 id="intro-title">精選作品</h3>
-                  <p id="intro-desc">Select the works from the collection that I am personally satisfied with.</p>
-                </div>
-              
-                <!-- info-overlay：確保絕對定位，並在上層 (z-index) -->
-                <div class="info-overlay">
-                  <a href="https://www.pixiv.net/users/102745883" class="text-white footer-link">
-                    More
-                  </a>
-                </div>
-              </div>
-    
-    
-          <div class="banner" style="background-image: url('images/screenshot1.png');">
-            <div class="info-overlay">
-              <h5>伊落マリー</h5>
-              <p>Blue Archive</p>
-            </div>
-          </div>
-      
-
-          <div class="banner" style="background-image: url('images/screenshot2.png');">
-            <div class="info-overlay">
-              <h5>ホタル</h5>
-              <p>崩壞：星穹鐵道 </p>
-            </div>
-          </div>
-      
-  
-          <!-- <div class="banner" style="background-image: url('images/screenshot.png');">
-            <div class="info-overlay">
-              <h4>作品標題 3</h4>
-              <p>作品/角色簡介</p>
-            </div>
-          </div> -->
-        
-      
+        <div class="info-overlay">
+          <a id="intro-banner-more" href="https://www.pixiv.net/users/102745883" class="text-white footer-link">
+            More
+          </a>
         </div>
-      
-      
-      <!-- JS：自動滑動 + 左右切換功能 -->
-      <script>
-        const bannerContainer = document.getElementById('banner-container');
-        const leftArrow = document.getElementById('arrow-left');
-        const rightArrow = document.getElementById('arrow-right');
-        const scrollStep = 500; 
-
-
-        // 監聽左右按鈕點擊
-        leftArrow.addEventListener('click', () => {
-          bannerContainer.scrollBy({
-            left: -scrollStep,
-            behavior: 'smooth'
-          });
-        });
-        rightArrow.addEventListener('click', () => {
-          bannerContainer.scrollBy({
-            left: scrollStep,
-            behavior: 'smooth'
-          });
-        });
-      
-        // 自動滑動 (每隔 autoInterval 毫秒向右移動 scrollStep)
-        let autoSlide = setInterval(() => {
-          bannerContainer.scrollBy({
-            left: scrollStep,
-            behavior: 'smooth'
-          });
-        }, autoInterval);
-      
-        // 若使用者手動操作，則暫停自動滑動
-        [bannerContainer, leftArrow, rightArrow].forEach(elem => {
-          elem.addEventListener('click', () => {
-            clearInterval(autoSlide);
-          });
-        });
-      </script>
-      
-      
-
-    <section id="products" class="product-list fade-in">
-        <div class="container">
-            <h3 class="text-muted">其他通路</h3>
-            <h6 class="text-black-50"></h6>
-            <p></p>
-            <div class="product-item fade-in">
-                <img src="images/shot1.png" alt="Product Image" class="product-img">
-                <div class="product-info">
-                    <h5>周邊商品</h5>
-                    <p>描述輸入中</p>
-                    <!-- <a href="https://example.com" class="btn btn-outline-info">查看詳情</a> -->
-                    <input type="button" disabled="disabled" value="查看詳情">
-                </div>
-            </div>
-            <div class="product-item fade-in">
-                <img src="images/shot1.png" alt="Product Image" class="product-img">
-                <div class="product-info">
-                    <h5>周邊商品</h5>
-                    <p>描述</p>
-                    <!-- <a href="https://example.com" class="btn btn-outline-primary">查看詳情</a> -->
-                    <input type="button" disabled="disabled" value="查看詳情">
-                </div>
-            </div>
-            <div class="product-item fade-in">
-                <img src="images/shot1.png" alt="Product Image" class="product-img">
-                <div class="product-info">
-                    <h5>周邊商品</h5>
-                    <p>描述</p>
-                    <!-- <a href="https://example.com" class="btn btn-outline-primary">查看詳情</a> -->
-                    <input type="button" disabled="disabled" value="查看詳情">
-                </div>
-            </div>
+      </div>
+      <div class="banner" style="background-image: url('assets/images/screenshot1.png');">
+        <div class="info-overlay">
+          <h5>伊落マリー</h5>
+          <p>Blue Archive</p>
         </div>
+      </div>
+            <div class="banner" style="background-image: url('assets/images/リリス新版.png');">
+        <div class="info-overlay">
+          <h5>リリス</h5>
+          <p>FGO</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <footer class="footer bg-dark text-white text-center py-10">
-        <div class="container">
-            <h6>&copy; 2025 Shuttlecock website</h6>
-            <h6 class="text-info">shuttlecock0826@gmail.com</h6>
-            <p></p>
-            <div class="row">
-                <div class="col-6 col-md-3">
-                    <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">其他合作</a>
-                </div>
-                <div class="col-6 col-md-3">
-                    <a href="mailto:chenxiyu247@gmail.com" class="text-white footer-link">與我聯絡</a>
-                </div>
-                <div class="col-6 col-md-3">
-                    <a href="https://kevin0826.fanbox.cc/plans" class="text-white footer-link">其他平台</a>
-                </div>
-                <div class="col-6 col-md-3">
-                    <a href="https://shopee.com/your-shop-link" class="text-white footer-link">線上商店</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+  <section id="products" class="news-list-section fade-in">
+    <div class="section-bg" style="background-image: url('assets/images/image.png');"></div>
+    <div class="section-overlay"></div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        // 檢查是否為重新整理（刷新）—若是，清除儲存的語言設定
-        if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-          localStorage.removeItem('language');
-        }
-      
-        // 初始化：若 localStorage 中沒有語言設定，預設為中文；否則讀取保存的語言
-        var currentLanguage = localStorage.getItem('language') || 'zh';
-        applyLanguage(currentLanguage);
-      
-        // Loading 畫面（首次載入）
-        setTimeout(function() {
-          $('#loading-overlay').fadeOut(300);
-        }, 2500);
-      
-        // Navbar 收合/展開時，隱藏/顯示社群 icon
-        $('#navbarNav').on('show.bs.collapse', function () {
-          $('#social-icons').hide();
-        });
-        $('#navbarNav').on('hidden.bs.collapse', function () {
-          $('#social-icons').show();
-        });
-      
-        // 捲動淡入效果
-        $(window).on('scroll', function() {
-          $('.fade-in').each(function() {
-            var elementTop = $(this).offset().top;
-            var viewportBottom = $(window).scrollTop() + $(window).height();
-            if (elementTop < viewportBottom - 50) {
-              $(this).addClass('fade-in-triggered');
-            }
-          });
-        });
-        $(window).trigger('scroll');
-      
-        // 語言切換：監聽所有帶 .language-option 的按鈕
-        $('.language-option').click(function(e) {
-          e.preventDefault();
-          var lang = $(this).data('lang');
-      
-          // 顯示 Loading 效果
-          $('#loading-overlay').css('visibility', 'visible').fadeIn(300);
-      
-          setTimeout(function() {
-            // 儲存語言設定
-            localStorage.setItem('language', lang);
-            console.log("切換後語言：" + lang);
-      
-            // 更新頁面文字
-            applyLanguage(lang);
-      
-            // 收起 Navbar（若在手機展開狀態）
-            $('#navbarNav').collapse('hide');
-            setTimeout(function() {
-              $('#loading-overlay').fadeOut(300);
-            }, 1500);
-          }, 1500);
-        });
-      
-        // 定義一個函式根據語言更新頁面文字
-        function applyLanguage(lang) {
-          if (lang === 'zh') {
-            // 中文
-            $('h2#brand-name').length 
-              ? $('h2#brand-name').text('Shuttlecock')
-              : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
-            $('h5#progress-label').length 
-              ? $('h5#progress-label').text('目前進度')
-              : $('h5.progress-label:contains("現在の進捗"), h5.progress-label:contains("Current Progress")').text('目前進度');
-      
-            $('nav a[href="about-work.html"]').text('委託牆');
-            $('#intro-title').text('精選作品');
-            $('#intro-desc').text('Select the works from the collection that I am personally satisfied with.');
-      
-            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('其他通路');
-            $('h5:contains("周邊商品"), h5:contains("Merchandise")').text('周邊商品');
-            $('p:contains("説明入力中"), p:contains("Description coming soon")').text('描述輸入中');
-            $('p:contains("説明"), p:contains("Description")').text('描述');
-      
-            $('a.footer-link:contains("商業協力"), a.footer-link:contains("Business Cooperation")').text('商業合作');
-            $('a.footer-link:contains("お問い合わせ"), a.footer-link:contains("Contact Me")').text('與我聯絡');
-            $('a.footer-link:contains("開発者を支援する"), a.footer-link:contains("Support Developer")').text('贊助開發者');
-            $('a.footer-link:contains("オンラインショップ"), a.footer-link:contains("Online Shop")').text('線上商店');
-            $('a.footer-link:contains("Other Collaboration"), a.footer-link:contains("其他合作")').text('其他合作');
-            $('a.footer-link:contains("Other Platforms"), a.footer-link:contains("其他平台")').text('其他平台');
-          } else if (lang === 'jp') {
-            // 日文
-            $('h2#brand-name').length 
-              ? $('h2#brand-name').text('シャトルコック')
-              : $('h2:contains("Shuttlecock")').text('シャトルコック');
-            $('h5#progress-label').length 
-              ? $('h5#progress-label').text('現在の進捗')
-              : $('h5.progress-label:contains("目前進捗"), h5.progress-label:contains("Current Progress")').text('現在の進捗');
-      
-            $('nav a[href="about-work.html"]').text('私の作品');
-            $('#intro-title').text('特選作品');
-            $('#intro-desc').text('私が個人的に満足しているコレクションから作品を選んでください。');
-      
-            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('他のチャネル');
-            $('h5:contains("周辺商品"), h5:contains("Merchandise")').text('周辺商品');
-            $('p:contains("描述輸入中"), p:contains("Description coming soon")').text('説明入力中');
-            $('p:contains("描述"), p:contains("Description")').text('説明');
-      
-            $('a.footer-link:contains("商業協力"), a.footer-link:contains("Business Cooperation")').text('商業協力');
-            $('a.footer-link:contains("お問い合わせ"), a.footer-link:contains("Contact Me")').text('お問い合わせ');
-            $('a.footer-link:contains("開発者を支援する"), a.footer-link:contains("Support Developer")').text('開発者を支援する');
-            $('a.footer-link:contains("オンラインショップ"), a.footer-link:contains("Online Shop")').text('オンラインショップ');
-            $('a.footer-link:contains("其他合作"), a.footer-link:contains("Other Collaboration")').text('他の協力');
-            $('a.footer-link:contains("其他平台"), a.footer-link:contains("Other Platforms")').text('他のプラットフォーム');
-          } else if (lang === 'en') {
-            // 英文
-            $('h2#brand-name').length 
-              ? $('h2#brand-name').text('Shuttlecock')
-              : $('h2:contains("シャトルコック"), h2:contains("Shuttlecock")').text('Shuttlecock');
-            $('h5#progress-label').length 
-              ? $('h5#progress-label').text('Current Progress')
-              : $('h5.progress-label:contains("目前進度"), h5.progress-label:contains("現在の進捗")').text('Current Progress');
-      
-            $('nav a[href="about-work.html"]').text('Commission Status Wall');
-            $('#intro-title').text('Featured Works');
-            $('#intro-desc').text('Select the works from the collection that I am personally satisfied with.');
-      
-            $('h3.text-muted:contains("他のチャネル"), h3.text-muted:contains("Other Channels")').text('Other Channels');
-            $('h5:contains("周邊商品"), h5:contains("Merchandise")').text('Merchandise');
-            $('p:contains("描述輸入中"), p:contains("説明入力中")').text('Description coming soon');
-            $('p:contains("描述"), p:contains("説明")').text('Description');
-      
-            $('a.footer-link:contains("商業協力"), a.footer-link:contains("商業協力")').text('Business Cooperation');
-            $('a.footer-link:contains("與我聯絡"), a.footer-link:contains("お問い合わせ")').text('Contact Me');
-            $('a.footer-link:contains("贊助開發者"), a.footer-link:contains("開発者を支援する")').text('Support Developer');
-            $('a.footer-link:contains("線上商店"), a.footer-link:contains("Online Shop")').text('Online Shop');
-            $('a.footer-link:contains("其他合作"), a.footer-link:contains("Other Collaboration")').text('Other Collaboration');
-            $('a.footer-link:contains("其他平台"), a.footer-link:contains("Other Platforms")').text('Other Platforms');
-          }
-        }
-      
-        // 初始化：根據 localStorage 語言更新頁面文字
-        var savedLanguage = localStorage.getItem('language') || 'zh';
-        applyLanguage(savedLanguage);
-      
-        // 淡入效果
-        $('.fade-in').each(function(index) {
-          const $el = $(this);
-          setTimeout(function() {
-            $el.addClass('fade-in-triggered');
-          }, index * 600);
-        });
-      });
-    </script>
-      
+    <div class="container">
+      <div class="section-header">
+        <h3 id="products-other-channels-heading" class="text-muted">最新動態</h3>
+        <h6 id="products-subtitle" class="text-black-50">Latest News & Updates</h6>
+      </div>
+
+      <div class="news-timeline">
+        <a id="product-item-1" href="https://kevin0826.fanbox.cc/" target="_blank" class="news-item fade-in">
+          <span id="news-tag-support" class="news-tag tag-support">贊助方案</span>
+          <span id="news-title-1" class="news-title">第一次角色投票已開放</span>
+          <span id="news-badge-1" class="news-new-badge">NEW</span>
+        </a>
+
+        <a id="product-item-2" href="about.html" class="news-item fade-in">
+          <span id="news-tag-update" class="news-tag tag-update">進度更新</span>
+          <span id="news-title-2" class="news-title">新增「關於我」頁面</span>
+        </a>
+      </div>
+
+      <div class="view-more-container">
+        <a href="https://www.pixiv.net/users/102745883/fanbox" target="_blank" class="view-more-btn">
+          <span>View more</span>
+          <span class="circle-arrow"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider gradient-fade"></div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="js/components.js"></script>
+  <script src="js/home.js"></script>
+
 </body>
 </html>

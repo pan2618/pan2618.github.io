@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Shuttlecock: The Story</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Serif+JP:wght@400;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    /* --- 全局設定 --- */
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0; padding: 0;
+      background-color: #050505;
+      height: 100vh; width: 100vw;
+      overflow: hidden;
+      display: flex; justify-content: center; align-items: center;
+      font-family: 'Noto Serif TC', 'Noto Serif JP', serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    /* --- 銀幕舞台 (遊戲層) --- */
+    #cinema-screen {
+      position: relative;
+      background: #000;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+      border: 1px solid #1a1a1a;
+      
+      /* 電腦版 */
+      width: 90vw; max-width: 1024px;
+      height: 80vh; max-height: 576px;
+      
+      z-index: 1; 
+    }
+
+    /* 【新增】邊緣模糊與漸層效果 */
+    #cinema-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0; /* 覆蓋整個銀幕 */
+      pointer-events: none; /* 允許點擊事件穿透 */
+      z-index: 20; /* 蓋在背景和角色上方，但低於UI */
+      
+      /* 效果組合： */
+      /* 1. 徑向漸層：製造邊緣變暗的「暗角」效果 */
+      background: radial-gradient(
+        ellipse at center, 
+        rgba(0,0,0,0) 100%, /* 中心完全透明 */
+        rgba(0,0,0,0.3) 30%, /* 邊緣開始變半透明黑 */
+        rgba(0,0,0,0.6) 100% /* 最外圍更深 */
+      );
+      
+      /* 2. 內陰影：製造輕微的模糊感或更深層次的暗角 */
+      box-shadow: 
+        inset 0 0 40px rgba(0,0,0,0.8), /* 內部大範圍暗化 */
+        inset 0 0 20px rgba(0,0,0,0.6); /* 內部小範圍暗化 */
+      
+      /* 您也可以嘗試加入模糊濾鏡，但可能會影響字體清晰度，這裡暫不啟用 */
+      /* filter: blur(2px); */ 
+    }
+
+    /* 手機版適配 */
+    @media (max-width: 768px) {
+      #cinema-screen {
+        width: 86vw;
+        height: 88vh;
+        max-height: none;
+        border-radius: 4px;
+      }
+    }
+
+    /* --- 背景與角色層 --- */
+    .bg-layer {
+      position: absolute; inset: -20%;
+      background-size: cover; background-position: center bottom;
+      opacity: 0; transition: opacity 1s ease-in-out; z-index: 1;
+    }
+    .bg-layer.active { opacity: 1; animation: cinematic-pan 30s infinite alternate ease-in-out; }
+
+    .char-container {
+      position: absolute; bottom: -10px; left: 50%;
+      transform: translateX(-50%); width: 100%; height: 100%;
+      z-index: 5; display: flex; justify-content: center; align-items: flex-end;
+      pointer-events: none; opacity: 0; transition: opacity 0.4s ease-out;
+    }
+    .char-container.show { opacity: 1; }
+
+    .char-img {
+      height: auto; max-height: 110%;
+      width: auto; max-width: 180%;
+      animation: breathe 5s ease-in-out infinite;
+      filter: drop-shadow(0 5px 25px rgba(0,0,0,0.6));
+      transform-origin: center bottom;
+    }
+    
+    .char-img.action-jump { animation: jump 0.4s; }
+    .char-img.action-shake { animation: shake 0.4s; }
+    .char-img.action-nod { animation: nod 0.5s; }
+
+    /* --- UI 層 (字幕) --- */
+    .ui-layer {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      min-height: 35%;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 15%, rgba(0,0,0,0.7) 60%, transparent 100%);
+      z-index: 10; display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px 25px 35px 25px;
+      opacity: 0; transform: translateY(10px); transition: all 0.5s;
+    }
+    .ui-layer.active { opacity: 1; transform: translateY(0); }
+
+    .name-tag {
+      font-size: 1.2rem; color: #EFA38C; font-weight: 700;
+      margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      display: flex; align-items: center;
+    }
+    .name-tag::before {
+      content: ''; display: block; width: 20px; height: 2px; 
+      background: #EFA38C; margin-right: 8px;
+    }
+
+    .dialogue-text {
+      font-size: 1.1rem; color: #e0e0e0; line-height: 1.6;
+      letter-spacing: 0.03em; text-shadow: 0 1px 2px #000; min-height: 3.2em;
+    }
+
+    .cursor {
+      display: inline-block; width: 8px; height: 14px; 
+      background: #EFA38C; margin-left: 5px; opacity: 0; 
+      animation: blink 1s infinite; vertical-align: middle;
+    }
+    .cursor.show { opacity: 1; }
+
+    /* --- 劇情選項層 (遊戲內) --- */
+    .choice-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(3px);
+      z-index: 50; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; gap: 15px;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .choice-overlay.active { opacity: 1; pointer-events: auto; }
+
+    .choice-btn {
+      width: 80%; padding: 15px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; text-align: center; font-size: 1rem;
+      transition: all 0.2s; cursor: pointer; border-radius: 4px;
+    }
+    .choice-btn:active {
+      background: #EFA38C; color: #000; border-color: #EFA38C; transform: scale(0.98);
+    }
+
+    /* 離開按鈕 */
+    .exit-btn {
+      position: absolute; top: 15px; right: 15px;
+      color: rgba(255,255,255,0.5); font-size: 1.4rem; z-index: 90;
+      padding: 10px;
+      text-decoration: none; transition: color 0.3s;
+    }
+    .exit-btn:hover { color: #EFA38C; }
+
+    /* --- 全屏彈窗 (Modal) --- */
+    .fullscreen-modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.92); 
+      backdrop-filter: blur(10px);
+      z-index: 99999;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+    }
+    .fullscreen-modal.active { opacity: 1; pointer-events: auto; }
+
+    .modal-box {
+      width: 85%; max-width: 360px;
+      padding: 30px 20px;
+      background: rgba(30, 30, 30, 0.8);
+      border: 1px solid rgba(239, 163, 140, 0.3);
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .modal-title {
+      color: #fff; font-size: 1.3rem; font-weight: 700;
+      margin-bottom: 25px; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-bottom: 2px solid #EFA38C;
+      display: inline-block; padding-bottom: 8px;
+    }
+
+    .modal-btn {
+      display: block; width: 100%;
+      height: 55px; line-height: 55px;
+      margin-bottom: 15px;
+      background: transparent;
+      border: 1px solid #EFA38C;
+      color: #EFA38C;
+      font-size: 1.1rem; font-weight: 500;
+      letter-spacing: 0.1em;
+      border-radius: 8px;
+      cursor: pointer; transition: all 0.2s;
+      text-decoration: none;
+    }
+    
+    .modal-btn:active, .modal-btn:hover {
+      background: #EFA38C; color: #000;
+      transform: scale(0.98);
+      box-shadow: 0 0 15px rgba(239, 163, 140, 0.4);
+    }
+
+    .modal-btn.secondary {
+      border-color: #666; color: #aaa;
+    }
+    .modal-btn.secondary:active {
+      background: #444; color: #fff; border-color: #fff;
+    }
+
+    /* --- 動畫 --- */
+    @keyframes cinematic-pan { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.1) translate(-2%, -5%); } }
+    @keyframes breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.015) translateY(-0.5%); } }
+    @keyframes jump { 0% { transform: translateY(0); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+    @keyframes nod { 0% { transform: rotate(0); } 50% { transform: rotate(4deg); } 100% { transform: rotate(0); } }
+    @keyframes blink { 50% { opacity: 0; } }
+
+  </style>
+</head>
+<body>
+
+  <div class="fullscreen-modal active" id="langModal">
+    <div class="modal-box">
+      <div class="modal-title">SELECT LANGUAGE</div>
+      <div class="modal-btn lang-select" data-lang="zh">繁體中文</div>
+      <div class="modal-btn lang-select" data-lang="jp">日本語</div>
+      <div class="modal-btn lang-select" data-lang="en">English</div>
+    </div>
+  </div>
+
+  <div class="fullscreen-modal" id="endModal">
+    <div class="modal-box">
+      <div class="modal-title" id="endTitle">THE END</div>
+      <div class="modal-btn" id="btnReplay">
+        <i class="fas fa-redo mr-2"></i><span id="txtReplay">Watch Again</span>
+      </div>
+      <div class="modal-btn secondary" id="btnHome">
+        <i class="fas fa-home mr-2"></i><span id="txtHome">Return Home</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="cinema-screen">
+    
+    <a href="index.html" class="exit-btn"><i class="fas fa-times"></i></a>
+
+    <div class="bg-layer active" id="bg" style="background-image: url('images/intro-bg.jpg');"></div>
+
+    <div class="char-container" id="charWrapper">
+      <img src="images/screenshot1.png" class="char-img" id="charImg" alt="Character">
+    </div>
+
+    <div class="ui-layer" id="ui">
+      <div class="name-tag" id="charName">NAME</div>
+      <div class="dialogue-text">
+        <span id="textDisplay"></span><span class="cursor" id="cursor"></span>
+      </div>
+    </div>
+
+    <div class="choice-overlay" id="choices"></div>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      
+      // ============================================
+      // 1. 多語系劇本資料庫
+      // ============================================
+      const script = {
+        "start": {
+          bg: "images/intro-bg.jpg",
+          char: null,
+          name: { zh: "", jp: "", en: "" },
+          text: {
+            zh: "（午後的陽光透過窗簾，灑落在工作室的桌面...）",
+            jp: "（午後の日差しがカーテン越しに、仕事机に降り注いでいる...）",
+            en: "(Afternoon sunlight spills across the desk through the curtains...)"
+          },
+          next: "scene_1"
+        },
+        "scene_1": {
+          bg: "images/intro-bg.jpg",
+          char: "images/screenshot1.png",
+          name: { zh: "伊落マリー", jp: "伊落マリー", en: "Mari Iochi" },
+          text: {
+            zh: "「那個... 老師？請問您現在有空嗎？」",
+            jp: "「あの… 先生？今、お時間よろしいですか？」",
+            en: "“Um... Sensei? Do you have a moment?”"
+          },
+          action: "jump", 
+          next: "choice_1"
+        },
+        "choice_1": {
+          type: "choice",
+          options: [
+            { label: { zh: "沒問題，怎麼了？", jp: "大丈夫だよ、どうしたの？", en: "Sure, what's up?" }, target: "scene_happy" },
+            { label: { zh: "稍微等我一下喔。", jp: "ちょっと待ってて。", en: "Give me a second." }, target: "scene_wait" }
+          ]
+        },
+        "scene_happy": {
+          bg: "images/intro-bg.jpg",
+          char: "images/screenshot1.png",
+          name: { zh: "伊落マリー", jp: "伊落マリー", en: "Mari Iochi" },
+          text: {
+            zh: "「太好了！其實關於下次的插圖，我想聽聽您的意見...」",
+            jp: "「よかった！実は次回のイラストについて、ご意見を伺いたくて...」",
+            en: "“Great! Actually, I wanted your opinion on the next illustration...”"
+          },
+          action: "nod",
+          next: "end"
+        },
+        "scene_wait": {
+          bg: "images/intro-bg.jpg",
+          char: "images/screenshot1.png",
+          name: { zh: "伊落マリー", jp: "伊落マリー", en: "Mari Iochi" },
+          text: {
+            zh: "「啊、好的！那我先在旁邊等您。(乖巧)」",
+            jp: "「あ、はい！それじゃあ、隣で待ってますね。(ぺこり)」",
+            en: "“Ah, okay! I'll wait right here then.”"
+          },
+          action: "shake",
+          next: "end"
+        },
+        "end": {
+          bg: "#000",
+          char: null,
+          name: { zh: "", jp: "", en: "" },
+          text: { zh: "", jp: "", en: "" },
+          action: "end_modal" 
+        }
+      };
+
+      // UI 翻譯
+      const uiText = {
+        title: { zh: "劇情結束", jp: "おしまい", en: "THE END" },
+        replay: { zh: "再看一次", jp: "もう一度見る", en: "Watch Again" },
+        home: { zh: "返回首頁", jp: "ホームに戻る", en: "Return Home" }
+      };
+
+      // ============================================
+      // 2. 核心變數
+      // ============================================
+      let currentId = "start";
+      let currentLang = "zh";
+      let isTyping = false;
+      let timer = null;
+      
+      // DOM Elements
+      const $bg = $('#bg');
+      const $charWrapper = $('#charWrapper');
+      const $charImg = $('#charImg');
+      const $ui = $('#ui');
+      const $name = $('#charName');
+      const $text = $('#textDisplay');
+      const $cursor = $('#cursor');
+      const $choices = $('#choices');
+      
+      const $langModal = $('#langModal');
+      const $endModal = $('#endModal');
+
+      // ============================================
+      // 3. 事件監聽 (Event Listeners)
+      // ============================================
+
+      // A. 語言選擇 (重要：防止事件冒泡)
+      $('.lang-select').on('click', function(e) {
+        e.stopPropagation(); // 防止觸發背後的遊戲點擊
+        currentLang = $(this).data('lang');
+        
+        $langModal.removeClass('active');
+        // 延遲開始，讓動畫跑完
+        setTimeout(() => {
+          renderScene("start");
+        }, 400);
+      });
+
+      // B. 結局按鈕
+      $('#btnReplay').on('click', function(e) {
+        e.stopPropagation();
+        $endModal.removeClass('active');
+        renderScene("start");
+      });
+
+      $('#btnHome').on('click', function(e) {
+        e.stopPropagation();
+        window.location.href = "index.html";
+      });
+
+      // C. 全局遊戲點擊 (Tap to Advance)
+      $(document).on('click', function(e) {
+        // 1. 如果有任何彈窗開啟，禁止推進
+        if ($langModal.hasClass('active') || $endModal.hasClass('active')) return;
+
+        // 2. 如果點到的是按鈕 (選項、離開、彈窗按鈕)，禁止推進
+        if ($(e.target).closest('.choice-btn, .exit-btn, .modal-btn').length) return;
+
+        // 3. 推進邏輯
+        if (isTyping) {
+          finishTyping();
+        } else {
+          const data = script[currentId];
+          
+          // 如果是結局指令，不要推進，以免重複觸發
+          if (data && data.action === 'end_modal') return;
+
+          if (data && data.next) {
+            renderScene(data.next);
+          }
+        }
+      });
+
+      // ============================================
+      // 4. 渲染邏輯 (Render Logic)
+      // ============================================
+
+      function renderScene(id) {
+        currentId = id;
+        const data = script[id];
+        if (!data) return;
+
+        // 特殊動作：結束彈窗
+        if (data.action === 'end_modal') {
+          showEndModal();
+          return;
+        }
+
+        // 選項模式
+        if (data.type === "choice") {
+          showChoices(data.options);
+          $ui.removeClass('active');
+          return;
+        }
+        
+        // 一般模式
+        $choices.removeClass('active');
+        $ui.addClass('active');
+
+        // 背景
+        if (data.bg && data.bg !== '#000') {
+          $bg.css('background-image', `url('${data.bg}')`);
+          $bg.css('background-color', 'transparent');
+        } else {
+          $bg.css('background-image', 'none');
+          $bg.css('background-color', '#000');
+        }
+
+        // 角色
+        if (data.char) {
+          if ($charImg.attr('src') !== data.char) {
+            $charImg.attr('src', data.char);
+          }
+          $charWrapper.addClass('show');
+          
+          $charImg.removeClass('action-jump action-shake action-nod');
+          if (data.action) {
+            void $charImg[0].offsetWidth; // Trigger reflow
+            $charImg.addClass(`action-${data.action}`);
+          }
+        } else {
+          $charWrapper.removeClass('show');
+        }
+
+        // 名字
+        let nameText = data.name[currentLang];
+        if (nameText) {
+          $name.html(nameText).css('display', 'flex');
+        } else {
+          $name.hide();
+        }
+
+        // 文字打字機
+        typeWriter(data.text[currentLang]);
+      }
+
+      function typeWriter(str) {
+        if(!str) return;
+        isTyping = true;
+        $text.text('');
+        $cursor.removeClass('show');
+        let i = 0;
+        
+        clearInterval(timer);
+        timer = setInterval(() => {
+          $text.text(str.substring(0, i + 1));
+          i++;
+          if (i >= str.length) finishTyping();
+        }, 40);
+      }
+
+      function finishTyping() {
+        clearInterval(timer);
+        const data = script[currentId];
+        if (data) $text.text(data.text[currentLang]);
+        isTyping = false;
+        $cursor.addClass('show');
+      }
+
+      function showChoices(options) {
+        $choices.empty();
+        options.forEach(opt => {
+          const $btn = $(`<div class="choice-btn">${opt.label[currentLang]}</div>`);
+          $btn.click((e) => {
+            e.stopPropagation();
+            renderScene(opt.target);
+          });
+          $choices.append($btn);
+        });
+        $choices.addClass('active');
+      }
+
+      function showEndModal() {
+        // 更新文字
+        $('#endTitle').text(uiText.title[currentLang]);
+        $('#txtReplay').text(uiText.replay[currentLang]);
+        $('#txtHome').text(uiText.home[currentLang]);
+        
+        $ui.removeClass('active');
+        $endModal.addClass('active');
+      }
+    });
+  </script>
+</body>
+</html>

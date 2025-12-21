@@ -12,6 +12,7 @@ $(document).ready(function () {
     var charIndex = 0;
     var typewriterTimeouts = [];
     var currentLanguage = '';
+    
 
     /**
      * 語言翻譯應用函式

@@ -162,25 +162,6 @@ section {
     border-color: var(--primary);
 }
 
-/* ---------- 9. Footer ---------- */
-footer {
-    background: var(--dark);
-    color: #ccc;
-    text-align: center;
-    padding: 2rem 0;
-    font-size: .9rem;
-}
-
-footer a {
-    color: var(--primary);
-    margin: 0 .3rem;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
 /* ---------- 10. Loading Overlay (七彩動畫) ---------- */
 #loading-overlay {
     position: fixed;

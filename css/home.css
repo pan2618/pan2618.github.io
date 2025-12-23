@@ -101,7 +101,6 @@
    ========================================================================== */
 #my-works {
     position: relative;
-    padding: 1rem 0 0 0; /* 上方留白 */
     background: #fff;    /* 背景色 */
     overflow: hidden;    /* 防止內容溢出 */
 }

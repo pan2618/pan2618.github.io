@@ -43,7 +43,7 @@
 /* 標題字體 */
 .game-core-title {
     font-family: 'Montserrat', sans-serif !important; 
-    font-size: 3.4rem !important;   /* 字體大小 */
+    font-size: 3.2rem !important;   /* 字體大小 */
     font-weight: 650 !important;    /* 字體粗體 */
     letter-spacing: 5px !important; /* 字體間距 */
     color: #ffffff;
@@ -112,7 +112,7 @@
 
 /* 手機端RWD */
 @media (max-width: 768px) {
-    .hero-section { height: 65vh; padding-top: 3vh; }
+    .hero-section { height: 67vh; padding-top: 3vh; }
     .hero-ui-container { text-align: center; padding-left: 0; }
     .game-core-title { font-size: 2.3rem !important; }
     .social-icons-glass-row { justify-content: center; }
@@ -289,9 +289,18 @@
 }
 .news-item:hover::before { border-color: #FF7E67; background-color: #FF7E67; box-shadow: 0 0 10px rgba(255, 126, 103, 0.6); }
 
-.news-title { flex-grow: 1; font-size: 1.05rem; color: #cbd5e1; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.news-title { 
+    flex-grow: 1; 
+    font-size: 1.05rem; 
+    color: #cbd5e1; 
+    font-weight: 400; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    min-width: 0; 
+}
 
-/* NEW 標籤 */
+/* NEW 標籤 ... (保留設定) */
 .news-new-badge { 
     font-size: 0.75rem; 
     color: #FF7E67; 
@@ -303,7 +312,7 @@
 
 .news-tag { font-size: 0.8rem; padding: 4px 14px; border-radius: 20px; margin-right: 16px; font-weight: 600; position: relative; overflow: hidden; background-size: 300% 100%; transition: all 0.3s ease; }
 
-/* 贊助方案標籤 */
+/* 贊助方案標籤 ... (保留設定) */
 .tag-support { 
     color: #FF7E67; 
     background-color: rgba(255, 126, 103, 0.12); 
@@ -313,7 +322,7 @@
     animation: shimmer-effect 6s infinite linear 1s, pulsate-glow-support 6s infinite ease-in-out; 
 }
 
-/* 進度更新標籤 */
+/* 進度更新標籤 ... (保留設定) */
 .tag-update { 
     color: #00ADB5; 
     background-color: rgba(0, 173, 181, 0.12); 
@@ -342,6 +351,7 @@
     position: relative;
     width: 100%;
     height: 320px; /* Hero配置：設定 320px ~ 380px 的寬幅全景高度 */
+    background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0)), #0d0d11; /* 優化：為固定背景增加輕微覆蓋感防止失真 */
     background-size: cover;
     background-position: center 40%; /* 自訂義圖片的核心視覺在中央 */
     /* Parallax Window scroll */
@@ -396,7 +406,7 @@
     background-color: #FF7E67;
 }
 
-/* RWD */
+/* RWD ... (保留設定) */
 @media (max-width: 768px) {
     .junction-hero-banner { 
         height: 240px; 

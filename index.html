@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shuttlecock art</title>
   
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/home.css">
 
@@ -18,61 +20,86 @@
 <body>
 
   <header class="hero-section" id="slideshow" style="background-image: url('assets/images/image.png');">
+    <div class="hero-gradient-overlay"></div>
     
-    <div class="hero-content text-center text-white">
-      <h2 id="hero-title">Shuttlecock</h2>
-      <p class="announcement-subtitle">
-        <span class="icon-broadcast"></span>
-        <span id="announcement-text"></span>
-      </p>
-    </div>
-
-    <div class="social-icons text-center mt-4 fade-in-container" id="social-icons">
-      <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-3 fade-in">
-        <i class="fab fa-instagram fa-2x"></i>
-      </a>
-      <a href="https://x.com/pnzyu322858" target="_blank" class="text-white mx-3 fade-in">
-        <i class="fab fa-twitter fa-2x"></i>
-      </a>
-      <a href="https://www.youtube.com/@bananaguardian-b8g/featured" target="_blank" class="text-white mx-3 fade-in">
-        <i class="fab fa-youtube fa-2x"></i>
-      </a>
-      <a href="https://www.pixiv.net/users/102745883" target="_blank" class="text-white mx-3 fade-in">
-        <img src="assets/images/pixiv-icon.png" alt="Pixiv" class="pixiv-icon">
-      </a>
-      <a href="https://www.facebook.com/profile.php?id=100034321654632&locale=zh_TW" target="_blank"
-        class="text-white mx-3 fade-in">
-        <i class="fab fa-facebook fa-2x"></i>
-      </a>
-    </div>
-  </header>
-
-  <section id="my-works">
-    <div class="horizontal-banners" id="banner-container">
-      <div class="banner intro-banner" style="background-image: url('assets/images/intro-bg.jpg');">
-        <div class="intro-text">
-          <h3 id="intro-title">精選作品</h3>
-          <p id="intro-desc">Select the works from the collection that I am personally satisfied with.</p>
-        </div>
-        <div class="info-overlay">
-          <a id="intro-banner-more" href="https://www.pixiv.net/users/102745883" class="text-white footer-link">
-            More
+    <div class="container hero-ui-container">
+      <div class="hero-content-box">
+        <h2 id="hero-title" class="game-core-title">Shuttlecock</h2>
+        
+        <div class="social-icons-glass-row mt-4 fade-in-container" id="social-icons">
+          <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-2 fade-in glass-circle-btn">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://x.com/pnzyu322858" target="_blank" class="text-white mx-2 fade-in glass-circle-btn">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.youtube.com/@bananaguardian-b8g/featured" target="_blank" class="text-white mx-2 fade-in glass-circle-btn youtube-icon">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.pixiv.net/users/102745883" target="_blank" class="text-white mx-2 fade-in glass-circle-btn">
+            <img src="assets/images/pixiv-icon.png" alt="Pixiv" class="pixiv-icon-custom">
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=100034321654632&locale=zh_TW" target="_blank" class="text-white mx-2 fade-in glass-circle-btn">
+            <i class="fab fa-facebook-f"></i>
           </a>
         </div>
       </div>
-      <div class="banner" style="background-image: url('assets/images/screenshot1.png');">
+    </div>
+
+    <a href="#my-works" class="hero-scroll-down" id="scroll-to-works">
+      <div class="scroll-arrow-wrapper">
+        <i class="fas fa-angle-down"></i>
+        <div class="scroll-line-decorator"></div>
+      </div>
+    </a>
+  </header>
+
+  <section id="my-works" class="ark-gallery-section">
+    <div class="container">
+      <div class="tech-section-header fade-in">
+        <div class="tech-vertical-bar"></div>
+        <h3 class="tech-main-title">Featured Works<span class="tech-sub-title" id="intro-title">精選作品</span></h3>
+      </div>
+    </div>
+
+    <div class="horizontal-banners" id="banner-container">
+      
+      <div class="banner intro-banner-modern">
+        <div class="intro-glass-wrapper">
+          <div class="intro-text-node">
+            <div class="tech-decor-dots"><span></span><span></span><span></span></div>
+            <p id="intro-desc" class="intro-description-text">Select the works from the collection that I am personally satisfied with.</p>
+          </div>
+          <div class="info-overlay-static">
+            <a id="intro-banner-more" href="https://www.pixiv.net/users/102745883" target="_blank" class="tech-more-btn">More</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="banner illustration-card" style="background-image: url('assets/images/screenshot1.png');">
+        <div class="card-dark-gradient"></div>
         <div class="info-overlay">
+          <span class="work-tag-badge">Blue Archive</span>
           <h5>伊落マリー</h5>
           <p>Blue Archive</p>
         </div>
       </div>
-            <div class="banner" style="background-image: url('assets/images/リリス新版.png');">
+      
+      <div class="banner illustration-card" style="background-image: url('assets/images/リリス新版.png');">
+        <div class="card-dark-gradient"></div>
         <div class="info-overlay">
+          <span class="work-tag-badge">Original</span>
           <h5>リリス</h5>
           <p>Fgi</p>
         </div>
       </div>
+      
     </div>
+  </section>
+  
+  <section class="junction-hero-banner" style="background-image: url('assets/images/image3.png');">
+    <div class="blend-mask-top"></div>
+    <div class="blend-mask-bottom"></div>
   </section>
 
   <section id="products" class="news-list-section fade-in">
@@ -81,8 +108,8 @@
 
     <div class="container">
       <div class="section-header">
-        <h3 id="products-other-channels-heading" class="text-muted">最新動態</h3>
-        <h6 id="products-subtitle" class="text-black-50">Latest News & Updates</h6>
+        <h3 id="products-other-channels-heading">最新動態</h3>
+        <h6 id="products-subtitle">Latest News & Updates</h6>
       </div>
 
       <div class="news-timeline">
@@ -107,7 +134,17 @@
     </div>
   </section>
 
-  <div class="section-divider gradient-fade"></div>
+  <footer class="footer text-center fade-in">
+    <div class="container">
+      <div class="row justify-content-center mb-4">
+        <div class="col-auto"><a href="#" class="footer-link">其他合作</a></div>
+        <div class="col-auto"><a href="#" class="footer-link">與我聯絡</a></div>
+        <div class="col-auto"><a href="#" class="footer-link">其他平台</a></div>
+        <div class="col-auto"><a href="#" class="footer-link">線上商店</a></div>
+      </div>
+      <h6 id="about_footer_copyright">&copy; 2026 Shuttlecock website. All rights reserved.</h6>
+    </div>
+  </footer>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -119,10 +156,10 @@
 </body>
 
 <div id="loading-overlay">
-    <div class="loading">
-      <h2 id="loading-text">LOADING...</h2>
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
+  <div class="loading">
+    <h2 id="loading-text">LOADING...</h2>
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
 </div>
 
 </html>

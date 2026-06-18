@@ -1,7 +1,9 @@
+// 檔名：home.js
+
 $(document).ready(function () {
 
     // ===================================================================
-    // 全域變數與 function 定義
+    // 全域變數與 DICT 定義
     // ===================================================================
     var announcements = [];
     var textElement = $('#announcement-text'); 
@@ -10,31 +12,40 @@ $(document).ready(function () {
     var typewriterTimeouts = [];
     var currentLanguage = '';
     
-    window.applyLanguage = function(lang) { // 掛載到 window 以便全域存取
-      let translations = {
-        zh: {
-          "nav-brand-home": "Home", "nav-link-novels": "小說集", "nav-link-about": "關於我", "hero-title": "Shuttlecock", "hero-progress-label": "目前進度", "intro-title": "精選作品", "intro-desc": "Select the works from the collection that I am personally satisfied with.", "intro-banner-more": "更多", "products-other-channels-heading": "最新動態", "products-subtitle": "Latest News & Updates", "footer-copyright": "© 2025 Shuttlecock website", "footer-link-other-collab": "其他合作", "footer-link-contact-me": "與我聯絡", "footer-link-other-platforms": "其他平台", "footer-link-online-shop": "線上商店", "news-tag-support": "贊助方案", "news-title-1": "第一次角色投票已開放", "news-badge-1": "NEW", "news-tag-update": "進度更新", "news-title-2": "新增「關於我」頁面",
-          "hero_announcements": ["Fanbox 新方案已開放！", "追蹤我的IG來獲取最新消息！"]
-        },
-        jp: {
-          "nav-brand-home": "ホーム", "nav-link-novels": "小説集", "nav-link-about": "私について", "hero-title": "シャトルコック", "hero-progress-label": "現在の進捗", "intro-title": "特選作品", "intro-desc": "私が個人的に満足しているコレクションから作品を選んでください。", "intro-banner-more": "もっと見る", "products-other-channels-heading": "最新ニュース", "products-subtitle": "Latest News & Updates", "footer-copyright": "© 2025 Shuttlecock ウェブサイト", "footer-link-other-collab": "傷の協力", "footer-link-contact-me": "お問い合わせ", "footer-link-other-platforms": "他のプラットフォーム", "footer-link-online-shop": "オンラインショップ", "news-tag-support": "支援プラン", "news-title-1": "第一回キャラクター人気投票開催中", "news-badge-1": "NEW", "news-tag-update": "進捗更新", "news-title-2": "「私について」ページを追加",
-          "hero_announcements": ["Fanboxで新しいプランが公開されました！", "インスタをフォローして最新情報をゲット！"]
-        },
-        en: {
-          "nav-brand-home": "Home", "nav-link-novels": "Novels", "nav-link-about": "About Me", "hero-title": "Shuttlecock", "hero-progress-label": "Current Progress", "intro-title": "Featured Works", "intro-desc": "Select the works from the collection that I am personally satisfied with.", "intro-banner-more": "More", "products-other-channels-heading": "Latest News", "products-subtitle": "Latest News & Updates", "footer-copyright": "© 2025 Shuttlecock website", "footer-link-other-collab": "Other Collaboration", "footer-link-contact-me": "Contact Me", "footer-link-other-platforms": "Other Platforms", "footer-link-online-shop": "Online Shop", "news-tag-support": "Sponsorship", "news-title-1": "First Character Poll Now Open", "news-badge-1": "NEW", "news-tag-update": "Update", "news-title-2": "Added \"About Me\" Page",
-          "hero_announcements": ["New Fanbox plan now available!", "Follow my IG for the latest updates!"]
-        }
-      };
+    const translationsDictionary = {
+      zh: { // 國際通用版
+        "nav_gallery": "作品迴廊", "nav_jp": "日本語", "nav_kr": "한국어", "nav_en": "English", "site_title": "Shuttlecock Art", "site_hero_title": "Shuttlecock", "hero_progress_label": "目前進度", "myworks_header": "Featured Works", "myworks_header_sub": "精選作品", "gallery_card1_desc": "從自己作品集中，精選出令我滿意的創作，希望您也會喜歡", "gallery_card_more": "更多", "tag_ba": "Blue Archive", "tag_original": "Original", "tag_ba_p": "蔚藍檔案", "tag_fgi": "Original - Fgi", "card_marie_title": "伊落マリー", "card_lilith_title": "リリス", "products_news_heading": "最新動態", "products_news_subtitle": "Latest News & Updates", "news_tag1": "進度更新", "news_title1": "第一次角色投票已開放", "tag_new": "NEW", "news_tag2": "開發進度", "news_title2": "新增「作品迴廊」頁面", "view_more_fanbox": "View more on Fanbox", "footer_other_collab": "其他合作", "footer_contact": "與我聯絡", "footer_platforms": "其他平台", "footer_shop": "線上商店", "footer_copyright": "© 2026 Shuttlecock website. All rights reserved.", "loading_text": "LOADING...", "scroll_down": "向下捲動",
+        "hero_announcements": ["Fanbox 新方案已開放！", "追蹤我的IG來獲取最新消息！"]
+      },
+      en: { // English
+        "nav_gallery": "Gallery", "nav_jp": "日本語", "nav_kr": "한국어", "nav_en": "English", "site_title": "Shuttlecock Art", "site_hero_title": "Shuttlecock", "hero_progress_label": "Current Progress", "myworks_header": "Featured Works", "myworks_header_sub": "Collection", "gallery_card1_desc": "Selection of works I am personally satisfied with.", "gallery_card_more": "More", "tag_ba": "Blue Archive", "tag_original": "Original", "tag_ba_p": "Blue Archive", "tag_fgi": "Original - Fgi", "card_marie_title": "Marie", "card_lilith_title": "Lilith", "products_news_heading": "Latest News", "products_news_subtitle": "News & Updates", "news_tag1": "Updates", "news_title1": "First character poll now open", "tag_new": "NEW", "news_tag2": "Dev Progress", "news_title2": "Added \"Gallery Corridor\" page", "view_more_fanbox": "View more on Fanbox", "footer_other_collab": "Collaboration", "footer_contact": "Contact", "footer_platforms": "Platforms", "footer_shop": "Shop", "footer_copyright": "© 2026 Shuttlecock website. All rights reserved.", "loading_text": "LOADING...", "scroll_down": "Scroll down",
+        "hero_announcements": ["New Fanbox plan is now open!", "Follow me on IG for the latest updates!"]
+      },
+      jp: { // 日本語 
+        "nav_gallery": "作品回廊", "nav_jp": "日本語", "nav_kr": "한국어", "nav_en": "English", "site_title": "Shuttlecock Art", "site_hero_title": "シャトルコック", "hero_progress_label": "現在の進捗状況", "myworks_header": "特選作品", "myworks_header_sub": "おすすめ作品", "gallery_card1_desc": "私が個人的に満足している作品のおすすめコレクション", "gallery_card_more": "もっと見る", "tag_ba": "ブルーアーカイブ", "tag_original": "オリジナル", "tag_ba_p": "ブルーアーカイブ", "tag_fgi": "オリジナル - Fgi", "card_marie_title": "伊落マリー", "card_lilith_title": "リリス", "products_news_heading": "最新情報", "products_news_subtitle": "Latest News & Updates", "news_tag1": "進捗状況の更新", "news_title1": "第一回キャラクター人気投票受付中", "tag_new": "NEW", "news_tag2": "開發進捗", "news_title2": "「作品回廊」ページを追加", "view_more_fanbox": "View more on Fanbox", "footer_other_collab": "連携と協業", "footer_contact": "お問い合わせ", "footer_platforms": "その他のプラットフォーム", "footer_shop": "オンラインショップ", "footer_copyright": "© 2026 Shuttlecock ウェブサイト", "loading_text": "LOADING...", "scroll_down": "下にスクロール",
+        "hero_announcements": ["Fanboxの新プランが公開されました！", "インスタをフォローして最新情報をゲット！"]
+      },
+      kr: { // 한국어 
+        "nav_gallery": "작품 회랑", "nav_jp": "日本語", "nav_kr": "한국어", "nav_en": "English", "site_title": "Shuttlecock Art", "site_hero_title": "셔틀콕", "hero_progress_label": "진행 상황", "myworks_header": "추천 작품", "myworks_header_sub": "컬렉션", "gallery_card1_desc": "제가 개인적으로 만족하는 작품의 추천 컬렉션", "gallery_card_more": "더 보기", "tag_ba": "블루 아카이브", "tag_original": "오리지널", "tag_ba_p": "블루 아카이브", "tag_fgi": "오리지널 - Fgi", "card_marie_title": "마리", "card_lilith_title": "릴리스", "products_news_heading": "최신 소식", "products_news_subtitle": "News & Updates", "news_tag1": "진행 상황 업데이트", "news_title1": "제1회 캐릭터 인기투표 접수 중", "tag_new": "NEW", "news_tag2": "개발 진행 상황", "news_title2": "「작품 회랑」 페이지 추가", "view_more_fanbox": "View more on Fanbox", "footer_other_collab": "기타 협업", "footer_contact": "문의하기", "footer_platforms": "기타 플랫폼", "footer_shop": "온라인 숍", "footer_copyright": "© 2026 Shuttlecock 웹사이트", "loading_text": "LOADING...", "scroll_down": "아래로 스크롤",
+        "hero_announcements": ["Fanbox 새 플랜이 오픈되었습니다!", "IG를 팔로우하여 최신 소식을 확인하세요!"]
+      }
+    };
 
-      let t_data = translations[lang] || translations['zh'];
+    window.applyLanguage = function(lang) {
+      let t_data = translationsDictionary[lang] || translationsDictionary['zh'];
+      
       if (t_data) {
         if (t_data.hero_announcements) { announcements = t_data.hero_announcements; }
-        for (const id in t_data) {
-          if (typeof t_data[id] === 'string' && $('#' + id).length) {
-            $('#' + id).text(t_data[id]);
+
+        $('[data-i18n]').each(function () {
+          const key = $(this).data('i18n');
+          if (t_data[key]) {
+            $(this).text(t_data[key]);
           }
-        }
-        $('html').attr('lang', lang === 'zh' ? 'zh-Hant' : lang);
+        });
+        
+        let properLangAttr = lang === 'zh' ? 'zh-Hant' : (lang === 'kr' ? 'ko' : lang); 
+        $('html').attr('lang', properLangAttr);
       }
     }
 
@@ -84,8 +95,18 @@ $(document).ready(function () {
     }
 
     // ===================================================================
-    // 2. 頁面初始化與事件監聽
+    // 頁面初始化與事件監聽
     // ===================================================================
+    function fixMobileParallax() {
+        if ($(window).width() <= 768) {
+            $('.junction-hero-banner').css('background-attachment', 'scroll');
+        } else {
+            $('.junction-hero-banner').css('background-attachment', 'fixed');
+        }
+    }
+    fixMobileParallax();
+    $(window).on('resize', fixMobileParallax);
+
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       localStorage.removeItem('language');
     }

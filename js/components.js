@@ -1,7 +1,6 @@
-// 檔名：components.js
 
 function loadHeader() {
-    // 移除了左側的 Home 標題，保留了一個空的 div 佔位，確保右側選單不會跑版到左邊
+    // 將硬編碼文字改為 data-i18n 標準標籤，實現專業級翻譯
     const headerHTML = `
     <nav class="navbar navbar-expand-lg navbar-dark dynamic-game-nav">
       <div class="container-fluid nav-inner-box">
@@ -14,16 +13,16 @@ function loadHeader() {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto nav-links-alignment">
             <li class="nav-item">
-              <a id="nav-link-novels" class="nav-link text-white nav-custom-link disabled" href="novels.html">小說集</a>
+              <a data-i18n="nav_gallery" class="nav-link text-white nav-custom-link" href="gallery.html">作品迴廊</a>
             </li>
             <li class="nav-item">
-              <a id="nav-link-about" class="nav-link text-white nav-custom-link" href="about.html">關於我</a>
+              <a data-i18n="nav_jp" class="nav-link text-white nav-custom-link language-option" href="#" data-lang="jp">日本語</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white nav-custom-link language-option" href="#" data-lang="jp">日本語</a>
+              <a data-i18n="nav_kr" class="nav-link text-white nav-custom-link language-option" href="#" data-lang="kr">한국어</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white nav-custom-link language-option" href="#" data-lang="en">English</a>
+              <a data-i18n="nav_en" class="nav-link text-white nav-custom-link language-option" href="#" data-lang="en">English</a>
             </li>
           </ul>
         </div>
@@ -41,7 +40,6 @@ function loadHeader() {
 }
 
 function loadFooter() {
-    // 預留與原有 footer 加載機制同步
 }
 
 // 執行載入

@@ -1,284 +1,137 @@
 /* ==========================================================================
-   1. 基礎設定 (Body, Reset, Typography)
-   設定網站的「地基」，包含背景色、預設字體和排版間距。
+   Body, Reset, Typography
    ========================================================================== */
 body {
-    font-family: 'Arial', sans-serif; /* [調整字體] 全站預設字型，若無 Arial 則用無襯線體 */
-    line-height: 1.6;  /* [調整行高] 設定文字行距，1.6 代表字體大小的 1.6 倍，便於閱讀 */
-    margin: 0;         /* [重置] 清除瀏覽器預設邊距 */
-    padding: 0;        /* [重置] 清除瀏覽器預設內距 */
-    background: #333;  /* [調整背景] 全站預設背景色 (深灰色) */
-    color: #333;       /* [調整文字] 全站預設文字顏色 (深灰色，但在深背景上通常會被覆寫為白色) */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;  
+    margin: 0;         
+    padding: 0;        
+    background-color: #0a0a0c !important;
+    color: #f1f5f9;       
 }
 
-/* 內容容器 */
 .container {
-    padding: 2rem 0; /* [調整內距] 上下留 2rem (約32px) 的空間，左右不留 */
+    padding: 2rem 0; 
 }
-
-/* 容器內的標題對齊 */
 .container h3, .container h6 {
-    text-align: center; /* [調整對齊] 強制標題置中 */
-}
-
-/* 主內容標題 */
-main h1 {
-    margin-bottom: 1rem; /* [調整間距] 標題與下方內容的距離 */
-}
-
-/* 主內容段落 */
-main p {
-    font-size: 1.25rem; /* [調整字號] 預設段落文字大小 (約20px) */
+    text-align: center; 
 }
 
 /* ==========================================================================
-   2. 導覽列 (Navbar) - 完整繼承你的細節
-   控制頂部選單的外觀、間距與按鈕狀態。
+   導覽列
    ========================================================================== */
-header {
-    background: #333;     /* [調整 Header 背景] 深灰色 */
-    color: #333131;       /* [調整文字顏色] 深色 */
-    padding: 1rem 0;      /* [調整高度] 上下內距 */
+.dynamic-game-nav {
+    position: absolute !important;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10, 10, 12, 0.4) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding: 18px 40px !important;
+    margin-bottom: 0 !important;
+    transition: all 0.3s ease;
+}
+.dynamic-game-nav:hover {
+    background: rgba(10, 10, 12, 0.7) !important;
+    border-bottom-color: rgba(255, 126, 103, 0.35) !important;
 }
 
-/* Logo 圖片限制 */
-header .logo {
-    max-width: 150px; /* [調整 Logo 大小] 寬度不超過 150px */
-    height: auto;     /* 高度等比縮放，防止變形 */
+.nav-inner-box {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* 導覽列間距設定 (注意權重) */
-.navbar {
-    margin-bottom: 30px; /* 基礎設定：距離下方內容 30px */
+.navbar-brand-modern {
+    color: #ffffff !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
 }
-nav.navbar {
-    margin-bottom: 60px; /* [最終生效] 權重較高，將距離增加到 60px */
+.navbar-brand-modern:hover { color: #FF7E67 !important; }
+
+.nav-links-alignment { display: flex; align-items: center; }
+
+.nav-custom-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.5px;
+    padding: 6px 16px !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+.nav-custom-link:hover:not(.disabled) {
+    color: #FF7E67 !important;
+}
+.nav-custom-link.disabled {
+    pointer-events: none;
+    opacity: 0.3 !important;
+    cursor: not-allowed;
 }
 
-/* 導覽連結與品牌名稱樣式 */
-.navbar .nav-link,
-.navbar .navbar-brand {
-    color: #000000;       /* [調整連結顏色] 純黑色 */
-    font-weight: bold;    /* [調整粗細] 粗體 */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* [調整陰影] 文字陰影增加立體感 */
+/* 漢堡 RWD */
+.navbar-toggler-modern { border: none; background: transparent; padding: 4px; }
+.navbar-toggler-icon-line {
+    display: block; width: 22px; height: 2px; background: #ffffff; position: relative;
 }
+.navbar-toggler-icon-line::before, .navbar-toggler-icon-line::after {
+    content: ""; position: absolute; left: 0; width: 100%; height: 2px; background: #ffffff;
+}
+.navbar-toggler-icon-line::before { top: -6px; }
+.navbar-toggler-icon-line::after { bottom: -6px; }
 
-/* 品牌名稱 (左上角) 特殊設定 */
-.navbar .navbar-brand {
-    font-size: 23px; /* [調整字號] 品牌名稱大小 */
-}
-
-/* 選單連結 (右側項目) 特殊設定 */
-.navbar .nav-link {
-    font-size: 19px;      /* [調整字號] 選單文字大小 */
-    text-align: right;    /* [調整對齊] 文字靠右對齊 */
-}
-
-/* 選單項目間距 */
-.navbar .nav-item {
-    margin-right: 3px; /* [調整間距] 每個選項之間留 3px */
-}
-
-/* 禁用狀態的連結 (如小說集) */
-.nav-link.disabled {
-    pointer-events: none; /* 禁止滑鼠點擊 */
-    opacity: 0.5;         /* [調整透明度] 變半透明，顯示為不可用 */
-    cursor: not-allowed;  /* 滑鼠游標變成禁止符號 */
-}
-
-/* 手機版漢堡選單按鈕 (Toggler) 狀態清除 */
-.navbar-toggler:focus,
-.navbar-toggler:active {
-    outline: none;    /* 移除點擊時的藍色外框 */
-    box-shadow: none; /* 移除陰影 */
-}
-.navbar-toggler:hover {
-    background-color: transparent; /* 滑鼠移上去時不變色 */
+@media (max-width: 991px) {
+    .nav-links-alignment { flex-direction: column; align-items: flex-end; padding-top: 15px; }
+    .nav-custom-link { padding: 8px 0 !important; }
 }
 
 /* ==========================================================================
-   3. 頁尾 (Footer)
-   頁面最底部的版權資訊區塊。
+   Footer
    ========================================================================== */
-footer {
-    /* [調整背景] 使用由下往上的漸層 (深灰 -> 稍淺灰) */
-    background: linear-gradient(to top, #333333, #444444);
-    color: white;        /* 文字白色 */
-    text-align: center;  /* 內容置中 */
-    padding: 2px 0;      /* [調整高度] 極小的上下內距 */
+.footer {
+    background-color: #0d0d11 !important; 
+    border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
+    /* 控制 Footer 頁尾內部上下留白 */
+    padding: 1.5rem 0 2rem !important; 
 }
 
-/* 頁尾連結 */
-footer .footer-link {
-    display: block;      /* 讓連結佔據整行 (方便手機點擊) */
-    margin: 0;           /* 清除邊距 */
-    padding: 6px 0;      /* [調整點擊範圍] 增加上下點擊區域 */
-    font-size: 16px;     /* [調整字號] */
-    font-weight: 500;    /* 字重中等 */
-    letter-spacing: 0.5px; /* 字距微調 */
-    line-height: 1.6;    /* 行高 */
-    font-family: 'Helvetica Neue', Arial, sans-serif; /* 專用字體 */
-    color: white;        /* 強制白色 */
-}
-
-/* 頁尾普通段落 */
-footer p {
-    margin-bottom: 19px; /* [調整間距] 與下方元素的距離 */
-    font-size: 14px;     /* 較小的字號 */
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    letter-spacing: 0.4px;
-}
-
-/* 頁尾排版修正 */
-footer .row {
-    margin: 0; padding: 0;
-    margin-bottom: 3px; /* [調整間距] 行與行之間的距離 */
-}
-
-footer .row a {
-    display: block;
-    margin-bottom: 9px; /* 連結下方的距離 */
-}
-
-/* 手機版 RWD 調整 */
-@media (max-width: 868px) {
-    footer .row {
-        margin-bottom: 0px; /* 在手機上移除行距，讓版面更緊湊 */
-    }
-}
+.footer h6 { font-size: 0.85rem; color: #4b5563 !important; }
+.footer-link { color: #94a3b8 !important; text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease; }
+.footer-link:hover { color: #FF7E67 !important; }
 
 /* ==========================================================================
-   4. 通用元件 (Card, Button, Popup, Fade-in, About)
-   全站通用的 UI 元件樣式。
+   通用元件 & 動態淡入機制
    ========================================================================== */
-/* 白色文字工具類 */
-.text-white {
-    color: white;
-    text-shadow: 1px 1px 2px rgba(56, 52, 52, 0.5); /* 增加文字可讀性陰影 */
-}
-
-/* 通用卡片設定 */
-.card {
-    border-radius: 8px; /* [調整圓角] */
-    /* 設定變形與陰影的動畫時間 0.3秒 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;   /* 內容超出隱藏 */
-}
-
-/* 卡片懸浮 (Hover) 特效 */
-.card:hover {
-    transform: translateY(-10px); /* [調整浮動] 向上浮起 10px */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* [調整陰影] 產生懸浮陰影 */
-}
-
-/* 卡片圖片 */
-.card-img-top {
-    width: 100%;      /* 寬度填滿 */
-    height: 250px;    /* [調整圖片高度] 固定高度 */
-    object-fit: cover; /* 裁切圖片以填滿空間，不變形 */
-}
-
-/* 捲動按鈕 (ScrollBtn) */
-#scrollBtn {
-    background-color: transparent; /* 透明背景 */
-    border: 2px solid rgba(255, 255, 255, 0.8); /* [調整邊框] 半透明白框 */
-    color: white;
-    transition: background-color 0.3s ease, border 0.3s ease; /* 動畫過渡 */
-}
-/* 按鈕點擊狀態 */
-#scrollBtn:active {
-    background-color: rgba(255, 255, 255, 0.1); /* 點擊時背景變微白 */
-    border-color: rgba(255, 255, 255, 0.8);
-}
-
-/* 彈窗 (Popup) 本體 */
-#popup {
-    position: fixed;
-    z-index: 1000;    /* 確保在最上層 */
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); /* 絕對置中 */
-    background-color: rgba(0, 0, 0, 0.8); /* [調整背景] 深黑半透明背景 */
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-/* 彈窗內容區塊 */
-.popup-content {
-    position: relative;
-    width: 100%;
-    max-width: 600px; /* [調整寬度] 最大寬度 */
-    background-color: white;
-    padding: 15px;
-    border-radius: 5px;
-}
-/* 關閉按鈕 (X) */
-#closePopup {
-    position: absolute;
-    top: 10px; right: 15px;
-    font-size: 20px;
-    cursor: pointer; /* 滑鼠變手指 */
-    color: black;
-}
-
-/* 淡入動畫 (Fade In) 初始狀態 */
+.text-white { color: white; }
 .fade-in {
-    opacity: 0; /* 隱藏 */
-    transform: translateY(20px); /* 位置偏下 20px */
-    transition: opacity 1s ease-out, transform 1s ease-out; /* 動畫時間 1秒 */
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
 }
-/* 淡入動畫 觸發狀態 */
-.fade-in.show, .fade-in-triggered {
-    opacity: 1; /* 顯示 */
-    transform: translateY(0); /* 回到原位 */
-}
-
-/* About 頁面專用設定 */
-.my-page-header {
-    height: 57vh; /* [調整 About 頁 Header 高度] */
-}
-.custom-hero {
-    height: 16vh; /* [調整 About 頁 Hero 高度] */
-}
-#about-page .hero-content {
-    bottom: 20px; /* 文字距離底部的距離 */
-}
+.fade-in.show, .fade-in-triggered { opacity: 1 !important; transform: translateY(0) !important; }
 
 /* ==========================================================================
-   5. Loading 動畫 & Fade In (還原你的原始設定)
-   全站共用的載入畫面與七彩球動畫。
+   Loading 遮罩
    ========================================================================== */
-/* 全螢幕遮罩層 */
 #loading-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; /* 佔滿全螢幕 */
-    background: rgba(34, 34, 34, 0.95); /* [調整背景] 深灰幾近不透明 */
-    display: flex; justify-content: center; align-items: center; /* 內容置中 */
-    z-index: 9999; /* 最高層級，蓋住所有內容 */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #0a0a0c;
+    display: flex; justify-content: center; align-items: center; z-index: 9999;
 }
 
 .loading { text-align: center; }
-
-/* LOADING 文字樣式 */
-.loading h2 {
-    color: #ccc;          /* 淺灰色 */
-    margin: 0 0 15px 0;   /* 與下方圓點的距離 */
-    font: 0.8em verdana;  /* 字體 */
-    text-transform: uppercase; /* 強制大寫 */
-    letter-spacing: 0.1em;     /* 字距 */
-}
-
-/* 七彩圓點基礎樣式 */
+.loading h2 { color: #64748b; margin: 0 0 15px 0; font: 0.85em verdana; text-transform: uppercase; letter-spacing: 0.15em; }
 .loading span {
-    display: inline-block; vertical-align: middle;
-    width: 0.6em; height: 0.6em; /* [調整圓點大小] */
-    margin: 0.19em;              /* 圓點間距 */
-    background: #007DB6;         /* 預設顏色 (藍) */
-    border-radius: 0.6em;        /* 圓形 */
-    animation: loading 1s infinite alternate; /* 動畫：1秒循環，來回播放 */
+    display: inline-block; vertical-align: middle; width: 0.6em; height: 0.6em; margin: 0.19em; background: #007DB6; border-radius: 50%;
+    animation: loading 1s infinite alternate;
 }
 
-/* 七彩圓點：個別顏色與動畫延遲設定 */
-/* nth-of-type(2) 代表第 2 個圓點，以此類推 */
 .loading span:nth-of-type(2) { background: #008FB2; animation-delay: 0.2s; }
 .loading span:nth-of-type(3) { background: #009B9E; animation-delay: 0.4s; }
 .loading span:nth-of-type(4) { background: #00A77D; animation-delay: 0.6s; }
@@ -286,18 +139,4 @@ footer .row a {
 .loading span:nth-of-type(6) { background: #5AB027; animation-delay: 1.0s; }
 .loading span:nth-of-type(7) { background: #A0B61E; animation-delay: 1.2s; }
 
-/* 圓點閃爍動畫定義 */
-@keyframes loading {
-    0% { opacity: 0; }   /* 完全透明 */
-    100% { opacity: 1; } /* 完全顯示 */
-}
-
-/* 針對 Loading 結束後的淡入修正 */
-.fade-in {
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.9s ease-out, transform 0.9s ease-out; /* 0.9秒動畫 */
-}
-/* 強制顯示 (加上 !important 確保權重) */
-.fade-in-triggered, .fade-in.show {
-    opacity: 1 !important; transform: translateY(0) !important;
-}
+@keyframes loading { 0% { opacity: 0; } 100% { opacity: 1; } }

@@ -112,9 +112,9 @@
 
 /* 手機端RWD */
 @media (max-width: 768px) {
-    .hero-section { height: 60vh; padding-top: 3vh; }
+    .hero-section { height: 74vh; padding-top: 3vh; }
     .hero-ui-container { text-align: center; padding-left: 0; }
-    .game-core-title { font-size: 2.4rem !important; }
+    .game-core-title { font-size: 2.3rem !important; }
     .social-icons-glass-row { justify-content: center; }
 }
 

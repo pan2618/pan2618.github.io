@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shuttlecock art</title>
+  <title data-i18n="site_title">Shuttlecock art</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
@@ -19,12 +19,12 @@
 
 <body>
 
-  <header class="hero-section" id="slideshow" style="background-image: url('assets/images/image.png');">
+  <header class="hero-section fade-in" id="slideshow" style="background-image: url('assets/images/image.png');">
     <div class="hero-gradient-overlay"></div>
     
     <div class="container hero-ui-container">
       <div class="hero-content-box">
-        <h2 id="hero-title" class="game-core-title">Shuttlecock</h2>
+        <h2 id="hero-title" class="game-core-title" data-i18n="site_hero_title">Shuttlecock</h2>
         
         <div class="social-icons-glass-row mt-4 fade-in-container" id="social-icons">
           <a href="https://www.instagram.com/shuttlecock_art/" target="_blank" class="text-white mx-2 fade-in glass-circle-btn">
@@ -49,7 +49,7 @@
     <a href="#my-works" class="hero-scroll-down" id="scroll-to-works">
       <div class="scroll-arrow-wrapper">
         <i class="fas fa-angle-down"></i>
-        <div class="scroll-line-decorator"></div>
+        <span class="sr-only" data-i18n="scroll_down">Scroll down</span>
       </div>
     </a>
   </header>
@@ -58,7 +58,10 @@
     <div class="container">
       <div class="tech-section-header fade-in">
         <div class="tech-vertical-bar"></div>
-        <h3 class="tech-main-title">Featured Works<span class="tech-sub-title" id="intro-title">精選作品</span></h3>
+        <h3 class="tech-main-title">
+          <span data-i18n="myworks_header">Featured Works</span>
+          <span class="tech-sub-title" data-i18n="myworks_header_sub">精選作品</span>
+        </h3>
       </div>
     </div>
 
@@ -68,81 +71,81 @@
         <div class="intro-glass-wrapper">
           <div class="intro-text-node">
             <div class="tech-decor-dots"><span></span><span></span><span></span></div>
-            <p id="intro-desc" class="intro-description-text">Select the works from the collection that I am personally satisfied with.</p>
+            <p class="intro-description-text" data-i18n="gallery_card1_desc">從作品集中，精選出令我滿意的創作，希望你也會喜歡</p>
           </div>
           <div class="info-overlay-static">
-            <a id="intro-banner-more" href="https://www.pixiv.net/users/102745883" target="_blank" class="tech-more-btn">More</a>
+            <a href="https://www.pixiv.net/users/102745883" target="_blank" class="tech-more-btn" data-i18n="gallery_card_more">More</a>
           </div>
         </div>
       </div>
       
-      <div class="banner illustration-card" style="background-image: url('assets/images/screenshot1.png');">
+      <div class="banner illustration-card illustration-card-marie" style="background-image: url('assets/images/screenshot1.png');">
         <div class="card-dark-gradient"></div>
         <div class="info-overlay">
-          <span class="work-tag-badge">Blue Archive</span>
-          <h5>伊落マリー</h5>
-          <p>Blue Archive</p>
+          <span class="work-tag-badge" data-i18n="tag_ba">Blue Archive</span>
+          <h5 data-i18n="card_marie_title">Marie</h5>
+          <p data-i18n="tag_ba_p">Blue Archive</p>
         </div>
       </div>
       
-      <div class="banner illustration-card" style="background-image: url('assets/images/リリス新版.png');">
+      <div class="banner illustration-card illustration-card-lilith" style="background-image: url('assets/images/リリス新版.jpg');">
         <div class="card-dark-gradient"></div>
         <div class="info-overlay">
-          <span class="work-tag-badge">Original</span>
-          <h5>リリス</h5>
-          <p>Fgi</p>
+          <span class="work-tag-badge" data-i18n="tag_original">Original</span>
+          <h5 data-i18n="card_lilith_title">Lilith</h5>
+          <p data-i18n="tag_fgi">Original - Fgi</p>
         </div>
       </div>
       
     </div>
   </section>
   
-  <section class="junction-hero-banner" style="background-image: url('assets/images/image3.jpg');">
+  <section class="junction-hero-banner fade-in" style="background-image: url('assets/images/image3.jpg');">
     <div class="blend-mask-top"></div>
     <div class="blend-mask-bottom"></div>
   </section>
 
-  <section id="products" class="news-list-section fade-in">
+  <section id="products" class="news-list-section fade-in triggered">
     <div class="section-bg" style="background-image: url('assets/images/image.png');"></div>
     <div class="section-overlay"></div>
 
     <div class="container">
       <div class="section-header">
-        <h3 id="products-other-channels-heading">最新動態</h3>
-        <h6 id="products-subtitle">Latest News & Updates</h6>
+        <h3 data-i18n="products_news_heading">最新動態</h3>
+        <h6 data-i18n="products_news_subtitle">Latest News & Updates</h6>
       </div>
 
       <div class="news-timeline">
-        <a id="product-item-1" href="https://kevin0826.fanbox.cc/" target="_blank" class="news-item fade-in">
-          <span id="news-tag-support" class="news-tag tag-support">贊助方案</span>
-          <span id="news-title-1" class="news-title">第一次角色投票已開放</span>
-          <span id="news-badge-1" class="news-new-badge">NEW</span>
+        <a href="https://kevin0826.fanbox.cc/" target="_blank" class="news-item fade-in triggered">
+          <span class="news-tag tag-support" data-i18n="news_tag1">進度更新</span>
+          <span class="news-title" data-i18n="news_title1">第一次角色投票已開放</span>
+          <span class="news-new-badge" data-i18n="tag_new">NEW</span>
         </a>
 
-        <a id="product-item-2" href="about.html" class="news-item fade-in">
-          <span id="news-tag-update" class="news-tag tag-update">進度更新</span>
-          <span id="news-title-2" class="news-title">新增「關於我」頁面</span>
+        <a href="gallery.html" class="news-item fade-in triggered">
+          <span class="news-tag tag-update" data-i18n="news_tag2">開發進度</span>
+          <span class="news-title" data-i18n="news_title2">新增「作品迴廊」頁面</span>
         </a>
       </div>
 
-      <div class="view-more-container">
+      <div class="view-more-containerTrigger view-more-container triggered">
         <a href="https://www.pixiv.net/users/102745883/fanbox" target="_blank" class="view-more-btn">
-          <span>View more</span>
+          <span data-i18n="view_more_fanbox">View more on Fanbox</span>
           <span class="circle-arrow"></span>
         </a>
       </div>
     </div>
   </section>
 
-  <footer class="footer text-center fade-in">
+  <footer class="footer text-center fade-in triggered">
     <div class="container">
       <div class="row justify-content-center mb-4">
-        <div class="col-auto"><a href="#" class="footer-link">其他合作</a></div>
-        <div class="col-auto"><a href="#" class="footer-link">與我聯絡</a></div>
-        <div class="col-auto"><a href="#" class="footer-link">其他平台</a></div>
-        <div class="col-auto"><a href="#" class="footer-link">線上商店</a></div>
+        <div class="col-auto footer-col-item"><a href="#" class="footer-link" data-i18n="footer_other_collab">其他合作</a></div>
+        <div class="col-auto footer-col-item"><a href="#" class="footer-link" data-i18n="footer_contact">與我聯絡</a></div>
+        <div class="col-auto footer-col-item"><a href="#" class="footer-link" data-i18n="footer_platforms">其他平台</a></div>
+        <div class="col-auto footer-col-item"><a href="#" class="footer-link" data-i18n="footer_shop">線上商店</a></div>
       </div>
-      <h6 id="about_footer_copyright">&copy; 2026 Shuttlecock website. All rights reserved.</h6>
+      <h6 id="footer-copyright" data-i18n="footer_copyright">&copy; 2026 Shuttlecock website. All rights reserved.</h6>
     </div>
   </footer>
 
@@ -155,9 +158,9 @@
 
 </body>
 
-<div id="loading-overlay">
-  <div class="loading">
-    <h2 id="loading-text">LOADING...</h2>
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading triggered">
+    <h2 data-i18n="loading_text">LOADING...</h2>
     <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
 </div>

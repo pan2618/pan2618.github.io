@@ -1,13 +1,25 @@
 /* ==========================================================================
    Body, Reset, Typography
    ========================================================================== */
+html {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;  
     margin: 0;         
     padding: 0;        
     background-color: #0a0a0c !important;
-    color: #f1f5f9;       
+    color: #f1f5f9;  
+    
+    /* 設定 Body 螢幕寬度，並裁切任何在手機上意外凸出的水平元素 */
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .container {
@@ -18,7 +30,7 @@ body {
 }
 
 /* ==========================================================================
-   導覽列
+   導覽列 
    ========================================================================== */
 .dynamic-game-nav {
     position: absolute !important;
@@ -88,6 +100,10 @@ body {
 .navbar-toggler-icon-line::after { bottom: -6px; }
 
 @media (max-width: 991px) {
+    /* 縮小手機端導覽列的左右安全距離 */
+    .dynamic-game-nav {
+        padding: 15px 20px !important;
+    }
     .nav-links-alignment { flex-direction: column; align-items: flex-end; padding-top: 15px; }
     .nav-custom-link { padding: 8px 0 !important; }
 }

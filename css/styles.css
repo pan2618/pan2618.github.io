@@ -33,7 +33,7 @@ body {
     -webkit-backdrop-filter: blur(16px) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
     /* 高度 */
-    padding: 18px 40px !important;
+    padding: 19px 40px !important;
     margin-bottom: 0 !important;
     transition: all 0.3s ease;
 }
@@ -94,9 +94,9 @@ body {
 
 @media (max-width: 991px) {
     /* RWD：縮小內距防止在窄螢幕上超寬，全在地修復水平Bug感感 */
-    .dynamic-game-nav { padding: 15px 20px !important; }
+    .dynamic-game-nav { padding: 17px 20px !important; }
     .nav-links-alignment { flex-direction: column; align-items: flex-end; padding-top: 15px; }
-    .nav-custom-link { padding: 8px 0 !important; }
+    .nav-custom-link { padding: 9px 0 !important; }
 }
 
 /* ==========================================================================
@@ -106,7 +106,7 @@ body {
     background-color: #0d0d11 !important; 
     border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
     /* 控制 Footer 頁尾內部上下留白 */
-    padding: 1.5rem 0 2rem !important; 
+    padding: 1.1rem 0 2rem !important; 
 }
 
 .footer h6 { font-size: 0.85rem; color: #4b5563 !important; }

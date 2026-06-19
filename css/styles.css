@@ -94,7 +94,7 @@ body {
 
 @media (max-width: 991px) {
     /* RWD：縮小內距防止在窄螢幕上超寬，全在地修復水平Bug感感 */
-    .dynamic-game-nav { padding: 17px 20px !important; }
+    .dynamic-game-nav { padding: 24px 20px !important; }
     .nav-links-alignment { flex-direction: column; align-items: flex-end; padding-top: 15px; }
     .nav-custom-link { padding: 9px 0 !important; }
 }

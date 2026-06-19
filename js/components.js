@@ -1,6 +1,6 @@
+// 檔名：js/components.js
 
 function loadHeader() {
-    // 將硬編碼文字改為 data-i18n 標準標籤，實現專業級翻譯
     const headerHTML = `
     <nav class="navbar navbar-expand-lg navbar-dark dynamic-game-nav">
       <div class="container-fluid nav-inner-box">
@@ -13,7 +13,7 @@ function loadHeader() {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto nav-links-alignment">
             <li class="nav-item">
-              <a data-i18n="nav_gallery" class="nav-link text-white nav-custom-link" href="gallery.html">作品迴廊</a>
+              <a class="nav-link text-white nav-custom-link" href="https://kevin0826.fanbox.cc/" target="_blank">Fanbox</a>
             </li>
             <li class="nav-item">
               <a data-i18n="nav_jp" class="nav-link text-white nav-custom-link language-option" href="#" data-lang="jp">日本語</a>

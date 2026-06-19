@@ -257,7 +257,7 @@
 /* 作品集RWD */
 @media (max-width: 768px) {
     .banner { flex: 0 0 75%; height: 360px; } 
-    .intro-banner-modern { flex: 0 0 63%; }
+    .intro-banner-modern { flex: 0 0 66%; }
 }
 
 #products.news-list-section {

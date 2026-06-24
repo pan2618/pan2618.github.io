@@ -43,7 +43,7 @@
 /* 標題字體 */
 .game-core-title {
     font-family: 'Montserrat', sans-serif !important; 
-    font-size: 3.2rem !important;   /* 字體大小 */
+    font-size: 3.4rem !important;   /* 字體大小 */
     font-weight: 650 !important;    /* 字體粗體 */
     letter-spacing: 5px !important; /* 字體間距 */
     color: #ffffff;
@@ -143,7 +143,7 @@
 .tech-main-title {
     font-family: 'Montserrat', sans-serif; 
     color: #ffffff;
-    font-size: 1.5rem; /* 字體大小 */
+    font-size: 1.3rem; /* 字體大小 */
     font-weight: 550; /* 字體粗體 */
     letter-spacing: 2.5px;
     margin: 0; line-height: 1.1;
@@ -290,7 +290,7 @@
 
 .news-title { 
     flex-grow: 1; 
-    font-size: 1.05rem; 
+    font-size: 0.95rem; 
     color: #cbd5e1; 
     font-weight: 400; 
     white-space: nowrap; 
@@ -309,7 +309,8 @@
     border-radius: 2px; 
 }
 
-.news-tag { font-size: 0.8rem; padding: 4px 14px; border-radius: 20px; margin-right: 16px; font-weight: 600; position: relative; overflow: hidden; background-size: 300% 100%; transition: all 0.3s ease; }
+/* 開發進度/進度更標籤字體 */
+.news-tag { font-size: 0.75rem; padding: 4px 14px; border-radius: 20px; margin-right: 16px; font-weight: 600; position: relative; overflow: hidden; background-size: 300% 100%; transition: all 0.3s ease; }
 
 /* 方案標籤 */
 .tag-support { 
@@ -335,7 +336,7 @@
 @keyframes pulsate-glow-support { 0%, 100% { box-shadow: 0 0 6px rgba(255, 126, 103, 0.2); } 50% { box-shadow: 0 0 14px rgba(255, 126, 103, 0.4); } }
 @keyframes pulsate-glow-update { 0%, 100% { box-shadow: 0 0 6px rgba(0, 173, 181, 0.2); } 50% { box-shadow: 0 0 14px rgba(0, 173, 181, 0.4); } }
 
-.view-more-container { text-align: center; margin-top: 35px; }
+.view-more-container { text-align: center; margin-top: 30px; }
 .view-more-btn { display: inline-flex; align-items: center; color: #94A3B8; text-decoration: none !important; font-size: 0.95rem; font-weight: 600; padding: 8px 24px; border-radius: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease; }
 .view-more-btn:hover { color: #FFF; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .view-more-btn .circle-arrow { display: inline-block; width: 18px; height: 18px; border: 2px solid #94A3B8; border-radius: 50%; margin-left: 8px; position: relative; transition: all 0.3s; }
